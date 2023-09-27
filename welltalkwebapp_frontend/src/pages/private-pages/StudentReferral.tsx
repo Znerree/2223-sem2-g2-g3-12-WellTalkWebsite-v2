@@ -1,4 +1,5 @@
 import ReferralHeader from "@/components/ReferralHeader";
+// import React, {useState} from "react";
 
 export const StudentReferral = () => {
   //css style for input
@@ -10,6 +11,29 @@ export const StudentReferral = () => {
     padding: "2px 2px",
     marginBottom: "16px",
   };
+
+  // const [input, setInput] = useState("");
+  // const fetchData = (value) => {
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //   .then{(response) => response.json()}
+  //   .then{(json) => {
+  //     const results = json.filter((user) => {
+  //       return (
+  //         value &&
+  //         user &&
+  //         user.name &&
+  //         user.name.toLowerCase().includes(value)
+  //       );
+  //     });
+  //     console.log(results);
+  //   }}
+      
+  // };
+
+  // const handleChange = (value) => {
+  //   setInput(value);
+  //   fetchData(value);
+  // }
 
   return (
     <>
@@ -40,6 +64,8 @@ export const StudentReferral = () => {
             type="text"
             placeholder="If other/s"
             style={inputStyle}
+            // value={input}
+            // onChange={(e) => setInput(e.target.value)} 
           />
           <button
             type="submit"
