@@ -45,7 +45,7 @@ export const StudentReferral = () => {
             type="submit"
             className=" bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
           >
-            Refer Student
+            SUBMIT
           </button>
         </form>
       </div>
