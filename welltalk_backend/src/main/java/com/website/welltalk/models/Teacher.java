@@ -1,34 +1,26 @@
 package com.website.welltalk.models;
-
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "teachers")
-public class Teacher {
-
-    //Properties
+@DiscriminatorValue("TEACHER")
+@Table(name="teachers")
+public class Teacher extends User {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private String name;
-
-    public Teacher(){}
-
-    public Teacher(String name){
-        this.name = name;
+    //default constructor
+    public Teacher() {
+        super();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    // Constructor
+    public Teacher(String firstName, String lastName, String email, int schoolID, String username, String password) {
+        super(firstName, lastName, email, schoolID, "TEACHER", username, password);
+    }       
 }

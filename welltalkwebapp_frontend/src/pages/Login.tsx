@@ -1,10 +1,9 @@
-import { useEffect, FormEvent, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "../api/axios";
 import formbackground from "../assets/images/formbg.png";
 import pageBackground from "../assets/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { User } from "@/contexts/UserContext";
 
 const LOGIN_URL = "/authenticate";
 

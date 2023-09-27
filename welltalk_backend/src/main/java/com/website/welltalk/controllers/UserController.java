@@ -2,6 +2,9 @@ package com.website.welltalk.controllers;
 
 import com.website.welltalk.exceptions.UserException;
 import com.website.welltalk.models.User;
+import com.website.welltalk.repositories.CounselorRepository;
+import com.website.welltalk.services.CounselorService;
+import com.website.welltalk.services.TeacherService;
 import com.website.welltalk.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,7 +56,7 @@ public class UserController {
         int schoolID = Integer.parseInt(body.get("schoolID"));
         String userType = body.get("userType");
         String username = body.get("username");
-
+        
         if(!userService.findByUsername(username).isEmpty()) {
             throw new UserException("Username already exists.");
         } else {
@@ -63,6 +66,7 @@ public class UserController {
             User newUser = new User(firstName, lastName, email, schoolID, userType, username, encodedPassword);
 
             userService.createUser(newUser);
+            
 
             return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
         }

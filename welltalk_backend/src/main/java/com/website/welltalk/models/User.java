@@ -7,6 +7,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "user_type")
 public class User {
     //default constructor
     public User() {
@@ -15,6 +17,7 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column
     private String firstName;
 
@@ -36,7 +39,7 @@ public class User {
     @Column
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "counselor")
     @JsonIgnore
     private Set<Appointment> appointments;
 
