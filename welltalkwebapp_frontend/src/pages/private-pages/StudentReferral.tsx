@@ -14,7 +14,7 @@ export const StudentReferral = () => {
   return (
     <>
       <ReferralHeader />
-      <div className=" ml-14">
+      <div className=" ml-14 flex flex-col justify-center items-center">
         <h1 className="font-semibold text-2xl">REFER SOMEONE NOW</h1>
         <form className=" py-6 left-0 w-[300px] flex flex-col">
           <input
@@ -38,7 +38,7 @@ export const StudentReferral = () => {
           </select>
           <input
             type="text"
-            placeholder="Other Reason/s"
+            placeholder="If other/s"
             style={inputStyle}
           />
           <button
