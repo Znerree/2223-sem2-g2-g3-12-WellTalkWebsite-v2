@@ -1,6 +1,5 @@
 import LoggedinHeader from "@/components/LoggedinHeader";
 import SidebarNav from "@/components/SidebarNav";
-import React from "react";
 
 const Calendar = () => {
   return (
