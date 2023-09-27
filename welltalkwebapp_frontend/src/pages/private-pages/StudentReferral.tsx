@@ -15,7 +15,7 @@ export const StudentReferral = () => {
     <>
       <ReferralHeader />
       <div className=" ml-14">
-        <h1 className="font-semibold text-2xl">Student Referral Form</h1>
+        <h1 className="font-semibold text-2xl">REFER SOMEONE NOW</h1>
         <form className=" py-6 left-0 w-[300px] flex flex-col">
           <input
             type="text"
@@ -30,15 +30,15 @@ export const StudentReferral = () => {
             defaultValue="label"
           >
             <option disabled value="label" hidden>
-              Please add a reason for referral
+              Reason/s for referrals
             </option>
-            <option value="Counselor">Bully</option>
-            <option value="Non-Counselor">Badlungon</option>
-            <option value="Non-Counselor">Bastos</option>
+            <option value="Counselor">Sample 1</option>
+            <option value="Non-Counselor">Sample 2</option>
+            <option value="Non-Counselor">Sample 3</option>
           </select>
           <input
             type="text"
-            placeholder="Other reason (optional)"
+            placeholder="Other Reason/s"
             style={inputStyle}
           />
           <button
