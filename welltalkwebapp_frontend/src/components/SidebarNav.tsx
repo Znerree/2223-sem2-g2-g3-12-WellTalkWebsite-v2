@@ -24,11 +24,6 @@ const SidebarNav = () => {
     },
     { icon: <BiSolidCalendar />, name: "Calendar", path: "/calendar" },
     { icon: <MdForum />, name: "Forum", path: "/forum" },
-    {
-      icon: <FaPeopleArrows />,
-      name: "Student Referral",
-      path: "/student-referral",
-    },
   ];
 
   const location = useLocation();
