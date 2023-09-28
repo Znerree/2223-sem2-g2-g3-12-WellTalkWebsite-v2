@@ -139,8 +139,8 @@ const Register = () => {
               <option disabled value="label" hidden>
                 I am a ...
               </option>
-              <option value="Counselor">Counselor</option>
-              <option value="Non-Counselor">Non-Counselor</option>
+              <option value="COUNSELOR">Counselor</option>
+              <option value="TEACHER">Teacher</option>
             </select>
             <input
               name="username"

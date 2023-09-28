@@ -11,7 +11,8 @@ interface Referral {
   };
   teacher: {
     id: number;
-    name: string;
+    firstName: string;
+    lastName: string;
   };
   date_referred: string;
   reason: string;
@@ -51,7 +52,7 @@ const ReferredStudents = () => {
                 </p>
                 <p className="text-gray-300 text-sm">
                   Referred by:{" "}
-                  <span className="text-primary">{referral.teacher.name}</span>
+                  <span className="text-primary">{referral.teacher.firstName} {referral.teacher.lastName}</span>
                 </p>
               </div>
               <p className="text-gray-300 text-sm flex-grow">
