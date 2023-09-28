@@ -1,5 +1,14 @@
+import axios from "@/api/axios";
 import ReferralHeader from "@/components/ReferralHeader";
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+
+type Student = {
+  id: number;
+  name: string;
+  email: string;
+  year: number;
+  department: string;
+};
 
 export const StudentReferral = () => {
   // css style for input
@@ -12,8 +21,42 @@ export const StudentReferral = () => {
     marginBottom: "16px",
   };
 
-  const [referral, setReferral] = useState({});
-  const [showOtherInput, setShowOtherInput] = useState(false); // State to track if the "If other/s" input should be displayed
+  const [value, setValue] = useState("");
+  const [query, setQuery] = useState("");
+  const [students, setStudents] = useState<Student[]>([]);
+  const [results, setResults] = useState<Student[]>([]);
+  const [showOtherInput, setShowOtherInput] = useState(false);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      const response = await axios.get("students");
+      setStudents(response.data);
+      console.log(response.data);
+    };
+    fetchStudents();
+  }, []);
+
+  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+    setResults(
+      students.filter((students) =>
+        students.name.toLowerCase().includes(event.target.value.toLowerCase())
+      )
+    );
+    console.log(results);
+  };
+
+  const handleStudentInput = (studentName: string) => {
+    setValue(studentName);
+    setResults([]);
+    setQuery("");
+  };
+
+  const handleClear = () => {
+    setValue("");
+    setQuery("");
+    setResults([]);
+  };
 
   const handleReasonChange = (event: any) => {
     const selectedReason = event.target.value;
@@ -30,12 +73,38 @@ export const StudentReferral = () => {
       <div className="flex flex-col justify-center items-center w-full h-screen">
         <h1 className="font-semibold text-2xl">REFER SOMEONE NOW</h1>
         <form className="py-6 left-0 w-[300px] flex flex-col">
-          <input
-            type="text"
-            placeholder="Input student name or ID number"
-            style={inputStyle}
-            required
-          />
+          <div className="flex items-center justify-center relative">
+            <input
+              type="text"
+              placeholder="Input student name or ID number"
+              style={inputStyle}
+              onChange={handleQueryChange}
+              value={value}
+              required
+            />
+            <button
+              className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1"
+              onClick={handleClear}
+            >
+              clear
+            </button>
+          </div>
+          {query && results.length > 0 && (
+            <ul className=" w-full">
+              {results.map((student) => (
+                <li
+                  className=" w-full border p-1 cursor-pointer hover:bg-gray-100"
+                  key={student.id}
+                  onClick={() => handleStudentInput(student.name)}
+                >
+                  <p className="text-sm ">{student.name}</p>
+                  <p className="text-xs text-gray-300">
+                    Student id: {student.id}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
           <select
             name="userType"
             required
@@ -54,6 +123,7 @@ export const StudentReferral = () => {
           {showOtherInput && (
             <input type="text" placeholder="If other/s" style={inputStyle} />
           )}
+
           <button
             type="submit"
             className="bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
