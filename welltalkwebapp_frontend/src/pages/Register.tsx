@@ -67,8 +67,48 @@ const Register = () => {
         },
         // withCredentials: true,
       });
+      alert("Account created successfully");
       console.log(response.data);
       console.log(response.status);
+
+      // Create new record in teacher or counselor table based on user type
+      if (user.userType === "TEACHER") {
+        const newTeacher = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          schoolID: user.schoolID,
+          username: user.username,
+          password: user.password,
+          userType: user.userType,
+        };
+        const teacherResponse = await axios.post("http://localhost:8080/teachers", JSON.stringify(newTeacher), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // withCredentials: true,
+        });
+        console.log(teacherResponse.data);
+        console.log(teacherResponse.status);
+      } else if (user.userType === "COUNSELOR") {
+        const newCounselor = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          schoolID: user.schoolID,
+          username: user.username,
+          password: user.password,
+          userType: user.userType,
+        };
+        const counselorResponse = await axios.post("http://localhost:8080/counselors", JSON.stringify(newCounselor), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // withCredentials: true,
+        });
+        console.log(counselorResponse.data);
+        console.log(counselorResponse.status);
+      }
     } catch (err) {
       console.log(err);
     }
