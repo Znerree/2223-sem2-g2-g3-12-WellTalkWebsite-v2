@@ -1,6 +1,6 @@
-import axios from "@/api/axios";
+import axios, { axiosPrivate } from "@/api/axios";
 import ReferralHeader from "@/components/ReferralHeader";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 type Student = {
   id: number;
@@ -23,9 +23,13 @@ export const StudentReferral = () => {
 
   const [value, setValue] = useState("");
   const [query, setQuery] = useState("");
+  const [referrer, setReferrer] = useState("");
+  const [studentID, setStudentId] = useState("");
+  const [reason, setReason] = useState("")
   const [students, setStudents] = useState<Student[]>([]);
   const [results, setResults] = useState<Student[]>([]);
   const [showOtherInput, setShowOtherInput] = useState(false);
+  const [teacherId, setTeacherId] = useState(''); 
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -37,20 +41,37 @@ export const StudentReferral = () => {
   }, []);
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-    setResults(
-      students.filter((students) =>
-        students.name.toLowerCase().includes(event.target.value.toLowerCase())
-      )
+    const inputValue = event.target.value;
+    setValue(inputValue);
+    setQuery(inputValue);
+    const filteredStudents = students.filter((student) =>
+      student.name.toLowerCase().includes(inputValue.toLowerCase())
     );
-    console.log(results);
+    setResults(filteredStudents);
+    console.log(value);
   };
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleStudentInput = (studentName: string) => {
+    console.log(value)
     setValue(studentName);
     setResults([]);
     setQuery("");
+    // Clear the input field after selecting a student
+    if (inputRef.current) {
+      inputRef.current.value = studentName;
+    }
+
+    const selectedStudent = students.find((student) => student.name === studentName);
+    if(selectedStudent){
+      setStudentId(selectedStudent.id.toString());
+      console.log(selectedStudent.id)
+    }
   };
+
+  useEffect(() => {
+    console.log(value);
+  }, [value]);
 
   const handleClear = () => {
     setValue("");
@@ -60,12 +81,46 @@ export const StudentReferral = () => {
 
   const handleReasonChange = (event: any) => {
     const selectedReason = event.target.value;
+    setReason(selectedReason);
+    console.log(selectedReason);
     if (selectedReason === "Other") {
       setShowOtherInput(true);
     } else {
       setShowOtherInput(false);
     }
   };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const username = localStorage.getItem("user");
+        const response = await axios.get(`http://localhost:8080/users/username/${username}`);
+        setReferrer(response.data.id);//sets the referrer/teacher ID value
+        console.log(response.data.id);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleSubmit = (event: any) => {
+    try{
+      event.preventDefault();
+      const newReferral = {
+        referrer: referrer,
+        studentID: studentID,
+        reason: reason,
+      };
+      axios.post(`referrals?students/${studentID}`, JSON.stringify(newReferral), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -75,6 +130,7 @@ export const StudentReferral = () => {
         <form className="py-6 left-0 w-[300px] flex flex-col">
           <div className="flex items-center justify-center relative">
             <input
+              ref={inputRef}
               type="text"
               placeholder="Input student name or ID number"
               style={inputStyle}
@@ -126,6 +182,7 @@ export const StudentReferral = () => {
 
           <button
             type="submit"
+            onClick={handleSubmit}
             className="bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
           >
             SUBMIT

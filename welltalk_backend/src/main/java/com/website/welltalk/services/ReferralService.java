@@ -31,7 +31,6 @@ public class ReferralService {
         Referral newReferral = new Referral();
         
         newReferral.setReason(referral.getReason());
-        newReferral.setDate_referred(LocalDate.now());
         newReferral.setStudent(student);
         newReferral.setTeacher(teacher);
 
