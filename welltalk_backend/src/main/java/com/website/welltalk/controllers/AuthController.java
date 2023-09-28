@@ -2,8 +2,13 @@ package com.website.welltalk.controllers;
 
 import com.website.welltalk.services.JwtUserDetailsService;
 import com.website.welltalk.config.JwtToken;
+import com.website.welltalk.models.Counselor;
 import com.website.welltalk.models.JwtRequest;
 import com.website.welltalk.models.JwtResponse;
+import com.website.welltalk.models.Teacher;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +32,7 @@ public class AuthController {
     private JwtUserDetailsService jwtUserDetailsService;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest, HttpSession session) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -36,6 +41,11 @@ public class AuthController {
                 .loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtToken.generateToken(userDetails);
+        if (userDetails instanceof Counselor) {
+            session.setAttribute("userType", "Counselor");
+        } else if (userDetails instanceof Teacher) {
+            session.setAttribute("userType", "Teacher");
+        }
 
         return ResponseEntity.ok(new JwtResponse(token));
 
