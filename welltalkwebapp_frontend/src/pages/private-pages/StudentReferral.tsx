@@ -46,9 +46,9 @@ export const StudentReferral = () => {
             <option disabled value="label" hidden>
               Reason/s for referrals
             </option>
-            <option value="Sample 1">Sample 1</option>
-            <option value="Sample 2">Sample 2</option>
-            <option value="Sample 3">Sample 3</option>
+            <option value="Sample 1">Reason 1</option>
+            <option value="Sample 2">Reason 2</option>
+            <option value="Sample 3">Reason 3</option>
             <option value="Other">Others, please specify</option>
           </select>
           {showOtherInput && (
