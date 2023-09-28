@@ -75,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/counselors").permitAll()
                 .antMatchers("/teachers").permitAll()
                 .antMatchers("/users/{email}").permitAll()
+                .antMatchers("/users/username/{username}").permitAll()
                 .antMatchers(HttpMethod.GET, "/appointments").permitAll()
                 .antMatchers(HttpMethod.GET, "/teachers/{teacherid}").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/{studentid}").permitAll()

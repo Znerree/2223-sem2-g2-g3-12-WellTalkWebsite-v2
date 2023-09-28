@@ -1,6 +1,7 @@
 package com.website.welltalk.controllers;
 
 import com.website.welltalk.exceptions.UserException;
+import com.website.welltalk.models.Teacher;
 import com.website.welltalk.models.User;
 import com.website.welltalk.repositories.CounselorRepository;
 import com.website.welltalk.services.CounselorService;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:5173")
@@ -81,6 +83,11 @@ public class UserController {
         }else{
             return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
         }
+    }
+
+    @GetMapping(value = "/users/username/{username}")
+    public Optional<User> findByUsername(@PathVariable String username){
+        return userService.findByUsername(username);
     }
 
 }

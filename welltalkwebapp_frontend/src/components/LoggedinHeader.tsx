@@ -42,6 +42,7 @@ const LoggedinHeader = () => {
   // Function to handle logout
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/");
     console.log("Logged out");
   };

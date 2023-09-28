@@ -41,5 +41,10 @@ public class TeacherController {
     public Optional<Teacher> findById(@PathVariable Long teacherid){
         return teacherService.findById(teacherid);
     }
+
+    @GetMapping(value = "/teachers/username/{username}")
+    public Optional<Teacher> findByUsername(@PathVariable String username){
+        return teacherService.findByUsername(username);
+    }
 }
 
