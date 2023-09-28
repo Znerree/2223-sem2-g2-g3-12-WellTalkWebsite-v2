@@ -65,10 +65,15 @@ const Login = () => {
         }
       );
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", username);
       console.log("logged in");
+      console.log(localStorage.getItem("token"));
+      console.log(localStorage.getItem("user"));
       setUsername("");
       setPassword("");
+
       navigate(from, { replace: true });
+
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg("Something went wrong");
