@@ -47,7 +47,6 @@ public class ReferralService {
         return new ResponseEntity<>("Referral deleted succesfully", HttpStatus.OK);
     }
 
-
     public ResponseEntity updateReferral(Long id, Referral referral) {
         Referral referralForUpdating = referralRepository.findById(id).get();
 

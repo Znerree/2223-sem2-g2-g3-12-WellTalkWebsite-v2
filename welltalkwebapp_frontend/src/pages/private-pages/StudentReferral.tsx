@@ -29,7 +29,6 @@ export const StudentReferral = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [results, setResults] = useState<Student[]>([]);
   const [showOtherInput, setShowOtherInput] = useState(false);
-  const [teacherId, setTeacherId] = useState(''); 
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -104,30 +103,23 @@ export const StudentReferral = () => {
     fetchUser();
   }, []);
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
     try{
-      event.preventDefault();
-      const newReferral = {
-        referrer: referrer,
-        studentID: studentID,
-        reason: reason,
-      };
-      axios.post(`referrals?students/${studentID}`, JSON.stringify(newReferral), {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    }catch(err){
-      console.log(err);
+      const response = await axios.post('http://localhost:8080/referrals?student='+ studentID +'&teacher='+ referrer, {reason: reason});
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   }
+  
 
   return (
     <>
       <ReferralHeader />
       <div className="flex flex-col justify-center items-center w-full h-screen">
         <h1 className="font-semibold text-2xl">REFER SOMEONE NOW</h1>
-        <form className="py-6 left-0 w-[300px] flex flex-col">
+        <form className="py-6 left-0 w-[300px] flex flex-col" onSubmit={handleSubmit}>
           <div className="flex items-center justify-center relative">
             <input
               ref={inputRef}

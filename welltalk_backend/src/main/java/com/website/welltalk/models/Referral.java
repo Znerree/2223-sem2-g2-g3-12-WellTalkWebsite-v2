@@ -22,7 +22,7 @@ public class Referral {
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
-
+    
     @Column
     private String reason;
 
