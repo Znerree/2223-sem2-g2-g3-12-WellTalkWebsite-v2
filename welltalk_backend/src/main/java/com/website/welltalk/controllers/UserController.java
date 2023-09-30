@@ -1,6 +1,8 @@
 package com.website.welltalk.controllers;
 
 import com.website.welltalk.exceptions.UserException;
+import com.website.welltalk.models.Counselor;
+import com.website.welltalk.models.Student;
 import com.website.welltalk.models.Teacher;
 import com.website.welltalk.models.User;
 import com.website.welltalk.repositories.CounselorRepository;
@@ -61,18 +63,27 @@ public class UserController {
         
         if(!userService.findByUsername(username).isEmpty()) {
             throw new UserException("Username already exists.");
-        } else {
+        } 
+        else {
             String password = body.get("password");
             String encodedPassword = new BCryptPasswordEncoder().encode(password);
-
-            User newUser = new User(firstName, lastName, email, schoolID, userType, username, encodedPassword);
-
+            User newUser;
+        
+            if (userType.equals("Teacher")) {
+                newUser = new Teacher(firstName, lastName, email, schoolID, username, encodedPassword);
+            } else if (userType.equals("Counselor")) {
+                newUser = new Counselor(firstName, lastName, email, schoolID, username, encodedPassword);
+            } else {
+                throw new UserException("Invalid user type.");
+            }
+            
             userService.createUser(newUser);
             
+            Long id = newUser.getId();
+            newUser.setId(id);
 
             return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
         }
-
     }
 
     // Find user by email

@@ -1,7 +1,5 @@
 package com.website.welltalk.services;
 
-import com.website.welltalk.repositories.CounselorRepository;
-import com.website.welltalk.repositories.TeacherRepository;
 import com.website.welltalk.repositories.UserRepository;
 import com.website.welltalk.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +14,6 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private CounselorRepository counselorRepository;
-    @Autowired
-    private TeacherRepository teacherRepository;
 
     // Create user
     public void createUser(User user) {

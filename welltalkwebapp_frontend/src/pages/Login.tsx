@@ -61,14 +61,14 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          // withCredentials: true,
+         // withCredentials: true,
         }
       );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", username);
       console.log("logged in");
       console.log(localStorage.getItem("token"));
-      //console.log(localStorage.getItem("user"));
+      console.log(localStorage.getItem("user"));
       setUsername("");
       setPassword("");
 

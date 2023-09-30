@@ -1,21 +1,20 @@
 package com.website.welltalk.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(name = "user_type")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "userType", discriminatorType = DiscriminatorType.STRING)
 public class User {
     //default constructor
     public User() {
     }
     // Properties
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -31,9 +30,6 @@ public class User {
     private int schoolID;
 
     @Column
-    private String userType;
-
-    @Column
     private String username;
 
     @Column
@@ -44,12 +40,11 @@ public class User {
     private Set<Appointment> appointments;
 
     // Constructor
-    public User( String firstName, String lastName, String email, int schoolID, String userType, String username, String password) {
+    public User( String firstName, String lastName, String email, int schoolID, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.schoolID = schoolID;
-        this.userType = userType;
         this.username = username;
         this.password = password;
     };
@@ -91,13 +86,6 @@ public class User {
     	this.schoolID = schoolID;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-    	this.userType = userType;
-    }
     public String getUsername() {
         return username;
     }
@@ -120,6 +108,9 @@ public class User {
 
     public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public void setId(Long id2) {
     }
 
     

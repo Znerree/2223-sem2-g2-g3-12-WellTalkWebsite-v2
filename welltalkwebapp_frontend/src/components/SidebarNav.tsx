@@ -10,8 +10,7 @@ import { BsPeopleFill } from "react-icons/bs";
 import { FaPeopleArrows } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import axios from "axios";
-
+import axios from "../api/axios";
 
 
 const SidebarNav = () => {
@@ -44,9 +43,9 @@ useEffect(() => {
   const fetchUser = async () => {
     try {
       const username = localStorage.getItem("user");
-      const response = await axios.get(`http://localhost:8080/users/username/${username}`);
+      const response = await axios.get(`/users/username/${username}`);
+      console.log(response.data);
       setUser(response.data);
-      console.log(user);
     } catch (error) {
       console.log(error);
     }

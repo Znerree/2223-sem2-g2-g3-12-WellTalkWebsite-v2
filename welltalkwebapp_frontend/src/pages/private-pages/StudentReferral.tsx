@@ -89,6 +89,12 @@ export const StudentReferral = () => {
     }
   };
 
+  const handleOtherReasonChange = (event: any) => {
+    const otherReason = event.target.value;
+    setReason(otherReason);
+    console.log(otherReason)
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -107,7 +113,7 @@ export const StudentReferral = () => {
     event.preventDefault();
     try{
       const response = await axios.post('http://localhost:8080/referrals?student='+ studentID +'&teacher='+ referrer, {reason: reason});
-      console.log(response);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -169,7 +175,7 @@ export const StudentReferral = () => {
             <option value="Other">Others, please specify</option>
           </select>
           {showOtherInput && (
-            <input type="text" placeholder="If other/s" style={inputStyle} />
+            <input type="text" placeholder="If other/s" style={inputStyle} onChange={handleOtherReasonChange}/>
           )}
 
           <button

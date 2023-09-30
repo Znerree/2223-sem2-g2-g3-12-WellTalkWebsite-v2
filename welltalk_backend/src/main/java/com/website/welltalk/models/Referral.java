@@ -1,8 +1,5 @@
 package com.website.welltalk.models;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import javax.persistence.*;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
