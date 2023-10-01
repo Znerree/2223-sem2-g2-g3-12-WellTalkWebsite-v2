@@ -1,6 +1,7 @@
 package com.website.welltalk.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,6 +17,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonProperty("userType")
+    public String getUserType() {
+        return this.getClass().getSimpleName();
+    }
 
     @Column
     private String firstName;
