@@ -45,6 +45,7 @@ const ReferralHeader = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("userType");
     navigate("/");
+    console.clear();
     console.log("Logged out");
   };
 
