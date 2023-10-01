@@ -42,6 +42,8 @@ const ReferralHeader = () => {
   // Function to handle logout
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userType");
     navigate("/");
     console.log("Logged out");
   };
