@@ -117,8 +117,14 @@ export const StudentReferral = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try{
-      const response = await axios.post('http://localhost:8080/referrals?student='+ studentID +'&teacher='+ referrer, {reason: reason});
+      const response = await axios.post('/referrals?student='+ studentID +'&teacher='+ referrer, {reason: reason});
       console.log(response.data);
+      alert("Student Referral successfully!");
+      setValue("");
+      setQuery("");
+      setResults([]);
+      setReason("");
+      setShowOtherInput(false);
     } catch (error) {
       console.log(error);
     }
