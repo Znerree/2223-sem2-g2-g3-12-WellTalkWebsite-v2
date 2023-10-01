@@ -150,7 +150,7 @@ export const StudentReferral = () => {
           </div>
           <div>
           {showResultsDropdown && query && (
-            <ul className="absolute w-full max-w-[300px] bg-white border border-gray-300 rounded-b-md">
+            <ul className="max-h-60 overflow-y-auto absolute w-full max-w-[300px] bg-white border border-gray-300 rounded-b-md">
               {results.map((student) => (
                 <li
                   className=" w-full border p-1 cursor-pointer hover:bg-gray-100"
