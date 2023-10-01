@@ -29,7 +29,9 @@ export const StudentReferral = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [results, setResults] = useState<Student[]>([]);
   const [showOtherInput, setShowOtherInput] = useState(false);
+  const [showResultsDropdown, setShowResultsDropdown] = useState(false); // New state variable
 
+  
   useEffect(() => {
     const fetchStudents = async () => {
       const response = await axios.get("students");
@@ -48,6 +50,9 @@ export const StudentReferral = () => {
     );
     setResults(filteredStudents);
     console.log(value);
+
+    // Show/hide the dropdown based on whether there are matching results
+    setShowResultsDropdown(filteredStudents.length > 0);
   };
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -143,8 +148,9 @@ export const StudentReferral = () => {
               clear
             </button>
           </div>
-          {query && results.length > 0 && (
-            <ul className=" w-full">
+          <div>
+          {showResultsDropdown && query && (
+            <ul className="absolute w-full max-w-[300px] bg-white border border-gray-300 rounded-b-md">
               {results.map((student) => (
                 <li
                   className=" w-full border p-1 cursor-pointer hover:bg-gray-100"
@@ -159,6 +165,7 @@ export const StudentReferral = () => {
               ))}
             </ul>
           )}
+          </div>
           <select
             name="userType"
             required
