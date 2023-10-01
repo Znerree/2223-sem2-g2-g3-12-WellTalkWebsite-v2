@@ -7,7 +7,6 @@ import {
   BiSolidCalendar,
 } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
-import { FaPeopleArrows } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import axios from "../api/axios";
