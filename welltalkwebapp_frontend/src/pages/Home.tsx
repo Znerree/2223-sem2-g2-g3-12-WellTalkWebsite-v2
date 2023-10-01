@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import background from "@/assets/images/homebg.png";
-import HeadNav from "@/components/HeadNav";
+import HeadNav from "@/components/HomeNav";
 
 const Home = () => {
   const bg = {
