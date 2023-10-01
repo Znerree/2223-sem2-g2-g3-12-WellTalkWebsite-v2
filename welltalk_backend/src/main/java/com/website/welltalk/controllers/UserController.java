@@ -97,8 +97,29 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/username/{username}")
-    public Optional<User> findByUsername(@PathVariable String username){
+    public Optional<User> findByUsername(@PathVariable String username){     
         return userService.findByUsername(username);
     }
+
+    // @GetMapping(value = "/users/instance/{username}")
+    // public ResponseEntity<Object> findByUsername(@PathVariable String username){
+    //     Optional<User> user = userService.findByUsername(username);
+    //     if(user.isPresent()){
+    //         User foundUser = user.get();
+    //         if(foundUser instanceof Counselor){
+    //             Counselor counselor = (Counselor) foundUser;
+    //             // Do something with counselor object
+    //             return new ResponseEntity<>(counselor, HttpStatus.OK);
+    //         } else if(foundUser instanceof Teacher){
+    //             Teacher teacher = (Teacher) foundUser;
+    //             // Do something with teacher object
+    //             return new ResponseEntity<>(teacher, HttpStatus.OK);
+    //         } else {
+    //             return new ResponseEntity<>("User found, but not a Counselor or Teacher", HttpStatus.NOT_FOUND);
+    //         }
+    //     } else {
+    //         return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+    //     }
+    // }
 
 }
