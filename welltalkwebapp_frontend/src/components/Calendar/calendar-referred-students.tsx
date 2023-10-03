@@ -18,15 +18,16 @@ interface Referral {
   };
   date_referred: string;
   reason: string;
+  isAccepted: boolean;
 }
 const ReferredStudents = () => {
   const [referrals, setReferrals] = useState<Referral[]>([]);
 
   useEffect(() => {
     axios
-      .get<Referral[]>("http://localhost:8080/referrals")
+      .get<Referral[]>("/referrals")
       .then((response) => {
-        setReferrals(response.data);
+        setReferrals(response.data.filter((referral) => !referral.isAccepted));
         console.log(response.data);
       })
       .catch((error) => {
