@@ -9,7 +9,7 @@ interface Referral {
     year: number;
     firstname: string;
     lastname: string;
-    studentid: number;
+    studentID: number;
   };
   teacher: {
     id: number;
