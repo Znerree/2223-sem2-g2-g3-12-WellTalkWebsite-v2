@@ -45,7 +45,9 @@ const ReferredStudents = () => {
             key={index} // You should use a unique key for each list item
             className="border-b px-2 rounded-md shadow-sm py-2 border mb-2"
           >
-            <p>{referral.student.firstname} {referral.student.lastname}</p>
+            <p>
+              {referral.student.firstname} {referral.student.lastname}
+            </p>
             <div className="flex flex-col">
               <div className=" flex gap-2">
                 <p className="text-gray-300 text-sm">

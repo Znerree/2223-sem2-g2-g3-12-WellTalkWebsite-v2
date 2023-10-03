@@ -2,6 +2,18 @@ import LoggedinHeader from "@/components/LoggedinHeader";
 import SidebarNav from "@/components/SidebarNav";
 import ListOfAppointments from "@/components/Calendar/calendar-list-of-appointments";
 import ReferredStudents from "@/components/Calendar/calendar-referred-students";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import axios from "@/api/axios";
+
+type Student = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  studentID: number;
+  email: string;
+  year: number;
+  department: string;
+};
 
 const Calendar = () => {
   //css style for input
@@ -17,6 +29,61 @@ const Calendar = () => {
     borderRadius: "5px",
   };
 
+  const [value, setValue] = useState("");
+  const [query, setQuery] = useState("");
+  const [students, setStudents] = useState<Student[]>([]);
+  const [studentID, setStudentId] = useState("");
+  const [results, setResults] = useState<Student[]>([]);
+  const [showResultsDropdown, setShowResultsDropdown] = useState(false);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      const response = await axios.get("students");
+      setStudents(response.data);
+      console.log(response.data);
+    };
+    fetchStudents();
+  }, []);
+
+  const handleClear = () => {
+    setValue("");
+    setQuery("");
+    setResults([]);
+  };
+
+  const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    setValue(inputValue);
+    setQuery(inputValue);
+    const filteredStudents = students.filter((student) =>
+      student.firstname.toLowerCase().includes(inputValue.toLowerCase()) ||
+      student.lastname.toLowerCase().startsWith(inputValue.toLowerCase())
+    );
+    setResults(filteredStudents);
+    console.log(value);
+
+    // Show/hide the dropdown based on whether there are matching results
+    setShowResultsDropdown(filteredStudents.length > 0);
+  };
+
+  const handleStudentInput = (studentName: string) => {
+    console.log(value)
+    setValue(studentName);
+    setResults([]);
+    setQuery("");
+    // Clear the input field after selecting a student
+    if (inputRef.current) {
+      inputRef.current.value = studentName;
+    }
+
+    const selectedStudent = students.find((student) => student.firstname + " " + student.lastname === studentName);
+    if(selectedStudent){
+      setStudentId(selectedStudent.id.toString());
+      console.log(selectedStudent.id)
+    }
+  };
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <>
       <SidebarNav />
@@ -29,22 +96,41 @@ const Calendar = () => {
             Set an Appointment
           </h1>
           <form className=" px-3 pt-3">
+          <div className="flex items-center justify-center relative">
             <input
-              name="studentName"
+              ref={inputRef}
               type="text"
-              style={inputStyle}
               placeholder="Student name"
-              autoComplete="off"
-              required
-            />
-            <input
-              name="studentID"
-              type="number"
               style={inputStyle}
-              placeholder="Student ID number"
-              autoComplete="off"
+              onChange={handleQueryChange}
+              value={value}
               required
             />
+            <button
+              className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1"
+              onClick={handleClear}
+            >
+              clear
+            </button>
+          </div>
+          <div>
+          {showResultsDropdown && query && (
+            <ul className="max-h-60 overflow-y-auto absolute w-full max-w-[300px] bg-white border border-gray-300 rounded-b-md">
+              {results.map((student) => (
+                <li
+                  className=" w-full border p-1 cursor-pointer hover:bg-gray-100"
+                  key={student.id}
+                  onClick={() => handleStudentInput(student.firstname + " " + student.lastname)}
+                >
+                  <p className="text-sm ">{student.firstname} {student.lastname}</p>
+                  <p className="text-xs text-gray-300">
+                    Student id: {student.studentID}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+          </div>
             <label className=" text-sm text-gray-400">Date</label>
             <input
               name="date"
