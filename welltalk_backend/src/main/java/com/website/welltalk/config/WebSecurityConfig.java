@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/appointments").permitAll()
                 .antMatchers(HttpMethod.GET, "/teachers/{teacherid}").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/{studentid}").permitAll()
+                .antMatchers(HttpMethod.PUT, "/referrals/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated().and()

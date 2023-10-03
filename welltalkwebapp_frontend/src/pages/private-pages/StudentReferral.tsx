@@ -196,7 +196,6 @@ export const StudentReferral = () => {
 
           <button
             type="submit"
-            onClick={handleSubmit}
             className="bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
           >
             SUBMIT

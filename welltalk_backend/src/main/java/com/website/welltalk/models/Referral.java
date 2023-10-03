@@ -23,6 +23,9 @@ public class Referral {
     @Column
     private String reason;
 
+    @Column
+    private Boolean isAccepted;
+
 
     public Referral() {
         // Default constructor
@@ -60,6 +63,14 @@ public class Referral {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public Boolean getIsAccepted() {
+        return isAccepted;
+    }
+
+    public void setIsAccepted(Boolean accepted) {
+        isAccepted = accepted;
     }
 }
 

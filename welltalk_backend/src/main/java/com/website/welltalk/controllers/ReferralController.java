@@ -30,4 +30,10 @@ public class ReferralController {
         referralService.deleteReferral(id);
         return new ResponseEntity<>("Referral deleted successfully", HttpStatus.OK);
     }
+
+    @PutMapping(value = "/referrals/{id}")
+    public ResponseEntity<Object> updateReferral(@PathVariable("id") Long id){
+        referralService.updateReferral(id);
+        return new ResponseEntity<>("Referral updated successfully", HttpStatus.OK);
+    }
 }
