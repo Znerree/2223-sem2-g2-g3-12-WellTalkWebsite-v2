@@ -4,7 +4,9 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 type Student = {
   id: number;
-  name: string;
+  firstname: string;
+  lastname: string;
+  studentID: number;
   email: string;
   year: number;
   department: string;
@@ -46,7 +48,8 @@ export const StudentReferral = () => {
     setValue(inputValue);
     setQuery(inputValue);
     const filteredStudents = students.filter((student) =>
-      student.name.toLowerCase().includes(inputValue.toLowerCase())
+      student.firstname.toLowerCase().includes(inputValue.toLowerCase()) ||
+      student.lastname.toLowerCase().startsWith(inputValue.toLowerCase())
     );
     setResults(filteredStudents);
     console.log(value);
@@ -66,7 +69,7 @@ export const StudentReferral = () => {
       inputRef.current.value = studentName;
     }
 
-    const selectedStudent = students.find((student) => student.name === studentName);
+    const selectedStudent = students.find((student) => student.firstname === studentName);
     if(selectedStudent){
       setStudentId(selectedStudent.id.toString());
       console.log(selectedStudent.id)
@@ -161,11 +164,11 @@ export const StudentReferral = () => {
                 <li
                   className=" w-full border p-1 cursor-pointer hover:bg-gray-100"
                   key={student.id}
-                  onClick={() => handleStudentInput(student.name)}
+                  onClick={() => handleStudentInput(student.firstname + " " + student.lastname)}
                 >
-                  <p className="text-sm ">{student.name}</p>
+                  <p className="text-sm ">{student.firstname} {student.lastname}</p>
                   <p className="text-xs text-gray-300">
-                    Student id: {student.id}
+                    Student id: {student.studentID}
                   </p>
                 </li>
               ))}

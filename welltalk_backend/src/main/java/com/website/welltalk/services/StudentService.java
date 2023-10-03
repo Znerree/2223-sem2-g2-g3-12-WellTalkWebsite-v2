@@ -31,7 +31,7 @@ public class StudentService {
     public ResponseEntity updateStudent(Long id, Student student) {
         Student studentForUpdating = studentRepository.findById(id).get();
 
-        studentForUpdating.setName(student.getName());
+        studentForUpdating.setFirstname(student.getFirstname());
         studentRepository.save(studentForUpdating);
 
         return new ResponseEntity<>("Student updated successfully", HttpStatus.OK);
