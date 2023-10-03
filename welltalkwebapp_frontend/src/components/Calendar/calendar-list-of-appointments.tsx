@@ -50,6 +50,9 @@ const ListOfAppointments = () => {
       <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
         My Appointments
       </h1>
+      {appointments.length === 0 ? (
+        <p className=" text-gray-500 text-sm p-2">No appointments yet.</p>
+      ) : (
       <ul className=" p-2">
         {appointments.map((appointment, index) => (
         <li 
@@ -74,6 +77,7 @@ const ListOfAppointments = () => {
         </li>
         ))}
       </ul>
+      )}
     </>
   );
 };
