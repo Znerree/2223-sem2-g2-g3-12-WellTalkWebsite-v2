@@ -59,9 +59,9 @@ const ListOfAppointments = () => {
           {appointments.map((appointment, index) => (
             <li
               key={index}
-              className=" border-b px-2 rounded-md shadow-sm py-2 border mb-2"
+              className=" border-b px-2 rounded-md shadow-sm py-2 border mb-2 bg-tertiary"
             >
-              <p>
+              <p className="text-white">
                 {appointment.student.firstname} {appointment.student.lastname}
               </p>
               <div className=" flex flex-col gap-2">
