@@ -3,7 +3,7 @@ import axios from "../api/axios";
 import formbackground from "../assets/images/formbg.png";
 import pageBackground from "../assets/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LOGIN_URL = "/authenticate";
 
@@ -22,8 +22,6 @@ const pageBg = {
 
 const Login = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
 
   const inputStyle = {
     borderBottom: "2px solid #769EAB",
@@ -52,7 +50,6 @@ const Login = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         LOGIN_URL,
@@ -64,16 +61,20 @@ const Login = () => {
           // withCredentials: true,
         }
       );
+      const getUserType = await axios.get(`/users/username/${username}`);
+      const userType = getUserType.data.userType;
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", username);
+      localStorage.setItem("userType", userType);
       console.log("logged in");
       console.log(localStorage.getItem("token"));
-      //console.log(localStorage.getItem("user"));
-      setUsername("");
-      setPassword("");
+      console.log(localStorage.getItem("user"));
 
-      navigate(from, { replace: true });
-
+      if (userType === "Counselor") {
+        navigate("/dashboard");
+      } else {
+        navigate("/student-referral");
+      }
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg("Something went wrong");

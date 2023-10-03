@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
-const HeadNav = () => {
+const HomeNav = () => {
   let navs = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
@@ -58,4 +58,4 @@ const HeadNav = () => {
   );
 };
 
-export default HeadNav;
+export default HomeNav;

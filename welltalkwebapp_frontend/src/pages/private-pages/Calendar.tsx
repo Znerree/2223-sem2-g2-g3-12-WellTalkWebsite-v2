@@ -23,9 +23,9 @@ const Calendar = () => {
       <LoggedinHeader />
       <div className=" ml-72 flex gap-4">
         <h1 className=" font-semibold">Calendar</h1>
-        <div className=" w-80 rounded-lg shadow mt-10 py-4 px-2 flex flex-col border">
-          {/* Set and an appointment */}
-          <h1 className=" font-semibold p-2 text-md border-b">
+        <div className=" w-80 rounded-lg shadow mt-10 px-2 flex flex-col border pb-3">
+          {/* Set an appointment */}
+          <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
             Set an Appointment
           </h1>
           <form className=" px-3 pt-3">
@@ -39,7 +39,7 @@ const Calendar = () => {
             />
             <input
               name="studentID"
-              type="text"
+              type="number"
               style={inputStyle}
               placeholder="Student ID number"
               autoComplete="off"
@@ -69,13 +69,14 @@ const Calendar = () => {
             </button>
           </form>
         </div>
+
         {/* List of appointments */}
-        <div className=" w-80 rounded-lg shadow mt-10 py-4 px-2 flex flex-col border">
+        <div className=" w-80 rounded-lg shadow mt-10 px-2 flex flex-col border">
           <ListOfAppointments />
         </div>
 
         {/* Referred students */}
-        <div className=" w-[400px] rounded-lg shadow mt-10 py-4 px-2 flex flex-col border">
+        <div className="max-h-96 overflow-y-auto w-[400px] rounded-lg shadow mt-10 px-2 flex flex-col border bg-white scroll-smooth">
           <ReferredStudents />
         </div>
       </div>

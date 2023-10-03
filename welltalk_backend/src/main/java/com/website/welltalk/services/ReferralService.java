@@ -31,7 +31,6 @@ public class ReferralService {
         Referral newReferral = new Referral();
         
         newReferral.setReason(referral.getReason());
-        newReferral.setDate_referred(LocalDate.now());
         newReferral.setStudent(student);
         newReferral.setTeacher(teacher);
 
@@ -47,7 +46,6 @@ public class ReferralService {
         referralRepository.deleteById(id);
         return new ResponseEntity<>("Referral deleted succesfully", HttpStatus.OK);
     }
-
 
     public ResponseEntity updateReferral(Long id, Referral referral) {
         Referral referralForUpdating = referralRepository.findById(id).get();

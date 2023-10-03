@@ -1,8 +1,5 @@
 package com.website.welltalk.models;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import javax.persistence.*;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,9 +20,6 @@ public class Referral {
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
     
-    @Column
-    private LocalDate date_referred;
-
     @Column
     private String reason;
 
@@ -59,15 +53,6 @@ public class Referral {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
-    
-
-    public LocalDate getDate_referred() {
-		return date_referred;
-	}
-
-	public void setDate_referred(LocalDate localDate) {
-		this.date_referred = localDate;
-	}
 
 	public String getReason() {
         return reason;

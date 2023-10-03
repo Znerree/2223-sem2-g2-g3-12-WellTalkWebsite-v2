@@ -41,10 +41,13 @@ public class AuthController {
                 .loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtToken.generateToken(userDetails);
-        if (userDetails instanceof Counselor) {
-            session.setAttribute("userType", "Counselor");
-        } else if (userDetails instanceof Teacher) {
-            session.setAttribute("userType", "Teacher");
+
+        if(userDetails instanceof Counselor) {
+            session.setAttribute("user", (Counselor) userDetails);
+        } else if(userDetails instanceof Teacher) {
+            session.setAttribute("user", (Teacher) userDetails);
+        } else {
+            session.setAttribute("user", userDetails);
         }
 
         return ResponseEntity.ok(new JwtResponse(token));

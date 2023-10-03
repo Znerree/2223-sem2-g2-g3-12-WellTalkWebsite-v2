@@ -34,15 +34,17 @@ const ReferredStudents = () => {
 
   return (
     <>
-      <h1 className=" font-semibold p-2 text-md border-b">Referred Students</h1>
+      <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
+        Referred Students
+      </h1>
       <ul className=" p-2">
         {referrals.map((referral, index) => (
           <li
             key={index} // You should use a unique key for each list item
-            className="border-b px-2 rounded-md shadow-sm py-2 border"
+            className="border-b px-2 rounded-md shadow-sm py-2 border mb-2"
           >
             <p>{referral.student.name}</p>
-            <div className="flex gap-2 flex-col">
+            <div className="flex flex-col">
               <div className=" flex gap-2">
                 <p className="text-gray-300 text-sm">
                   Course & Year:{" "}
@@ -52,7 +54,9 @@ const ReferredStudents = () => {
                 </p>
                 <p className="text-gray-300 text-sm">
                   Referred by:{" "}
-                  <span className="text-primary">{referral.teacher.firstName} {referral.teacher.lastName}</span>
+                  <span className="text-primary">
+                    {referral.teacher.firstName} {referral.teacher.lastName}
+                  </span>
                 </p>
               </div>
               <p className="text-gray-300 text-sm flex-grow">

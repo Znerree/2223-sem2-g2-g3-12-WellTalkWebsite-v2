@@ -1,7 +1,7 @@
 const ListOfAppointments = () => {
   return (
     <>
-      <h1 className=" font-semibold p-2 text-md border-b">
+      <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
         List of Appointments
       </h1>
       <ul className=" p-2">
