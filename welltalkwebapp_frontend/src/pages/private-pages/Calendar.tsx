@@ -155,7 +155,7 @@ const Calendar = () => {
         </div>
 
         {/* List of appointments */}
-        <div className=" w-80 rounded-lg shadow-2xl mt-10 px-2 flex flex-col border">
+        <div className=" max-h-[400px] w-80  overflow-y-auto rounded-lg shadow-2xl mt-10 px-2 flex flex-col border">
           <ListOfAppointments />
         </div>
 
