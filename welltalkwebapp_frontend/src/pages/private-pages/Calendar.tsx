@@ -21,7 +21,7 @@ const Calendar = () => {
     <>
       <SidebarNav />
       <LoggedinHeader />
-      <div className=" ml-72 flex gap-4">
+      <div className=" ml-72 flex gap-4 container-md pr-4">
         <h1 className=" font-semibold">Calendar</h1>
         <div className=" w-80 rounded-lg shadow mt-10 px-2 flex flex-col border pb-3">
           {/* Set an appointment */}
