@@ -14,6 +14,8 @@ import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import EmailChecker from "./pages/EmailChecker";
 import { StudentReferral } from "./pages/private-pages/StudentReferral";
+import { Sidebar } from "lucide-react";
+import SidebarNav from "./components/SidebarNav";
 
 const routeToTitle: { [key: string]: string } = {
   "/": "Home",

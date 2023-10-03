@@ -33,6 +33,7 @@ public class ReferralService {
         newReferral.setReason(referral.getReason());
         newReferral.setStudent(student);
         newReferral.setTeacher(teacher);
+        newReferral.setIsAccepted(false);
 
         referralRepository.save(newReferral);
 
@@ -47,12 +48,10 @@ public class ReferralService {
         return new ResponseEntity<>("Referral deleted succesfully", HttpStatus.OK);
     }
 
-    public ResponseEntity updateReferral(Long id, Referral referral) {
+    public ResponseEntity updateReferral(Long id) {
         Referral referralForUpdating = referralRepository.findById(id).get();
 
-        referralForUpdating.setTeacher(referral.getTeacher());
-        referralForUpdating.setStudent(referral.getStudent());
-        referralForUpdating.setReason(referral.getReason());
+        referralForUpdating.setIsAccepted(true);
 
         referralRepository.save(referralForUpdating);
         return new ResponseEntity<>("Referral updated successfully", HttpStatus.OK);
