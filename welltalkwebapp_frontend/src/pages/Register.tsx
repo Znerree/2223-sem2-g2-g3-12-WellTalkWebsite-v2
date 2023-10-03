@@ -4,7 +4,7 @@ import pageBackground from "../assets/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
-
+import {  useNavigate } from "react-router-dom";
 const formbg = {
   backgroundImage: `url(${formbackground})`,
   backgroundSize: " 50%",
@@ -41,7 +41,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const navigate = useNavigate();
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -70,6 +70,7 @@ const Register = () => {
       alert("Account created successfully");
       console.log(response.data);
       console.log(response.status);
+      navigate("/login");
     } catch (err) {
       console.log(err);
     }

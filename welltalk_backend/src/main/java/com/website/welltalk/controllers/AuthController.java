@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin
 public class AuthController {
 
     @Autowired
