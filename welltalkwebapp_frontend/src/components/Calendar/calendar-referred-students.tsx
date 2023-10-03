@@ -45,27 +45,31 @@ const ReferredStudents = () => {
             key={index} // You should use a unique key for each list item
             className="border-b px-2 rounded-md shadow-sm py-2 border mb-2"
           >
-            <p>
-              {referral.student.firstname} {referral.student.lastname}
-            </p>
+            <p>{referral.student.firstname} {referral.student.lastname}</p>
             <div className="flex flex-col">
               <div className=" flex gap-2">
-                <p className="text-gray-300 text-sm">
+                <p className="text-gray-500 text-sm">
                   Course & Year:{" "}
                   <span className="text-primary">
                     {referral.student.course} - {referral.student.year}
                   </span>
                 </p>
-                <p className="text-gray-300 text-sm">
-                  Referred by:{" "}
+                <p className="text-gray-500 text-sm">
+                  Student ID:{" "}
                   <span className="text-primary">
-                    {referral.teacher.firstName} {referral.teacher.lastName}
+                    {referral.student.studentID}
                   </span>
                 </p>
               </div>
-              <p className="text-gray-300 text-sm flex-grow">
-                Reason: <i className="text-primary">{referral.reason}</i>
+              <p className="text-gray-500 text-sm">
+                Referred by:{" "}
+                <span className="text-primary">
+                  {referral.teacher.firstName} {referral.teacher.lastName}
+                </span>
               </p>
+                <p className="text-gray-500 text-sm">
+                  Reason: <div className=" bg-gray-300 border rounded p-2"><i className="text-black flex flex-grow w-full break-all">{referral.reason}</i></div>
+                </p>
             </div>
             <button className="text-xs bg-primary text-white rounded-md p-1">
               Accept
