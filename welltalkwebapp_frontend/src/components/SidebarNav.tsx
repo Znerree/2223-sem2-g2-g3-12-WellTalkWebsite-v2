@@ -54,23 +54,23 @@ useEffect(() => {
 
 
   return (
-    <nav className="h-screen absolute w-64 bg-white border-r shadow">
+    <nav className="h-screen absolute w-64 bg-indigo-900 border-r shadow">
       <div className=" px-4 py-5 items-center">
         <div className="flex justify-between h-full top-0">
-          <IoNotifications className="text-secondary h-6 w-6" />
-          <IoSettingsSharp className="text-secondary h-6 w-6" />
+          <IoNotifications className="text-red-400 h-6 w-6" />
+          <IoSettingsSharp className="text-gray-300 h-6 w-6" />
         </div>
         <div className=" text-center my-3">
           <h1 className=" font-bold text-xl text-primary">{user.firstName} {user.lastName}</h1>
           <h3 className=" text-sm text-gray-300">{user.userType}</h3>
         </div>
-        <ul className=" text-secondary text-lg my-6">
+        <ul className=" text-gray-300 text-lg my-6">
           {navs.map((nav, index) => (
             <Link
               to={nav.path}
               className={
                 active == index
-                  ? " text-primary font-semibold cursor-pointer flex items-center gap-3 rounded-md p-3 my-2 bg-primary bg-opacity-20"
+                  ? " text-gray-50 font-semibold cursor-pointer flex items-center gap-3 rounded-md p-3 my-2 bg-primary bg-opacity-20"
                   : "cursor-pointer flex items-center gap-3 rounded-md p-3 my-2 hover:bg-primary hover:bg-opacity-20"
               }
               key={index}

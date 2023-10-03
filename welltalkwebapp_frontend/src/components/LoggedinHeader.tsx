@@ -81,7 +81,7 @@ const LoggedinHeader = () => {
               </button>
             </div>
           )}
-          <AiFillAlert className="text-red-500 h-6 w-6 cursor-pointer" />
+          <AiFillAlert className="text-red-700 h-6 w-6 cursor-pointer" />
         </div>
       </div>
     </>

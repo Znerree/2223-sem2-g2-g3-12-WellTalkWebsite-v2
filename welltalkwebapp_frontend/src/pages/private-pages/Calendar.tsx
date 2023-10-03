@@ -90,7 +90,7 @@ const Calendar = () => {
       <LoggedinHeader />
       <div className=" ml-72 flex gap-4 container-md pr-4">
         <h1 className=" font-semibold">Calendar</h1>
-        <div className=" w-80 rounded-lg shadow mt-10 px-2 flex flex-col border pb-3">
+        <div className=" w-80 rounded-lg shadow-2xl mt-10 px-2 flex flex-col border pb-3">
           {/* Set an appointment */}
           <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
             Set an Appointment
@@ -107,7 +107,7 @@ const Calendar = () => {
               required
             />
             <button
-              className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1"
+              className="text-xs text-white mb-4 cursor-pointer bg-rose-600 rounded-md p-1"
               onClick={handleClear}
             >
               clear
@@ -122,8 +122,8 @@ const Calendar = () => {
                   key={student.id}
                   onClick={() => handleStudentInput(student.firstname + " " + student.lastname)}
                 >
-                  <p className="text-sm ">{student.firstname} {student.lastname}</p>
-                  <p className="text-xs text-gray-300">
+                  <p className="text-sm bold">{student.firstname} {student.lastname}</p>
+                  <p className="text-xs text-red-500">
                     Student id: {student.studentID}
                   </p>
                 </li>
@@ -149,20 +149,20 @@ const Calendar = () => {
             />
             <button
               type="submit"
-              className=" bg-secondary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
+              className=" text-sm bg-indigo-900 rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
             >
-              Set Appointment
+              SET APPOINTMENT
             </button>
           </form>
         </div>
 
         {/* List of appointments */}
-        <div className=" w-80 rounded-lg shadow mt-10 px-2 flex flex-col border">
+        <div className=" w-80 rounded-lg shadow-2xl mt-10 px-2 flex flex-col border">
           <ListOfAppointments />
         </div>
 
         {/* Referred students */}
-        <div className="max-h-[400px] overflow-y-auto w-[400px] rounded-lg shadow mt-10 px-2 flex flex-col border bg-white scroll-smooth">
+        <div className="max-h-[400px] overflow-y-auto w-[400px] rounded-lg shadow-2xl mt-10 px-2 flex flex-col border bg-white scroll-smooth">
           <ReferredStudents />
         </div>
       </div>
