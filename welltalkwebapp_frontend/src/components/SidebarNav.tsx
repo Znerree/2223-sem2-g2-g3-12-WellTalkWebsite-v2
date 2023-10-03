@@ -52,6 +52,7 @@ useEffect(() => {
   fetchUser();
 }, []);
 
+
   return (
     <nav className="h-screen absolute w-64 bg-white border-r shadow">
       <div className=" px-4 py-5 items-center">

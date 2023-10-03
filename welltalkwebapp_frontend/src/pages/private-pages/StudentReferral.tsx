@@ -69,7 +69,7 @@ export const StudentReferral = () => {
       inputRef.current.value = studentName;
     }
 
-    const selectedStudent = students.find((student) => student.firstname === studentName);
+    const selectedStudent = students.find((student) => student.firstname + " " + student.lastname === studentName);
     if(selectedStudent){
       setStudentId(selectedStudent.id.toString());
       console.log(selectedStudent.id)
