@@ -68,7 +68,7 @@ const ReferredStudents = () => {
                   {referral.teacher.firstName} {referral.teacher.lastName}
                 </span>
               </p>
-                <p className="text-gray-500 text-sm">
+                <p className="text-gray-500 text-sm mb-1">
                   Reason: <div className=" bg-gray-300 border rounded p-2"><i className="text-black flex flex-grow w-full break-all">{referral.reason}</i></div>
                 </p>
             </div>
