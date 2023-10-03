@@ -40,6 +40,9 @@ const ReferredStudents = () => {
       <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
         Referred Students
       </h1>
+      {referrals.length === 0 ? (
+        <p className=" text-gray-500 text-sm p-2">No referrals yet.</p>
+      ) : (
       <ul className=" p-2">
         {referrals.map((referral, index) => (
           <li
@@ -78,6 +81,7 @@ const ReferredStudents = () => {
           </li>
         ))}
       </ul>
+      )}
     </>
   );
 };
