@@ -48,20 +48,31 @@ const ListOfAppointments = () => {
   return (
     <>
       <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
-        List of Appointments
+        My Appointments
       </h1>
       <ul className=" p-2">
-        <li className=" border-b px-2 rounded-md shadow-sm py-2 border">
-          <p>Jake Errenz</p>
+        {appointments.map((appointment, index) => (
+        <li 
+        key={index}
+        className=" border-b px-2 rounded-md shadow-sm py-2 border"
+        >
+          <p>{appointment.student.firstname} {appointment.student.lastname}</p>
           <div className=" flex gap-2">
             <p className=" text-gray-300 text-sm">
-              Date: <span className="text-primary">June 10, 2020</span>
+              Date:{" "}
+              <span className="text-primary">
+                {new Date(appointment.start_date).toLocaleDateString()}
+              </span>
             </p>
             <p className=" text-gray-300 text-sm">
-              Time: <span className="text-primary">10:00 am</span>
+              Start Time:{" "}
+              <span className="text-primary">
+                {new Date(appointment.start_date).toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true, second: undefined })}
+              </span>
             </p>
           </div>
         </li>
+        ))}
       </ul>
     </>
   );
