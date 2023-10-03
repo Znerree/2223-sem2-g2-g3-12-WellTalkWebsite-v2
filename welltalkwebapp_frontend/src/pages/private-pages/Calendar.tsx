@@ -96,7 +96,7 @@ const Calendar = () => {
             Set an Appointment
           </h1>
           <form className=" px-3 pt-3">
-          <div className="flex items-center justify-center relative">
+          <div className="flex items-center">
             <input
               ref={inputRef}
               type="text"
@@ -107,18 +107,17 @@ const Calendar = () => {
               required
             />
             <button
-              className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1"
+              className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1 ml-2"
               onClick={handleClear}
             >
               clear
             </button>
           </div>
-          <div>
           {showResultsDropdown && query && (
-            <ul className="max-h-60 overflow-y-auto absolute w-full max-w-[300px] bg-white border border-gray-300 rounded-b-md">
+            <ul className="max-h-60 overflow-y-auto absolute bg-white border border-gray-300 rounded-b-md">
               {results.map((student) => (
                 <li
-                  className=" w-full border p-1 cursor-pointer hover:bg-gray-100"
+                  className=" w-full border p-2 cursor-pointer hover:bg-gray-100"
                   key={student.id}
                   onClick={() => handleStudentInput(student.firstname + " " + student.lastname)}
                 >
@@ -130,7 +129,6 @@ const Calendar = () => {
               ))}
             </ul>
           )}
-          </div>
             <label className=" text-sm text-gray-400">Date</label>
             <input
               name="date"
