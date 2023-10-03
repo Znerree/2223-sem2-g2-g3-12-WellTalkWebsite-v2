@@ -7,7 +7,6 @@ import com.website.welltalk.config.JwtToken;
 import com.website.welltalk.repositories.AppointmentRepository;
 import com.website.welltalk.repositories.CounselorRepository;
 import com.website.welltalk.repositories.StudentRepository;
-import com.website.welltalk.repositories.TeacherRepository;
 import com.website.welltalk.repositories.UserRepository;
 
 @Service
@@ -15,9 +14,6 @@ public class AppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
-
-    @Autowired
-    private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
@@ -29,18 +25,16 @@ public class AppointmentService {
 
 
     
-    public void createAppointment(String stringToken, Long studentid, Long teacherid, Appointment appointment) {
+    public void createAppointment(String stringToken, Long studentid, Appointment appointment) {
         Counselor counselor = counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
         Student student = studentRepository.findById(studentid).get();
-        Teacher teacher = teacherRepository.findById(teacherid).get();
 
         Appointment newAppointment = new Appointment();
 
         newAppointment.setStudent(student);
-        newAppointment.setReferrer(teacher);
         newAppointment.setCounselor(counselor);
         newAppointment.setStart_date(appointment.getStart_date());
-        newAppointment.setStatus(appointment.getStatus());
+        newAppointment.setIsDone(false);
 
         appointmentRepository.save(newAppointment);
     }
@@ -61,14 +55,13 @@ public class AppointmentService {
 
         if(authenticatedCounselorUsername.equals(appointmentCounselorUsername)){
             appointmentToUpdate.setStart_date(appointment.getStart_date());
-            appointmentToUpdate.setStatus(appointment.getStatus());
+            appointmentToUpdate.setIsDone(appointment.getIsDone());
             appointmentRepository.save(appointmentToUpdate);
             return ResponseEntity.ok("Appointment updated succesfully");
         }else{
             return ResponseEntity.badRequest().body("You are not authorized to update this appointment");
         }
     }
-
 
     //Get all appointments for a specific counselor
     public Iterable<Appointment> getMyAppointments(String stringToken) {

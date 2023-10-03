@@ -27,21 +27,17 @@ public class Appointment {
 
     @Column
     private LocalDateTime start_date;
-    
-    @ManyToOne
-    @JoinColumn(name = "referrer", nullable = false)
-    private Teacher teacher;
 
     @Column
-    private String status;
+    private Boolean isDone;
 
     public Appointment() {
         // Default constructor
     }   
 
-    public Appointment(LocalDateTime start_date, String status) {
+    public Appointment(LocalDateTime start_date, Boolean isDone) {
         this.start_date = start_date;
-        this.status = status;
+        this.isDone = isDone;
     }
     //referall id
     public Long getId() {
@@ -67,17 +63,6 @@ public class Appointment {
         this.student = student;
     }
 
-
-    //teacher
-    public Teacher getReferrer() {
-        return teacher;
-    }
-
-    public void setReferrer(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-
     //start date
     public LocalDateTime getStart_date() {
         return start_date;
@@ -89,16 +74,11 @@ public class Appointment {
 
 
     //status
-    public String getStatus() {
-        return status;
+    public Boolean getIsDone() {
+        return isDone;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setIsDone(Boolean isDone) {
+        this.isDone = isDone;
     }
-
-    
-
-
-    
 }

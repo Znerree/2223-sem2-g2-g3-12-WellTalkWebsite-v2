@@ -24,8 +24,8 @@ public class AppointmentController {
     AppointmentService appointmentService;
 
     @PostMapping(value = "/appointments")
-    public ResponseEntity<Object> createAppointment(@RequestHeader(value="Authorization") String stringToken, @RequestParam(value = "student") Long studentid, @RequestParam(value = "teacher") Long teacherid, @RequestBody Appointment appointment) {
-        appointmentService.createAppointment(stringToken, studentid, teacherid, appointment);
+    public ResponseEntity<Object> createAppointment(@RequestHeader(value="Authorization") String stringToken, @RequestParam(value = "student") Long studentid, @RequestBody Appointment appointment) {
+        appointmentService.createAppointment(stringToken, studentid, appointment);
         return ResponseEntity.ok("appointment created successfully");
         
     }
@@ -35,5 +35,9 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAppointments());
     }
 
+    @GetMapping(value = "/myappointments")
+    public ResponseEntity<Object> getMyAppointments(@RequestHeader(value="Authorization") String stringToken) {
+        return ResponseEntity.ok(appointmentService.getMyAppointments(stringToken));
+    }
 
 }
