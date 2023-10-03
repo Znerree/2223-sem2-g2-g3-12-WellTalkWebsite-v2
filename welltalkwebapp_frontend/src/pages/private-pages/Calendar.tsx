@@ -147,7 +147,7 @@ const Calendar = () => {
             />
             <button
               type="submit"
-              className=" text-sm bg-indigo-900 rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
+              className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
             >
               SET APPOINTMENT
             </button>
