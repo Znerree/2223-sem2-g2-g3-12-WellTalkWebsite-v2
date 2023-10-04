@@ -124,17 +124,35 @@ const Calendar = () => {
     const appointmentData = {
       start_date: `${startDate}T${startTime}`,
     };
-    try {
-      const response = await axios.post(
-        "/appointments?student=" + studentID,
-        appointmentData,
-        config
-      );
-      console.log(response.data);
-      alert("Appointment set successfully");
-      window.location.reload();
-    } catch (error) {
-      console.error("Error creating appointment:", error);
+    const scheduleData = {
+      dateTime: `${startDate}T${startTime}`,
+    }
+    if(showAnnounceSchedule){
+      try {
+        const response = await axios.post(
+          "/availableschedules",
+          scheduleData,
+          config
+        );
+        console.log(response.data);
+        alert("Schedule created successfully");
+        window.location.reload();
+      } catch (error) {
+        console.error("Error creating schedule:", error);
+      }
+    }else{
+      try {
+        const response = await axios.post(
+          "/appointments?student=" + studentID,
+          appointmentData,
+          config
+        );
+        console.log(response.data);
+        alert("Appointment set successfully");
+        window.location.reload();
+      } catch (error) {
+        console.error("Error creating appointment:", error);
+      }
     }
   };
   
