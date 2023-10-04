@@ -38,7 +38,9 @@ const ListOfAppointments = () => {
       .get<Appointment[]>("/myappointments", config)
       .then((response) => {
         setAppointments(
-          response.data.filter((appointment) => !appointment.isDone)
+          response.data
+            .sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime())
+            .filter((appointment) => !appointment.isDone)
         );
         console.log(response.data);
       })
@@ -46,6 +48,8 @@ const ListOfAppointments = () => {
         console.error("Error retrieving appointments:", error);
       });
   }, []);
+
+  const today = new Date().toLocaleDateString();
 
   return (
     <>
@@ -99,9 +103,14 @@ const ListOfAppointments = () => {
                   </p>
                 </div>
               </div>
+              {new Date(appointment.start_date).toLocaleDateString() === today && (
+                <p className="text-sm text-gray-500 mt-2">
+                  This appointment is scheduled for today.
+                </p>
+              )}
             </li>
           ))}
-        </ul>
+        </ul>  
       )}
     </>
   );
