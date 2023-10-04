@@ -4,6 +4,7 @@ import ListOfAppointments from "@/components/Calendar/calendar-list-of-appointme
 import ReferredStudents from "@/components/Calendar/calendar-referred-students";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import axios from "@/api/axios";
+import { start } from "repl";
 
 type Student = {
   id: number;
@@ -35,6 +36,8 @@ const Calendar = () => {
   const [studentID, setStudentId] = useState("");
   const [results, setResults] = useState<Student[]>([]);
   const [showResultsDropdown, setShowResultsDropdown] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [startTime, setStartTime] = useState("");
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -83,6 +86,39 @@ const Calendar = () => {
     }
   };
   const inputRef = useRef<HTMLInputElement>(null);
+  console.log(startDate);
+  console.log(startTime);
+  console.log(value);
+  console.log(localStorage.getItem("counselorID"));
+
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+    const appointmentData = {
+      start_date: `${startDate}T${startTime}`,
+    };
+    try {
+      const response = await axios.post('/appointments?student='+studentID, appointmentData, config);
+      console.log(response.data);
+      alert('Appointment set successfully');
+    } catch (error) {
+      console.error('Error creating appointment:', error);
+    }
+  };
+
+  const handleSelectTime = (event: any) => {
+    const time = event.target.value;
+    console.log(time);
+    let [hours, minutes] = time.split(':');
+    let seconds = '00';
+    if (time.includes('pm')) {
+      hours = (parseInt(hours, 10) + 12).toString();
+    }
+    setStartTime(`${hours}:${minutes}:${seconds}`);
+  };
 
   return (
     <>
@@ -136,6 +172,8 @@ const Calendar = () => {
               style={inputStyle}
               autoComplete="off"
               required
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
             />
             <label className=" text-sm text-gray-400">Time</label>
             <input
@@ -144,10 +182,13 @@ const Calendar = () => {
               style={inputStyle}
               autoComplete="off"
               required
+              value={startTime}
+              onChange={handleSelectTime}
             />
             <button
               type="submit"
               className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
+              onClick={handleSubmit}
             >
               SET APPOINTMENT
             </button>
