@@ -23,7 +23,6 @@ public class AvailableScheduleController {
         availableScheduleService.createAvailableSchedule(stringToken, availableSchedule);
         return ResponseEntity.ok("Available Schedule created successfully");
     }
-
-
+    
     
 }

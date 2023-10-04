@@ -28,8 +28,10 @@ public class AvailableScheduleService {
     }
 
     public void createAvailableSchedule(String stringToken, AvailableSchedule availableSchedule) {
-        availableSchedule.setCounselor(counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken)));
-        availableScheduleRepository.save(availableSchedule);
+        AvailableSchedule newAvailableSchedule = new AvailableSchedule();
+        newAvailableSchedule.setCounselor(counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken)));
+        newAvailableSchedule.setDateTime(availableSchedule.getDateTime());
+        availableScheduleRepository.save(newAvailableSchedule);
     }
 
     public ResponseEntity deleteAvailableSchedule(Long id) {
