@@ -136,7 +136,8 @@ const Calendar = () => {
         );
         console.log(response.data);
         alert("Schedule created successfully");
-        window.location.reload();
+        setStartDate("");
+        setStartTime("");
       } catch (error) {
         console.error("Error creating schedule:", error);
       }
