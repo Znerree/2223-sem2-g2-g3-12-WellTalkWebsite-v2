@@ -4,7 +4,7 @@ import ListOfAppointments from "@/components/Calendar/calendar-list-of-appointme
 import ReferredStudents from "@/components/Calendar/calendar-referred-students";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import axios from "@/api/axios";
-import {HiSwitchHorizontal} from "react-icons/hi";
+import { HiSwitchHorizontal } from "react-icons/hi";
 
 type Student = {
   id: number;
@@ -40,6 +40,7 @@ const Calendar = () => {
   const [startTime, setStartTime] = useState("");
 
   const [showAnnounceSchedule, setShowAnnounceSchedule] = useState(false);
+
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -98,17 +99,19 @@ const Calendar = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    
+
     // Get the current date and time
     const currentDate = new Date();
-    
+
     // Convert the selected date and time to a JavaScript Date object
     const selectedDate = new Date(`${startDate}T${startTime}`);
-    
+
     // Check if the selected date and time is before the current date and time
     if (selectedDate < currentDate) {
       // Display an error message to the user
-      alert("Appointment date and time must not be before the current date and time");
+      alert(
+        "Appointment date and time must not be before the current date and time"
+      );
       setValue("");
       setQuery("");
       setResults([]);
@@ -116,8 +119,8 @@ const Calendar = () => {
       setStartTime("");
       return; // Prevent further execution of the function
     }
-    
-    // If the selected date and time is valid, proceed with the appointment creation 
+
+    // If the selected date and time is valid, proceed with the appointment creation
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
@@ -126,8 +129,8 @@ const Calendar = () => {
     };
     const scheduleData = {
       dateTime: `${startDate}T${startTime}`,
-    }
-    if(showAnnounceSchedule){
+    };
+    if (showAnnounceSchedule) {
       try {
         const response = await axios.post(
           "/availableschedules",
@@ -141,7 +144,7 @@ const Calendar = () => {
       } catch (error) {
         console.error("Error creating schedule:", error);
       }
-    }else{
+    } else {
       try {
         const response = await axios.post(
           "/appointments?student=" + studentID,
@@ -156,7 +159,6 @@ const Calendar = () => {
       }
     }
   };
-  
 
   const handleSelectTime = (event: any) => {
     const time = event.target.value;
@@ -168,8 +170,6 @@ const Calendar = () => {
     }
     setStartTime(`${hours}:${minutes}:${seconds}`);
   };
-
-  
 
   return (
     <>
@@ -186,109 +186,111 @@ const Calendar = () => {
                 : "Set an Appointment"}
             </h1>
 
-            <HiSwitchHorizontal 
+            <HiSwitchHorizontal
               className="text-black-300 h-6 w-6 cursor-pointer"
-              onClick={() => setShowAnnounceSchedule(!showAnnounceSchedule)} />
-          </div>
-          {showAnnounceSchedule ?    
-          (<form className=" px-3 pt-3">
-          <label className=" text-sm text-gray-400">Date</label>
-          <input
-            name="date"
-            type="date"
-            style={inputStyle}
-            autoComplete="off"
-            required
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-          <label className=" text-sm text-gray-400">Time</label>
-          <input
-            name="time"
-            type="time"
-            style={inputStyle}
-            autoComplete="off"
-            required
-            value={startTime}
-            onChange={handleSelectTime}
-          />
-          <button
-            type="submit"
-            className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
-            onClick={handleSubmit}
-          >
-            SET SCHEDULE
-          </button>
-        </form>)
-          :
-          (<form className=" px-3 pt-3">
-          <div className="flex items-center">
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Student name"
-              style={inputStyle}
-              onChange={handleQueryChange}
-              value={value}
-              required
+              onClick={() => setShowAnnounceSchedule(!showAnnounceSchedule)}
             />
-            <button
-              className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1 ml-2"
-              onClick={handleClear}
-            >
-              clear
-            </button>
           </div>
-          {showResultsDropdown && query && (
-            <ul className="max-h-60 overflow-y-auto absolute bg-white border border-gray-300 rounded-b-md">
-              {results.map((student) => (
-                <li
-                  className=" w-full border p-2 cursor-pointer hover:bg-gray-100"
-                  key={student.id}
-                  onClick={() =>
-                    handleStudentInput(
-                      student.firstname + " " + student.lastname
-                    )
-                  }
+          {showAnnounceSchedule ? (
+            <form className=" px-3 pt-3">
+              <label className=" text-sm text-gray-400">Date</label>
+              <input
+                name="date"
+                type="date"
+                style={inputStyle}
+                autoComplete="off"
+                required
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <label className=" text-sm text-gray-400">Time</label>
+              <input
+                name="time"
+                type="time"
+                style={inputStyle}
+                autoComplete="off"
+                required
+                value={startTime}
+                onChange={handleSelectTime}
+              />
+              <button
+                type="submit"
+                className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
+                onClick={handleSubmit}
+              >
+                SET SCHEDULE
+              </button>
+            </form>
+          ) : (
+            <form className=" px-3 pt-3">
+              <div className="flex items-center">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Student name"
+                  style={inputStyle}
+                  onChange={handleQueryChange}
+                  value={value}
+                  required
+                />
+                <button
+                  className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1 ml-2"
+                  onClick={handleClear}
                 >
-                  <p className="text-sm bold">
-                    {student.firstname} {student.lastname}
-                  </p>
-                  <p className="text-xs text-red-500">
-                    Student id: {student.studentID}
-                  </p>
-                </li>
-              ))}
-            </ul>
+                  clear
+                </button>
+              </div>
+              {showResultsDropdown && query && (
+                <ul className="max-h-60 overflow-y-auto absolute bg-white border border-gray-300 rounded-b-md">
+                  {results.map((student) => (
+                    <li
+                      className=" w-full border p-2 cursor-pointer hover:bg-gray-100"
+                      key={student.id}
+                      onClick={() =>
+                        handleStudentInput(
+                          student.firstname + " " + student.lastname
+                        )
+                      }
+                    >
+                      <p className="text-sm bold">
+                        {student.firstname} {student.lastname}
+                      </p>
+                      <p className="text-xs text-red-500">
+                        Student id: {student.studentID}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <label className=" text-sm text-gray-400">Date</label>
+              <input
+                name="date"
+                type="date"
+                style={inputStyle}
+                autoComplete="off"
+                required
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <label className=" text-sm text-gray-400">Time</label>
+              <input
+                name="time"
+                type="time"
+                style={inputStyle}
+                autoComplete="off"
+                required
+                value={startTime}
+                onChange={handleSelectTime}
+              />
+              <button
+                type="submit"
+                className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
+                onClick={handleSubmit}
+              >
+                SET APPOINTMENT
+              </button>
+            </form>
           )}
-          <label className=" text-sm text-gray-400">Date</label>
-          <input
-            name="date"
-            type="date"
-            style={inputStyle}
-            autoComplete="off"
-            required
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-          <label className=" text-sm text-gray-400">Time</label>
-          <input
-            name="time"
-            type="time"
-            style={inputStyle}
-            autoComplete="off"
-            required
-            value={startTime}
-            onChange={handleSelectTime}
-          />
-          <button
-            type="submit"
-            className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
-            onClick={handleSubmit}
-          >
-            SET APPOINTMENT
-          </button>
-        </form>)}
         </div>
 
         {/* List of appointments */}

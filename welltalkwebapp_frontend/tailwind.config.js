@@ -38,4 +38,8 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  corePlugins: {
+    // ...
+    transform: false, // Disable the default transform classes to define custom transform classes
+  },
 }

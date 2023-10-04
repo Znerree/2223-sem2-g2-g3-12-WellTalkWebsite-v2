@@ -1,5 +1,7 @@
 import axios from "@/api/axios";
 import { useState, useEffect } from "react";
+import { HiSwitchHorizontal } from "react-icons/hi";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 interface Appointment {
   id: number;
@@ -29,6 +31,11 @@ interface Appointment {
 
 const ListOfAppointments = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [isTodayAppointmentsOpen, setTodayAppointmentsOpen] = useState(true);
+  const [isUpcomingAppointmentsOpen, setUpcomingAppointmentsOpen] =
+    useState(true);
+  const [isTodayArrowRotated, setTodayArrowRotated] = useState(false);
+  const [isUpcomingArrowRotated, setUpcomingArrowRotated] = useState(false);
 
   useEffect(() => {
     const config = {
@@ -72,10 +79,19 @@ const ListOfAppointments = () => {
 
       {todayAppointments.length > 0 && (
         <>
-          <h2 className="font-sans text-md pt-2 pl-2">
-            Today's Appointments
-          </h2>
-          <ul className=" p-2">
+          <div className="flex items-center justify-between pt-2">
+            <h2 className="font-sans text-md top-0 pl-2">
+              Today's Appointments
+            </h2>
+            <RiArrowDropDownLine
+              className="text-black-300 h-6 w-6 cursor-pointer"
+              onClick={() => {
+                setTodayAppointmentsOpen(!isTodayAppointmentsOpen);
+                setTodayArrowRotated(!isTodayArrowRotated);
+              }}
+            />
+          </div>
+          <ul className={`p-2 ${isTodayAppointmentsOpen ? "" : "hidden"}`}>
             {todayAppointments.map((appointment, index) => (
               <li
                 key={index}
@@ -130,10 +146,19 @@ const ListOfAppointments = () => {
       )}
       {upcomingAppointments.length > 0 && (
         <>
-          <h2 className="font-sans text-md pt-2 pl-2">
-            Upcoming Appointments
-          </h2>
-          <ul className=" p-2">
+          <div className="flex items-center justify-between pt-2">
+            <h2 className="font-sans text-md top-0 pl-2">
+              Upcoming Appointments
+            </h2>
+            <RiArrowDropDownLine
+              className="text-black-300 h-6 w-6 cursor-pointe"
+              onClick={() => {
+                setUpcomingAppointmentsOpen(!isUpcomingAppointmentsOpen);
+                setUpcomingArrowRotated(!isUpcomingArrowRotated);
+              }}
+            />
+          </div>
+          <ul className={`p-2 ${isUpcomingAppointmentsOpen ? "" : "hidden"}`}>
             {upcomingAppointments.map((appointment, index) => (
               <li
                 key={index}
