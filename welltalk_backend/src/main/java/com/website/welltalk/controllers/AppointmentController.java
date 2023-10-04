@@ -40,4 +40,9 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getMyAppointments(stringToken));
     }
 
+    @PutMapping(value = "/appointments/{id}")
+    public ResponseEntity<Object> updateAppointment(@PathVariable Long id, @RequestHeader(value="Authorization") String stringToken) {
+        return ResponseEntity.ok(appointmentService.updateAppointment(id, stringToken));
+    }
+
 }

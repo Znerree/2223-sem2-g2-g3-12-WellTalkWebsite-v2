@@ -1,6 +1,7 @@
 package com.website.welltalk.services;
 import com.website.welltalk.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.website.welltalk.config.JwtToken;
@@ -48,14 +49,14 @@ public class AppointmentService {
         return ResponseEntity.ok("Appointment deleted succesfully");
     }
     
-    public ResponseEntity updateAppointment(Long id, String stringToken, Appointment appointment) {
+    public ResponseEntity updateAppointment(Long id, String stringToken) {
         Appointment appointmentToUpdate = appointmentRepository.findById(id).get();
         String appointmentCounselorUsername = appointmentToUpdate.getCounselor().getUsername();
         String authenticatedCounselorUsername = jwtToken.getUsernameFromToken(stringToken);
 
         if(authenticatedCounselorUsername.equals(appointmentCounselorUsername)){
-            appointmentToUpdate.setStart_date(appointment.getStart_date());
-            appointmentToUpdate.setIsDone(appointment.getIsDone());
+            appointmentToUpdate.setIsDone(true);
+            
             appointmentRepository.save(appointmentToUpdate);
             return ResponseEntity.ok("Appointment updated succesfully");
         }else{
