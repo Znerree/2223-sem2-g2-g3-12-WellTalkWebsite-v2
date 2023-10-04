@@ -98,6 +98,26 @@ const Calendar = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+    
+    // Get the current date and time
+    const currentDate = new Date();
+    
+    // Convert the selected date and time to a JavaScript Date object
+    const selectedDate = new Date(`${startDate}T${startTime}`);
+    
+    // Check if the selected date and time is before the current date and time
+    if (selectedDate < currentDate) {
+      // Display an error message to the user
+      alert("Appointment date and time must not be before the current date and time");
+      setValue("");
+      setQuery("");
+      setResults([]);
+      setStartDate("");
+      setStartTime("");
+      return; // Prevent further execution of the function
+    }
+    
+    // If the selected date and time is valid, proceed with the appointment creation 
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
@@ -117,6 +137,7 @@ const Calendar = () => {
       console.error("Error creating appointment:", error);
     }
   };
+  
 
   const handleSelectTime = (event: any) => {
     const time = event.target.value;
@@ -128,6 +149,8 @@ const Calendar = () => {
     }
     setStartTime(`${hours}:${minutes}:${seconds}`);
   };
+
+  
 
   return (
     <>
