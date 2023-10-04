@@ -104,6 +104,7 @@ const Calendar = () => {
       const response = await axios.post('/appointments?student='+studentID, appointmentData, config);
       console.log(response.data);
       alert('Appointment set successfully');
+      window.location.reload();
     } catch (error) {
       console.error('Error creating appointment:', error);
     }
