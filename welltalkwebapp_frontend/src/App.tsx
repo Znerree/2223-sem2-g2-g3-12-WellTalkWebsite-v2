@@ -10,12 +10,9 @@ import Inbox from "./pages/private-pages/Inbox";
 import Students from "./pages/private-pages/Students";
 import ContentOverview from "./pages/private-pages/ContentOverview";
 import Forum from "./pages/private-pages/Forum";
-import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import EmailChecker from "./pages/EmailChecker";
 import { StudentReferral } from "./pages/private-pages/StudentReferral";
-import SidebarNav from "./components/SidebarNav";
-import LoggedinHeader from "./components/LoggedinHeader";
 import CounselorNavs from "./components/CounselorNavs";
 
 const routeToTitle: { [key: string]: string } = {
@@ -51,25 +48,23 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* public routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="/email-verification" element={<EmailChecker />} />
+        {/* public routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="/email-verification" element={<EmailChecker />} />
 
-          {/* private routes */}
-          <Route path="/" element={<CounselorNavs />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/inbox" element={<Inbox />} />
-            <Route path="/students" element={<Students />} />
-            <Route path="/content-overview" element={<ContentOverview />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/forum" element={<Forum />} />
-          </Route>
-          <Route path="student-referral" element={<StudentReferral />} />
+        {/* private routes */}
+        <Route path="/" element={<CounselorNavs />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/inbox" element={<Inbox />} />
+          <Route path="/students" element={<Students />} />
+          <Route path="/content-overview" element={<ContentOverview />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/forum" element={<Forum />} />
         </Route>
+        <Route path="student-referral" element={<StudentReferral />} />
 
         {/* displayed when navigated to unknown endpoint */}
         <Route path="*" element={<PageNotFound />} />
