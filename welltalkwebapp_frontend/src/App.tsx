@@ -14,6 +14,9 @@ import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import EmailChecker from "./pages/EmailChecker";
 import { StudentReferral } from "./pages/private-pages/StudentReferral";
+import SidebarNav from "./components/SidebarNav";
+import LoggedinHeader from "./components/LoggedinHeader";
+import CounselorNavs from "./components/CounselorNavs";
 
 const routeToTitle: { [key: string]: string } = {
   "/": "Home",
@@ -45,35 +48,33 @@ function App() {
     }`;
   }, [location]);
 
-  
-
   return (
     <>
-      <div className="  flex h-screen flex-col">
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            {/* public routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="/email-verification" element={<EmailChecker />} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="/email-verification" element={<EmailChecker />} />
 
-            {/* private routes */}
+          {/* private routes */}
+          <Route path="/" element={<CounselorNavs />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/inbox" element={<Inbox />} />
             <Route path="/students" element={<Students />} />
             <Route path="/content-overview" element={<ContentOverview />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/forum" element={<Forum />} />
-            <Route path="student-referral" element={<StudentReferral />} />
           </Route>
+          <Route path="student-referral" element={<StudentReferral />} />
+        </Route>
 
-          {/* displayed when navigated to unknown endpoint */}
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-        <Outlet />
-      </div>
+        {/* displayed when navigated to unknown endpoint */}
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+      <Outlet />
     </>
   );
 }

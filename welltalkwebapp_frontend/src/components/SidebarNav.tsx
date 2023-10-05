@@ -11,7 +11,6 @@ import { MdForum } from "react-icons/md";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import axios from "../api/axios";
 
-
 const SidebarNav = () => {
   //sidebar navs (names, icons, paths)
   let navs = [
@@ -38,30 +37,31 @@ const SidebarNav = () => {
 
   const [user, setUser] = useState<any>({});
 
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const username = localStorage.getItem("user");
-      const response = await axios.get(`/users/username/${username}`);
-      console.log(response.data);
-      setUser(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  fetchUser();
-}, []);
-
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const username = localStorage.getItem("user");
+        const response = await axios.get(`/users/username/${username}`);
+        console.log(response.data);
+        setUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
-    <nav className="h-screen absolute w-64 bg-tertiary border-r shadow">
+    <nav className="h-screen w-64 bg-tertiary border-r shadow">
       <div className=" px-4 py-5 items-center">
         <div className="flex justify-between h-full top-0">
           <IoNotifications className="text-red-400 h-6 w-6" />
           <IoSettingsSharp className="text-gray-300 h-6 w-6" />
         </div>
         <div className=" text-center my-3">
-          <h1 className=" font-bold text-xl text-primary">{user.firstName} {user.lastName}</h1>
+          <h1 className=" font-bold text-xl text-primary">
+            {user.firstName} {user.lastName}
+          </h1>
           <h3 className=" text-sm text-gray-300">{user.userType}</h3>
         </div>
         <ul className=" text-gray-300 text-lg my-6">

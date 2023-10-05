@@ -172,9 +172,7 @@ const Calendar = () => {
 
   return (
     <>
-      <SidebarNav />
-      <LoggedinHeader />
-      <div className=" ml-72 flex gap-4 container-md pr-4">
+      <div className=" ml-72 top-20 absolute flex gap-4 pr-4">
         <h1 className=" font-semibold">Calendar</h1>
         <div className=" w-80 rounded-lg shadow-2xl mt-10 px-2 flex flex-col border pb-3">
           {/* Set an appointment */}
@@ -298,7 +296,7 @@ const Calendar = () => {
         </div>
 
         {/* Referred students */}
-        <div className="max-h-[400px] overflow-y-auto w-[400px] rounded-lg shadow-2xl mt-10 px-2 flex flex-col border bg-white scroll-smooth">
+        <div className="max-h-[400px] overflow-y-auto rounded-lg shadow-2xl mt-10 px-2 flex flex-col border bg-white scroll-smooth">
           <ReferredStudents />
         </div>
       </div>

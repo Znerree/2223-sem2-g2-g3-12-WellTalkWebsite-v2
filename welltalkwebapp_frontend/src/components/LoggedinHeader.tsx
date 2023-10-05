@@ -51,7 +51,7 @@ const LoggedinHeader = () => {
 
   return (
     <>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between absolute">
         <h1>{""}</h1>
         <div className="py-4 px-6 flex gap-2 items-center relative">
           <div className="relative">

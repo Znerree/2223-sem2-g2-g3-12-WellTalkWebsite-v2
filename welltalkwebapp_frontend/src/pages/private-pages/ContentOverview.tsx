@@ -1,13 +1,7 @@
-import LoggedinHeader from "@/components/LoggedinHeader";
-import SidebarNav from "@/components/SidebarNav";
-import React from "react";
-
 const ContentOverview = () => {
   return (
     <>
-      <SidebarNav />
-      <LoggedinHeader />
-      <div className=" ml-72">
+      <div className=" ml-72 top-20 absolute">
         <h1 className=" font-semibold">Content Overview</h1>
       </div>
     </>

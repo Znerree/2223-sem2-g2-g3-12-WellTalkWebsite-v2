@@ -1,12 +1,7 @@
-import LoggedinHeader from "@/components/LoggedinHeader";
-import SidebarNav from "@/components/SidebarNav";
 export const Dashboard = () => {
-
   return (
     <>
-      <SidebarNav/>
-      <LoggedinHeader />
-      <div className="ml-72">
+      <div className="ml-72 top-20 absolute">
         <h1 className="font-semibold">Dashboard</h1>
       </div>
     </>

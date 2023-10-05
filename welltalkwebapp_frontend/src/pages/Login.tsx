@@ -58,7 +58,6 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          // withCredentials: true,
         }
       );
       const getUserType = await axios.get(`/users/username/${username}`);
@@ -66,8 +65,6 @@ const Login = () => {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", username);
       localStorage.setItem("userType", userType);
-      localStorage.setItem("counselorID", getUserType.data.id);
-      console.log(getUserType.data.id)
       console.log("logged in");
       console.log(localStorage.getItem("token"));
       console.log(localStorage.getItem("user"));
