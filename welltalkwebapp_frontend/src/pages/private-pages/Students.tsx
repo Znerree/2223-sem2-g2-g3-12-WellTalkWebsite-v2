@@ -44,8 +44,8 @@ const Students = () => {
             <thead className=" text-center">
               <tr>
                 <th className=" py-3 px-4">Student ID</th>
-                <th className=" py-3 px-4">Firstname</th>
                 <th className=" py-3 px-4">Lastname</th>
+                <th className=" py-3 px-4">Firstname</th>
                 <th className=" py-3 px-4">Course</th>
                 <th className=" py-3 px-4">Year</th>
                 <th className=" py-3 px-4">Department</th>
@@ -55,8 +55,8 @@ const Students = () => {
               {students.map((student) => (
                 <tr key={student.studentID} className=" items-center">
                   <td className=" py-2 px-4}">{student.studentID}</td>
-                  <td className=" py-2 px-4}">{student.firstname}</td>
                   <td className=" py-2 px-4}">{student.lastname}</td>
+                  <td className=" py-2 px-4}">{student.firstname}</td>
                   <td className=" py-2 px-4}">{student.course}</td>
                   <td className=" py-2 px-4}">{student.year}</td>
                   <td className=" py-2 px-4}">{student.department}</td>
