@@ -47,29 +47,31 @@ function App() {
 
   return (
     <>
-      <Routes>
-        {/* public routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="/email-verification" element={<EmailChecker />} />
+      <div className="  flex h-screen flex-col w-full">
+        <Routes>
+          {/* public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="/email-verification" element={<EmailChecker />} />
 
-        {/* private routes */}
-        <Route path="/" element={<CounselorNavs />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/inbox" element={<Inbox />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/content-overview" element={<ContentOverview />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/forum" element={<Forum />} />
-        </Route>
-        <Route path="student-referral" element={<StudentReferral />} />
+          {/* private routes */}
+          <Route path="/" element={<CounselorNavs />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/students" element={<Students />} />
+            <Route path="/content-overview" element={<ContentOverview />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/forum" element={<Forum />} />
+          </Route>
+          <Route path="student-referral" element={<StudentReferral />} />
 
-        {/* displayed when navigated to unknown endpoint */}
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-      <Outlet />
+          {/* displayed when navigated to unknown endpoint */}
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+        <Outlet />
+      </div>
     </>
   );
 }
