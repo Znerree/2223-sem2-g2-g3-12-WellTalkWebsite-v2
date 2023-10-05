@@ -78,6 +78,21 @@ const ListOfAppointments = () => {
     setUpcomingDropdownOpen(!isUpcomingDropdownOpen);
   };
 
+  const handleMarkAsDone = (id: number) => {
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+    axios
+      .put(`/appointments/${id}`, { isDone: true }, config)
+      .then((response) => {
+        window.location.reload();
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error marking appointment as done:", error);
+      });
+  };
+
   return (
     <>
       <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
@@ -160,6 +175,12 @@ const ListOfAppointments = () => {
                     </p>
                   </div>
                 </div>
+                <button
+                  onClick={() => handleMarkAsDone(appointment.id)}
+                  className=" text-white text-xs bg-secondary p-1 rounded-md mt-2"
+                >
+                  Mark as done
+                </button>
               </li>
             ))}
           </ul>
@@ -240,6 +261,12 @@ const ListOfAppointments = () => {
                     </p>
                   </div>
                 </div>
+                <button
+                  onClick={() => handleMarkAsDone(appointment.id)}
+                  className=" text-white text-xs bg-secondary p-1 rounded-md mt-2"
+                >
+                  Mark as done
+                </button>
               </li>
             ))}
           </ul>
