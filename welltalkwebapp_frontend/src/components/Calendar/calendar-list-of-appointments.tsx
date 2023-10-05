@@ -1,7 +1,6 @@
 import axios from "@/api/axios";
 import { useState, useEffect } from "react";
-import { HiSwitchHorizontal } from "react-icons/hi";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { HiMiniPlusSmall, HiMiniMinusSmall } from "react-icons/hi2";
 
 interface Appointment {
   id: number;
@@ -34,8 +33,9 @@ const ListOfAppointments = () => {
   const [isTodayAppointmentsOpen, setTodayAppointmentsOpen] = useState(true);
   const [isUpcomingAppointmentsOpen, setUpcomingAppointmentsOpen] =
     useState(true);
-  const [isTodayArrowRotated, setTodayArrowRotated] = useState(false);
-  const [isUpcomingArrowRotated, setUpcomingArrowRotated] = useState(false);
+
+  const [isTodayDropdownOpen, setTodayDropdownOpen] = useState(false);
+  const [isUpcomingDropdownOpen, setUpcomingDropdownOpen] = useState(false);
 
   useEffect(() => {
     const config = {
@@ -71,6 +71,13 @@ const ListOfAppointments = () => {
       new Date(appointment.start_date).toLocaleDateString() !== today
   );
 
+  const expandTodayAppointments = () => {
+    setTodayDropdownOpen(!isTodayDropdownOpen);
+  };
+  const expandUpcomingAppointments = () => {
+    setUpcomingDropdownOpen(!isUpcomingDropdownOpen);
+  };
+
   return (
     <>
       <h1 className=" font-semibold text-md border-b sticky top-0 bg-white py-4 pl-2">
@@ -83,13 +90,27 @@ const ListOfAppointments = () => {
             <h2 className="font-sans text-md top-0 pl-2">
               Today's Appointments
             </h2>
-            <RiArrowDropDownLine
-              className="text-black-300 h-6 w-6 cursor-pointer"
-              onClick={() => {
-                setTodayAppointmentsOpen(!isTodayAppointmentsOpen);
-                setTodayArrowRotated(!isTodayArrowRotated);
-              }}
-            />
+
+            <div
+              className="flex items-center justify-between pr-2"
+              onClick={expandTodayAppointments}
+            >
+              {isTodayDropdownOpen ? (
+                <HiMiniPlusSmall
+                  className="text-black-300 h-6 w-6 cursor-pointer"
+                  onClick={() => {
+                    setTodayAppointmentsOpen(!isTodayAppointmentsOpen);
+                  }}
+                />
+              ) : (
+                <HiMiniMinusSmall
+                  className="text-black-300 h-6 w-6 cursor-pointer"
+                  onClick={() => {
+                    setTodayAppointmentsOpen(!isTodayAppointmentsOpen);
+                  }}
+                />
+              )}
+            </div>
           </div>
           <ul className={`p-2 ${isTodayAppointmentsOpen ? "" : "hidden"}`}>
             {todayAppointments.map((appointment, index) => (
@@ -150,13 +171,26 @@ const ListOfAppointments = () => {
             <h2 className="font-sans text-md top-0 pl-2">
               Upcoming Appointments
             </h2>
-            <RiArrowDropDownLine
-              className="text-black-300 h-6 w-6 cursor-pointe"
-              onClick={() => {
-                setUpcomingAppointmentsOpen(!isUpcomingAppointmentsOpen);
-                setUpcomingArrowRotated(!isUpcomingArrowRotated);
-              }}
-            />
+            <div
+              className="flex items-center justify-between pr-2"
+              onClick={expandUpcomingAppointments}
+            >
+              {isUpcomingDropdownOpen ? (
+                <HiMiniPlusSmall
+                  className="text-black-300 h-6 w-6 cursor-pointer"
+                  onClick={() => {
+                    setUpcomingAppointmentsOpen(!isUpcomingAppointmentsOpen);
+                  }}
+                />
+              ) : (
+                <HiMiniMinusSmall
+                  className="text-black-300 h-6 w-6 cursor-pointer"
+                  onClick={() => {
+                    setUpcomingAppointmentsOpen(!isUpcomingAppointmentsOpen);
+                  }}
+                />
+              )}
+            </div>
           </div>
           <ul className={`p-2 ${isUpcomingAppointmentsOpen ? "" : "hidden"}`}>
             {upcomingAppointments.map((appointment, index) => (

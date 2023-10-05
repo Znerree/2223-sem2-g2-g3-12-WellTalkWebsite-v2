@@ -41,7 +41,6 @@ const Calendar = () => {
 
   const [showAnnounceSchedule, setShowAnnounceSchedule] = useState(false);
 
-
   useEffect(() => {
     const fetchStudents = async () => {
       const response = await axios.get("students");
