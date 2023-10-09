@@ -20,10 +20,7 @@ const LoggedinHeader = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         closeDropdown();
       }
     };
@@ -55,28 +52,15 @@ const LoggedinHeader = () => {
         <h1>{""}</h1>
         <div className="py-4 px-6 flex gap-2 items-center relative">
           <div className="relative">
-            <input
-              name="search"
-              className="outline-none border bg-gray-100 border-gray-300 rounded-lg h-8 pl-8 pr-2 p-2"
-              placeholder="Search..."
-            />
+            <input name="search" className="outline-none border bg-gray-100 border-gray-300 rounded-lg h-8 pl-8 pr-2 p-2" placeholder="Search..." />
             <div className="absolute top-0 left-2 flex items-center h-full text-gray-400">
               <AiOutlineSearch />
             </div>
           </div>
-          <RiArrowDropDownLine
-            className="text-secondary h-8 w-8 hover:text-primary cursor-pointer"
-            onClick={toggleDropdown}
-          />
+          <RiArrowDropDownLine className="text-secondary h-8 w-8 hover:text-primary cursor-pointer" onClick={toggleDropdown} />
           {isDropdownOpen && (
-            <div
-              ref={dropdownRef}
-              className="absolute mt-14 right-0 bg-white border border-gray-300 rounded-lg shadow-md mx-6"
-            >
-              <button
-                className="block px-4 py-1 rounded-lg w-full text-sm text-secondary hover:bg-primary hover:text-white"
-                onClick={handleLogout}
-              >
+            <div ref={dropdownRef} className="absolute mt-14 right-0 bg-white border border-gray-300 rounded-lg shadow-md mx-6">
+              <button className="block px-4 py-1 rounded-lg w-full text-sm text-secondary hover:bg-primary hover:text-white" onClick={handleLogout}>
                 Logout
               </button>
             </div>

@@ -47,7 +47,7 @@ const SidebarNav = () => {
   }, []);
 
   return (
-    <nav className="h-screen w-64 bg-tertiary border-r shadow">
+    <nav className="h-screen w-64 bg-tertiary border-r shadow overflow-hidden">
       <div className=" px-4 py-5 items-center">
         <div className="flex justify-between h-full top-0">
           <IoNotifications className="text-red-400 h-6 w-6" />
