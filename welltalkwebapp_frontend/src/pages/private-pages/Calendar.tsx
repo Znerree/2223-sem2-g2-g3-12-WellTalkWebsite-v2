@@ -115,7 +115,7 @@ const Calendar = () => {
         </div>
 
         {/* Referred students */}
-        <div className="max-h-[400px] w-80 overflow-y-auto rounded-lg shadow-2xl mt-10 px-2 flex flex-col border bg-white scroll-smooth">
+        <div className="max-h-[400px] w-[400px] overflow-y-auto rounded-lg shadow-2xl mt-10 px-2 flex flex-col border bg-white scroll-smooth">
           <ReferredStudents />
         </div>
       </div>
