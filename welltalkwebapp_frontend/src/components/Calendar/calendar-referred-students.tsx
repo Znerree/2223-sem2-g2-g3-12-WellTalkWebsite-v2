@@ -96,8 +96,6 @@ const ReferredStudents = () => {
     .put(`/referrals/${selectedReferral?.id}`)
     .then((response) => {
       console.log('Referral updated successfully', response.data);
-
-      navigate('/inbox');
     })
     .catch((error) => {
       console.error('Error updating referral:', error);
