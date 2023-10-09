@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import background from "@/assets/images/homebg.png";
 import HeadNav from "@/components/HomeNav";
 
-const Home = () => {
+const Landing = () => {
   const bg = {
     backgroundImage: `url(${background})`,
     backgroundSize: " 50%",
@@ -14,7 +14,7 @@ const Home = () => {
     <>
       <HeadNav />
       <div
-        className={"flex flex-col h-screen bg-primary bg-opacity-20"}
+        className="flex flex-col bg-primary bg-opacity-20 h-screen"
         style={bg}
       >
         <div className="flex flex-col mx-20 my-20 w-96">
@@ -36,4 +36,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;

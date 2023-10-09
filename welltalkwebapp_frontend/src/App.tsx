@@ -1,33 +1,30 @@
-import { Routes, Route, useLocation, Outlet, Navigate } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
-import Home from "./pages/Home";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import About from "./pages/About";
 import Calendar from "./pages/private-pages/Calendar";
 import Register from "./pages/Register";
-// import RequireAuth from "./components/RequireAuth";
-import { Dashboard } from "./pages/private-pages/Dashboard";
-import Inbox from "./pages/private-pages/Inbox";
+import Dashboard from "./pages/private-pages/Dashboard";
 import Students from "./pages/private-pages/Students";
-import ContentOverview from "./pages/private-pages/ContentOverview";
-import Forum from "./pages/private-pages/Forum";
 import Login from "./pages/Login";
 import EmailChecker from "./pages/EmailChecker";
 import { StudentReferral } from "./pages/private-pages/StudentReferral";
 import CounselorNavs from "./components/CounselorNavs";
+import Home from "./pages/private-pages/Home";
+import Notes from "./pages/private-pages/Notes";
+import Landing from "./pages/Landing";
 
 const routeToTitle: { [key: string]: string } = {
-  "/": "Home",
-  "/about": "About",
-  "/login": "Login",
-  "/register": "Create an Account",
-  "/dashboard": "Dashboard",
-  "/inbox": "Inbox",
-  "/students": "Students",
-  "/content-overview": "Content Overview",
-  "/calendar": "Calendar",
-  "/forum": "Forum",
-  "/email-verification": "Email Verification",
-  "/student-referral": "Student Referral",
+  "/": " ",
+  "/about": " ",
+  "/login": "| Login",
+  "/register": "| Create an Account",
+  "/home": "| Home",
+  "/dashboard": "| Dashboard",
+  "/students": "| Students",
+  "/calendar": "| Calendar",
+  "/notes": "| Notes",
+  "/email-verification": "| Email Verification",
+  "/student-referral": "| Student Referral",
 };
 
 type Props = {};
@@ -40,7 +37,7 @@ function App() {
     const currentRoute = location.pathname;
 
     // Set the document title based on the current route
-    document.title = `WellTalk |  ${
+    document.title = `WellTalk  ${
       routeToTitle[currentRoute] || "Page Not Found"
     }`;
   }, [location]);
@@ -50,7 +47,7 @@ function App() {
       <div className="  flex h-screen flex-col w-full">
         <Routes>
           {/* public routes */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="register" element={<Register />} />
@@ -58,19 +55,17 @@ function App() {
 
           {/* private routes */}
           <Route path="/" element={<CounselorNavs />}>
+            <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/inbox" element={<Inbox />} />
             <Route path="/students" element={<Students />} />
-            <Route path="/content-overview" element={<ContentOverview />} />
             <Route path="/calendar" element={<Calendar />} />
-            <Route path="/forum" element={<Forum />} />
+            <Route path="/notes" element={<Notes />} />
           </Route>
-          <Route path="student-referral" element={<StudentReferral />} />
+          <Route path="/student-referral" element={<StudentReferral />} />
 
           {/* displayed when navigated to unknown endpoint */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <Outlet />
       </div>
     </>
   );

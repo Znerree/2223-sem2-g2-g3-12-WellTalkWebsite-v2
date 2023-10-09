@@ -70,7 +70,7 @@ const Login = () => {
       console.log(localStorage.getItem("user"));
 
       if (userType === "Counselor") {
-        navigate("/dashboard");
+        navigate("/home");
       } else {
         navigate("/student-referral");
       }

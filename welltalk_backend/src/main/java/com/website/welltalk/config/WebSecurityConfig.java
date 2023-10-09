@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // What to do during authentication
     @Bean
-    public JwtAuthenticate jwtAuthenticationEntryPointBean() throws Exception{
+    public JwtAuthenticate jwtAuthenticationEntryPointBean() throws Exception {
         return new JwtAuthenticate();
     }
 
@@ -63,13 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-
         httpSecurity.cors().and().csrf().disable()
 
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
-                .antMatchers(HttpMethod.POST,"/send-otp").permitAll()
-                .antMatchers(HttpMethod.POST,"/users/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/send-otp").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/register").permitAll()
                 .antMatchers("/referrals").permitAll()
                 .antMatchers("/students").permitAll()
                 .antMatchers("/counselors").permitAll()
@@ -79,6 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/username/{username}").permitAll()
                 .antMatchers(HttpMethod.GET, "/appointments").permitAll()
                 .antMatchers(HttpMethod.GET, "/teachers/{teacherid}").permitAll()
+                .antMatchers(HttpMethod.GET, "/referrals/teachers").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/{studentid}").permitAll()
                 .antMatchers(HttpMethod.PUT, "/referrals/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").permitAll()

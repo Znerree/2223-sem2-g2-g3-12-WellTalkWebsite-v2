@@ -15,24 +15,31 @@ public class ReferralController {
     ReferralService referralService;
 
     @PostMapping(value = "/referrals")
-    public ResponseEntity<Object> createReferral(@RequestParam(value = "student") Long studentid, @RequestParam(value = "teacher") Long teacherid, @RequestBody Referral referral){
+    public ResponseEntity<Object> createReferral(@RequestParam(value = "student") Long studentid,
+            @RequestParam(value = "teacher") Long teacherid, @RequestBody Referral referral) {
         referralService.createReferral(studentid, teacherid, referral);
 
         return new ResponseEntity<>("Referral created successfully", HttpStatus.OK);
     }
 
     @GetMapping(value = "/referrals")
-    public ResponseEntity<Object> getReferrals(){
+    public ResponseEntity<Object> getReferrals() {
         return new ResponseEntity<>(referralService.getReferrals(), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/referrals/teachers")
+    public ResponseEntity<Object> getReferralsByTeacher(@RequestParam("teacherid") Long teacherId) {
+        return new ResponseEntity<>(referralService.getReferralsByTeacher(teacherId), HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/referrals/{id}")
-    public ResponseEntity<Object> deleteReferral(@PathVariable("id") Long id){
+    public ResponseEntity<Object> deleteReferral(@PathVariable("id") Long id) {
         referralService.deleteReferral(id);
         return new ResponseEntity<>("Referral deleted successfully", HttpStatus.OK);
     }
 
     @PutMapping(value = "/referrals/{id}")
-    public ResponseEntity<Object> updateReferral(@PathVariable("id") Long id){
+    public ResponseEntity<Object> updateReferral(@PathVariable("id") Long id) {
         referralService.updateReferral(id);
         return new ResponseEntity<>("Referral updated successfully", HttpStatus.OK);
     }

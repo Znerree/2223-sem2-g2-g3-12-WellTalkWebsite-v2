@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+
 @Service
 public class ReferralService {
 
@@ -23,13 +24,12 @@ public class ReferralService {
     @Autowired
     private StudentRepository studentRepository;
 
-
     public void createReferral(Long studentid, Long teacherid, Referral referral) {
         Student student = studentRepository.findById(studentid).get();
         Teacher teacher = teacherRepository.findById(teacherid).get();
-      
+
         Referral newReferral = new Referral();
-        
+
         newReferral.setReason(referral.getReason());
         newReferral.setStudent(student);
         newReferral.setTeacher(teacher);
@@ -41,6 +41,11 @@ public class ReferralService {
 
     public Iterable<Referral> getReferrals() {
         return referralRepository.findAll();
+    }
+
+    public Iterable<Referral> getReferralsByTeacher(Long teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId).get();
+        return referralRepository.findAllByTeacher(teacher);
     }
 
     public ResponseEntity deleteReferral(Long id) {

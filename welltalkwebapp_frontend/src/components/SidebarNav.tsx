@@ -1,29 +1,24 @@
 import { useState, useEffect } from "react";
 import { IoNotifications, IoSettingsSharp } from "react-icons/io5";
-import {
-  BiSolidDashboard,
-  BiSolidInbox,
-  BiSolidBookContent,
-  BiSolidCalendar,
-} from "react-icons/bi";
+import { BiSolidDashboard, BiSolidCalendar } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
-import { MdForum } from "react-icons/md";
+import { FaNoteSticky } from "react-icons/fa6";
+import { FaHome } from "react-icons/fa";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import axios from "../api/axios";
 
 const SidebarNav = () => {
   //sidebar navs (names, icons, paths)
   let navs = [
-    { icon: <BiSolidDashboard />, name: "Dashboard", path: "/dashboard" },
-    { icon: <BiSolidInbox />, name: "Inbox", path: "/inbox" },
-    { icon: <BsPeopleFill />, name: "Students", path: "/students" },
     {
-      icon: <BiSolidBookContent />,
-      name: "Content Overview",
-      path: "/content-overview",
+      icon: <FaHome />,
+      name: "Home",
+      path: "/home",
     },
+    { icon: <BiSolidDashboard />, name: "Dashboard", path: "/dashboard" },
+    { icon: <BsPeopleFill />, name: "Students", path: "/students" },
     { icon: <BiSolidCalendar />, name: "Calendar", path: "/calendar" },
-    { icon: <MdForum />, name: "Forum", path: "/forum" },
+    { icon: <FaNoteSticky />, name: "Notes", path: "/notes" },
   ];
 
   const location = useLocation();

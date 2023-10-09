@@ -20,10 +20,7 @@ const ReferralHeader = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         closeDropdown();
       }
     };
@@ -54,19 +51,10 @@ const ReferralHeader = () => {
       <div className="w-full flex justify-between">
         <h1>{""}</h1>
         <div className="py-4 px-6 flex gap-2 items-center relative">
-          <RiArrowDropDownLine
-            className="text-secondary h-8 w-8 hover:text-primary cursor-pointer"
-            onClick={toggleDropdown}
-          />
+          <RiArrowDropDownLine className="text-secondary h-8 w-8 hover:text-primary cursor-pointer" onClick={toggleDropdown} />
           {isDropdownOpen && (
-            <div
-              ref={dropdownRef}
-              className="absolute mt-14 right-0 bg-white border border-gray-300 rounded-lg shadow-md mx-6"
-            >
-              <button
-                className="block px-4 py-1 rounded-lg w-full text-sm text-secondary hover:bg-primary hover:text-white"
-                onClick={handleLogout}
-              >
+            <div ref={dropdownRef} className="absolute mt-14 right-0 bg-white border border-gray-300 rounded-lg shadow-md mx-6">
+              <button className="block px-4 py-1 rounded-lg w-full text-sm text-secondary hover:bg-primary hover:text-white" onClick={handleLogout}>
                 Logout
               </button>
             </div>

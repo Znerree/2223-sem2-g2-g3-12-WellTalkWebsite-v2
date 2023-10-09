@@ -37,10 +37,10 @@ const Students = () => {
 
   return (
     <>
-      <div className=" ml-72 top-20 absolute">
+      <div className=" ml-72 top-20 absolute flex">
         <h1 className=" font-semibold">Students</h1>
-        <div className=" w-ful">
-          <table className=" mt-4">
+        <div className=" w-full">
+          <table className=" mt-10">
             <thead className=" text-center">
               <tr>
                 <th className=" py-3 px-4">Student ID</th>

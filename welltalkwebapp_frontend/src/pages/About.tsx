@@ -13,7 +13,7 @@ const About = () => {
     <>
       <HeadNav />
       <div
-        className={"flex flex-col h-screen bg-primary bg-opacity-20"}
+        className="flex flex-col h-screen bg-primary bg-opacity-20"
         style={bg}
       >
         <h1>About</h1>

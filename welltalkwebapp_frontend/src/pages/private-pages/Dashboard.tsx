@@ -1,4 +1,4 @@
-export const Dashboard = () => {
+const Dashboard = () => {
   return (
     <>
       <div className="ml-72 top-20 absolute">
@@ -7,3 +7,5 @@ export const Dashboard = () => {
     </>
   );
 };
+
+export default Dashboard;
