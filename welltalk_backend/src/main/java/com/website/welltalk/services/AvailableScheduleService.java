@@ -10,8 +10,6 @@ import com.website.welltalk.models.AvailableSchedule;
 import com.website.welltalk.repositories.AvailableScheduleRepository;
 import com.website.welltalk.repositories.CounselorRepository;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AvailableScheduleService {

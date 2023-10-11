@@ -2,12 +2,8 @@ package com.website.welltalk.controllers;
 
 import com.website.welltalk.exceptions.UserException;
 import com.website.welltalk.models.Counselor;
-import com.website.welltalk.models.Student;
 import com.website.welltalk.models.Teacher;
 import com.website.welltalk.models.User;
-import com.website.welltalk.repositories.CounselorRepository;
-import com.website.welltalk.services.CounselorService;
-import com.website.welltalk.services.TeacherService;
 import com.website.welltalk.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -70,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/send-otp").permitAll()
                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
                 .antMatchers("/referrals").permitAll()
+                .antMatchers("/posts").permitAll()
                 .antMatchers("/students").permitAll()
                 .antMatchers("/counselors").permitAll()
                 .antMatchers("/teachers").permitAll()

@@ -1,15 +1,11 @@
 package com.website.welltalk.services;
 
 import com.website.welltalk.repositories.UserRepository;
-import com.website.welltalk.models.Counselor;
-import com.website.welltalk.models.Teacher;
 import com.website.welltalk.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.Optional;
 
 @Service

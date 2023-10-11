@@ -2,7 +2,6 @@ package com.website.welltalk.models;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.website.welltalk.models.Counselor;
 
 @Entity
 @Table(name = "available_schedules")
