@@ -1,5 +1,7 @@
 package com.website.welltalk.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.website.welltalk.models.Post;
 import com.website.welltalk.services.PostService;
 
@@ -29,9 +34,24 @@ public class PostController {
     // @RequestBody
     // ResponseEntity represents the whole HTTP response: status code, headers and
     // body.
-    @RequestMapping(value="/posts", method = RequestMethod.POST)
-    public ResponseEntity<Object> createPost(@RequestHeader(value="Authorization") String stringToken, @RequestBody Post post) {
+
+    //this method is used when the user chooses to post w/o a photo
+    @RequestMapping(value = "/posts", method = RequestMethod.POST)
+    public ResponseEntity<Object> createPost(@RequestHeader(value = "Authorization") String stringToken,
+            @RequestBody Post post) {
         postService.createPost(stringToken, post);
+        return new ResponseEntity<>("Post created successfully", HttpStatus.CREATED);
+    }
+
+    //this method is used when the user chooses to post w/ a photo 
+    @RequestMapping(value = "/posts/photo", method = RequestMethod.POST)
+    public ResponseEntity<Object> createPost(
+            @RequestHeader(value = "Authorization") String stringToken,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("photoData") MultipartFile photoData) throws IOException {
+
+        postService.createPost(stringToken, title, content, photoData);
         return new ResponseEntity<>("Post created successfully", HttpStatus.CREATED);
     }
 

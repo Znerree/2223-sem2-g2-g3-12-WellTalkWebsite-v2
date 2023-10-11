@@ -1,9 +1,12 @@
 package com.website.welltalk.services;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.website.welltalk.config.JwtToken;
 import com.website.welltalk.models.Counselor;
@@ -37,13 +40,16 @@ public class PostService {
     }  
 
     // Create post with photo
-    public void createPost(String stringToken, Post post, byte[] photoData) {
+    public void createPost(String stringToken, String title, String content, MultipartFile photoData) throws IOException {
         Counselor counselor = counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
         Post newPost = new Post();
-        newPost.setTitle(post.getTitle());
-        newPost.setContent(post.getContent());
+        newPost.setTitle(title);
+        newPost.setContent(content);
         newPost.setCounselor(counselor);
-        newPost.setPhotoContent(photoData);
+
+        //sets the photo content to the byte array of the photoData
+        newPost.setPhotoContent(photoData.getBytes());
+
         postRepository.save(newPost);
     }
 
