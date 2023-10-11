@@ -35,7 +35,7 @@ public class PostController {
     // ResponseEntity represents the whole HTTP response: status code, headers and
     // body.
 
-    //this method is used when the user chooses to post w/o a photo
+    // this method is used when the user chooses to post w/o a photo
     @RequestMapping(value = "/posts", method = RequestMethod.POST)
     public ResponseEntity<Object> createPost(@RequestHeader(value = "Authorization") String stringToken,
             @RequestBody Post post) {
@@ -43,13 +43,18 @@ public class PostController {
         return new ResponseEntity<>("Post created successfully", HttpStatus.CREATED);
     }
 
-    //this method is used when the user chooses to post w/ a photo 
+    // this method is used when the user chooses to post w/ a photo
     @RequestMapping(value = "/posts/photo", method = RequestMethod.POST)
     public ResponseEntity<Object> createPost(
             @RequestHeader(value = "Authorization") String stringToken,
             @RequestParam("title") String title,
             @RequestParam("content") String content,
             @RequestParam("photoData") MultipartFile photoData) throws IOException {
+
+        String contentType = photoData.getContentType();
+        if (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) {
+            return new ResponseEntity<>("Only PNG and JPG images are supported", HttpStatus.BAD_REQUEST);
+        }
 
         postService.createPost(stringToken, title, content, photoData);
         return new ResponseEntity<>("Post created successfully", HttpStatus.CREATED);
