@@ -126,7 +126,7 @@ export const StudentReferral = () => {
     const fetchReferrals = async () => {
       try {
         const response = await axios.get(`/referrals/teachers?teacherid=${referrer.id}`);
-        console.log(response.data);
+        //console.log(response.data);
         setReferrals(response.data);
       } catch (error) {
         console.log(error);
@@ -150,8 +150,8 @@ export const StudentReferral = () => {
         </button>
       </div>
       {showListofReferrals && (
-        <div className=" w-full h-screen absolute bg-black bg-opacity-20 flex items-center justify-center">
-          <div className=" bg-white w-96 h-[500px] rounded-lg flex flex-col">
+        <div className=" w-full h-screen overflow-y-auto absolute bg-black bg-opacity-20 flex items-center justify-center">
+          <div className=" bg-white w-96 h-[500px] overflow-y-auto rounded-lg flex flex-col">
             <span className=" flex justify-between w-full py-2">
               <h1>{""}</h1>
               <AiOutlineClose className=" cursor-pointer mr-3 mt-3 hover:text-primary" onClick={closeListOfReferrals} />

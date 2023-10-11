@@ -92,13 +92,13 @@ const ReferredStudents = () => {
   };
 
   const handleAcceptConfirmation = () => {
-    const config = {
-      headers: { Authorization: `${localStorage.getItem("token")}` },
-    };
     axios
-    .put(`/referrals/${selectedReferral?.id}`, config)
+    .put(`/referrals/${selectedReferral?.id}`, {}, {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    })
     .then((response) => {
       console.log('Referral updated successfully', response.data);
+      window.location.reload();
     })
     .catch((error) => {
       console.error('Error updating referral:', error);
