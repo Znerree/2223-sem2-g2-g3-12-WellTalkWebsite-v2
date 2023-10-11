@@ -179,7 +179,7 @@ const Home = () => {
 
           {showPostForm && (
             <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
-              <div className="w-[550px] bg-white p-3 rounded-lg flex flex-col gap-3 relative">
+              <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
                 <button onClick={handleClosePostForm} className="text-tertiary hover:text-primary text-xl px-4 py-2 absolute top-0 right-0">
                   <IoMdClose />
                 </button>
