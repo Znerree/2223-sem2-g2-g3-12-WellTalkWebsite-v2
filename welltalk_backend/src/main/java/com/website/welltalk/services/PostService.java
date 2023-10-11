@@ -34,7 +34,7 @@ public class PostService {
         newPost.setContent(post.getContent());
         newPost.setCounselor(counselor);
         postRepository.save(newPost);
-    }
+    }  
 
     // Create post with photo
     public void createPost(String stringToken, Post post, byte[] photoData) {

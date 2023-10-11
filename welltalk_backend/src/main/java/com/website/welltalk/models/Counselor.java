@@ -22,6 +22,10 @@ public class Counselor extends User {
     @JsonIgnore
     private Set<Post> posts;
 
+    @OneToMany(mappedBy = "counselor")
+    @JsonIgnore
+    private Set<Notes> notes;
+
 
     //default constructor
     public Counselor() {
@@ -43,5 +47,13 @@ public class Counselor extends User {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<Notes> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<Notes> notes) {
+        this.notes = notes;
     }
 }
