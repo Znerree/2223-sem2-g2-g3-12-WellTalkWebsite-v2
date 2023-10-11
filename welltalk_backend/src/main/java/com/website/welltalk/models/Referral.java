@@ -19,6 +19,10 @@ public class Referral {
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
+
+    @ManyToOne
+    @JoinColumn(name = "counselor_id", nullable = true, columnDefinition = "BIGINT DEFAULT 0")
+    private Counselor counselor;
     
     @Column
     private String reason;
@@ -51,6 +55,14 @@ public class Referral {
     // Getter and Setter for teacher
     public Teacher getTeacher() {
         return teacher;
+    }
+
+    public Counselor getCounselor() {
+        return counselor;
+    }
+
+    public void setCounselor(Counselor counselor) {
+        this.counselor = counselor;
     }
 
     public void setTeacher(Teacher teacher) {

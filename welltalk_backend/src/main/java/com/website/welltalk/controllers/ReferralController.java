@@ -39,8 +39,8 @@ public class ReferralController {
     }
 
     @PutMapping(value = "/referrals/{id}")
-    public ResponseEntity<Object> updateReferral(@PathVariable("id") Long id) {
-        referralService.updateReferral(id);
+    public ResponseEntity<Object> updateReferral(@RequestHeader(value="Authorization") String stringToken, @PathVariable("id") Long id) {
+        referralService.updateReferral( stringToken, id);
         return new ResponseEntity<>("Referral updated successfully", HttpStatus.OK);
     }
 }

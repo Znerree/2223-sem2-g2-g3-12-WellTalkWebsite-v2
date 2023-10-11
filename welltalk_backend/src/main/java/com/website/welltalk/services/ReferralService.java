@@ -1,8 +1,11 @@
 package com.website.welltalk.services;
 
+import com.website.welltalk.config.JwtToken;
+import com.website.welltalk.models.Counselor;
 import com.website.welltalk.models.Referral;
 import com.website.welltalk.models.Student;
 import com.website.welltalk.models.Teacher;
+import com.website.welltalk.repositories.CounselorRepository;
 import com.website.welltalk.repositories.ReferralRepository;
 import com.website.welltalk.repositories.StudentRepository;
 import com.website.welltalk.repositories.TeacherRepository;
@@ -21,6 +24,10 @@ public class ReferralService {
     private TeacherRepository teacherRepository;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private CounselorRepository counselorRepository;
+    @Autowired
+    JwtToken jwtToken;
 
     public void createReferral(Long studentid, Long teacherid, Referral referral) {
         Student student = studentRepository.findById(studentid).get();
@@ -51,10 +58,12 @@ public class ReferralService {
         return new ResponseEntity<>("Referral deleted succesfully", HttpStatus.OK);
     }
 
-    public ResponseEntity updateReferral(Long id) {
+    public ResponseEntity updateReferral(String stringToken, Long id) {
         Referral referralForUpdating = referralRepository.findById(id).get();
+        Counselor counselor = counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
 
         referralForUpdating.setIsAccepted(true);
+        referralForUpdating.setCounselor(counselor);
 
         referralRepository.save(referralForUpdating);
         return new ResponseEntity<>("Referral updated successfully", HttpStatus.OK);
