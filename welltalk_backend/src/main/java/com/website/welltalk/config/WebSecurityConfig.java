@@ -71,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
                 .antMatchers("/referrals").permitAll()
                 .antMatchers("/posts").permitAll()
+                .antMatchers(HttpMethod.POST, "/notes").permitAll()
                 .antMatchers("/students").permitAll()
                 .antMatchers("/counselors").permitAll()
                 .antMatchers("/teachers").permitAll()
