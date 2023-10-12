@@ -79,7 +79,7 @@ const Calendar = () => {
                 </button>
               </div>
               {showResultsDropdown && query && (
-                <ul className="max-h-60 overflow-y-auto absolute bg-white border border-gray-300 rounded-b-md">
+                <ul className="max-h-60 overflow-y-auto absolute w-full max-w-[250px] bg-white border border-gray-300 rounded-b-md">
                   {results.map((student) => (
                     <li
                       className=" w-full border p-2 cursor-pointer hover:bg-gray-100"

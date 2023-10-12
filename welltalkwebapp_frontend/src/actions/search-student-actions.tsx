@@ -50,7 +50,7 @@ const useStudentSearch = () => {
     setValue(inputValue);
     setQuery(inputValue);
     const filteredStudents = students.filter(
-      (student) => student.firstname.toLowerCase().includes(inputValue.toLowerCase()) || student.lastname.toLowerCase().startsWith(inputValue.toLowerCase())
+      (student) => student.firstname.toLowerCase().includes(inputValue.toLowerCase()) || student.lastname.toLowerCase().includes(inputValue.toLowerCase())
     );
     setResults(filteredStudents);
     setShowResultsDropdown(filteredStudents.length > 0);
