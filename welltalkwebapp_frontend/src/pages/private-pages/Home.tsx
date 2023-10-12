@@ -112,22 +112,37 @@ const Home = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    //formData is used for posting with photos
     const formData = new FormData();
     formData.append("title", newPost.title);
     formData.append("content", newPost.content);
     formData.append("photoData", newPost.photoData);
+    console.log(newPost.photoData);
 
+    //body is used for posting without photos
+    const body = {
+      title: newPost.title,
+      content: newPost.content,
+    };
+
+    //headers is used for authorization
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
     try {
-      const response = await axios.post("/posts/photo", formData, config);
-      console.log(response);
-      setNewPost({
-        title: "",
-        content: "",
-        photoData: new File([], ""),
-      });
+      if (newPost.photoData.name === "") {
+        const response = await axios.post("/posts", body, config);
+        console.log(response);
+      } else {
+        const response = await axios.post("/posts/photo", formData, config);
+        console.log(response);
+        setNewPost({
+          title: "",
+          content: "",
+          photoData: new File([], ""),
+        });
+      }
       alert("Post created!");
       window.location.reload();
     } catch (err) {
