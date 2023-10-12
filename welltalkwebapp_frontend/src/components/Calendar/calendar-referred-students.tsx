@@ -67,6 +67,7 @@ const ReferredStudents = () => {
   const [referrals, setReferrals] = useState<Referral[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false); // Declare isModalOpen here
   const [selectedReferral, setSelectedReferral] = useState<Referral | null>();
+  const [refresher, setRefresher] = useState(0);
 
   const navigate = useNavigate();
 
@@ -80,7 +81,7 @@ const ReferredStudents = () => {
       .catch((error) => {
         console.error("Error retrieving referrals:", error);
       });
-  }, []);
+  }, [refresher]);
 
   const handleAcceptClick = (referral: Referral) => { 
     setSelectedReferral(referral);
@@ -98,7 +99,8 @@ const ReferredStudents = () => {
     })
     .then((response) => {
       console.log('Referral updated successfully', response.data);
-      window.location.reload();
+      setRefresher(Math.random());
+      setIsModalOpen(false);
     })
     .catch((error) => {
       console.error('Error updating referral:', error);

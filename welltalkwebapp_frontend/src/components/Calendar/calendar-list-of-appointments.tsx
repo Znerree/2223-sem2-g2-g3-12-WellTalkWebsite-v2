@@ -36,6 +36,8 @@ const ListOfAppointments = () => {
   const [isTodayDropdownOpen, setTodayDropdownOpen] = useState(false);
   const [isUpcomingDropdownOpen, setUpcomingDropdownOpen] = useState(false);
 
+  const [refresher, setRefresher] = useState(0);
+
   useEffect(() => {
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
@@ -51,7 +53,7 @@ const ListOfAppointments = () => {
       .catch((error) => {
         console.error("Error retrieving appointments:", error);
       });
-  }, []);
+  }, [refresher]);
 
   const today = new Date().toLocaleDateString();
 
@@ -72,7 +74,7 @@ const ListOfAppointments = () => {
     axios
       .put(`/appointments/${id}`, { isDone: true }, config)
       .then((response) => {
-        window.location.reload();
+        setRefresher(Math.random());
         console.log(response.data);
       })
       .catch((error) => {

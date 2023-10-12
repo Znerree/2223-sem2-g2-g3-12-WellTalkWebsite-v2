@@ -19,6 +19,11 @@ interface Referral {
     firstName: string;
     lastName: string;
   };
+  counselor: {
+    id: number;
+    firstName: string;
+    lastName: string;
+  }
   date_referred: string;
   reason: string;
   isAccepted: boolean;
@@ -40,6 +45,7 @@ export const StudentReferral = () => {
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [showListofReferrals, setShowListOfReferrals] = useState(false);
   const [referrals, setReferrals] = useState<Referral[]>([]);
+  const [refresher, setRefresher] = useState(0);
   const acceptedReferrals = referrals.filter((referral) => referral.isAccepted);
   const pendingReferrals = referrals.filter((referral) => !referral.isAccepted);
 
@@ -105,6 +111,7 @@ export const StudentReferral = () => {
       setResults([]);
       setReason("");
       setShowOtherInput(false);
+      setRefresher(Math.random());
     } catch (error) {
       console.log(error);
     }
@@ -133,7 +140,7 @@ export const StudentReferral = () => {
       }
     };
     fetchReferrals();
-  }, [referrer.id]);
+  }, [referrer.id, refresher]);
 
   return (
     <>
@@ -168,12 +175,15 @@ export const StudentReferral = () => {
                       <h1>
                         {referral.student.firstname} {referral.student.lastname}
                       </h1>
-                      <div className=" flex justify-between">
+                      <div className=" flex justify-between ">
                         <p className=" text-xs text-gray-400">
-                          reason: <span className=" text-white">{referral.reason}</span>
+                        Counselor: <span className=" text-white italic">{referral.counselor.firstName} {referral.counselor.lastName}</span>
                         </p>
                         <p>{referral.isAccepted ? <span className=" text-green-500">Accepted</span> : <span className=" text-red-500">Pending</span>}</p>
                       </div>
+                      <p className=" text-xs text-gray-400">
+                        Reason: <span className=" text-white">{referral.reason}</span>
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -188,7 +198,7 @@ export const StudentReferral = () => {
                       </h1>
                       <div className=" flex justify-between">
                         <p className=" text-xs text-gray-400">
-                          reason: <span className=" text-white">{referral.reason}</span>
+                          Reason: <span className=" text-white">{referral.reason}</span>
                         </p>
                         <p>{referral.isAccepted ? <span className=" text-green-500">Accepted</span> : <span className=" text-red-500">Pending</span>}</p>
                       </div>

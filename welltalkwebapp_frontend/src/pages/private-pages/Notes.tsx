@@ -28,6 +28,7 @@ const Notes = () => {
     title: "",
     content: "",
   });
+  const [refresher, setRefresher] = useState(0);
 
   //fetch user notes
   const fetchCurrentUserNotes = async () => {
@@ -48,7 +49,7 @@ const Notes = () => {
 
   useEffect(() => {
     fetchCurrentUserNotes();
-  }, []);
+  }, [refresher]);
 
   const handleNoteClick = (noteId: number) => {
     setClickedNoteId(noteId);
@@ -75,7 +76,7 @@ const Notes = () => {
     try {
       await axios.post("/notes", newNote, config);
       alert("Note created successfully");
-      window.location.reload();
+      setRefresher(Math.random());
       setNewNote(newNote);
       console.log(newNote);
     } catch (error) {
