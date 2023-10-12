@@ -338,9 +338,13 @@ const Home = () => {
                     </h1>
                   </div>
                   <h2 className=" font-semibold mt-2">{post.title}</h2>
-                  <p className=" mt-3">{post.content}</p>
+                  <p className=" mt-3 text-justify">{post.content}</p>
                   {post.photoContent ? (
-                    <img src={`data:image/jpeg;base64,${post.photoContent}`} alt="Posted Image" className=" shadow mt-3 max-w-auto max-h-auto cursor-pointer" />
+                    <img
+                      src={`data:image/jpeg;base64,${post.photoContent}`}
+                      alt="Posted Image"
+                      className=" shadow mt-3 max-w-auto max-h-auto cursor-pointer rounded-md "
+                    />
                   ) : null}
                   <div className=" flex w-full justify-between items-center border-t border-b px-3 pb-2 border-gray-300 mt-3">
                     <div className=" flex items-center gap-4 mt-2">
@@ -446,9 +450,13 @@ const Home = () => {
                     </div>
                   </div>
                   <h2 className=" font-semibold mt-2">{post.title}</h2>
-                  <p className=" mt-3">{post.content}</p>
+                  <p className=" mt-3 text-justify">{post.content}</p>
                   {post.photoContent ? (
-                    <img src={`data:image/jpeg;base64,${post.photoContent}`} alt="Posted Image" className=" shadow mt-3 max-w-auto max-h-auto cursor-pointer" />
+                    <img
+                      src={`data:image/jpeg;base64,${post.photoContent}`}
+                      alt="Posted Image"
+                      className=" shadow mt-3 max-w-auto max-h-auto cursor-pointer rounded-md"
+                    />
                   ) : null}
                   <div className=" flex w-full justify-between items-center border-t border-b px-3 pb-2 border-gray-300 mt-3">
                     <div className=" flex items-center gap-4 mt-2">
