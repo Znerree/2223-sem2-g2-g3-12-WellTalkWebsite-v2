@@ -73,12 +73,31 @@ public class PostController {
         return postService.deletePost(postid, stringToken);
     }
 
-    // Update post
+    // Update post without photo
     @RequestMapping(value = "/posts/{postid}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updatePost(@PathVariable Long postid,
             @RequestHeader(value = "Authorization") String stringToken, @RequestBody Post post) {
         return postService.updatePost(postid, stringToken, post);
     }
+
+    // Update post with photo
+    @RequestMapping(value = "/posts/photo/{postid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updatePost(
+            @RequestHeader(value = "Authorization") String stringToken,
+            @PathVariable Long postid,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("photoData") MultipartFile photoData) throws IOException {
+
+        String contentType = photoData.getContentType();
+        if (!contentType.equals("image/png") && !contentType.equals("image/jpeg")) {
+            return new ResponseEntity<>("Only PNG and JPG images are supported", HttpStatus.BAD_REQUEST);
+        }
+
+        postService.updatePost(postid, stringToken, title, content, photoData);
+        return new ResponseEntity<>("Post updated!", HttpStatus.CREATED);
+    }
+
 
     // Get user posts
     @RequestMapping(value = "/myPosts", method = RequestMethod.GET)

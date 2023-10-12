@@ -37,17 +37,18 @@ public class PostService {
         newPost.setContent(post.getContent());
         newPost.setCounselor(counselor);
         postRepository.save(newPost);
-    }  
+    }
 
     // Create post with photo
-    public void createPost(String stringToken, String title, String content, MultipartFile photoData) throws IOException {
+    public void createPost(String stringToken, String title, String content, MultipartFile photoData)
+            throws IOException {
         Counselor counselor = counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
         Post newPost = new Post();
         newPost.setTitle(title);
         newPost.setContent(content);
         newPost.setCounselor(counselor);
 
-        //sets the photo content to the byte array of the photoData
+        // sets the photo content to the byte array of the photoData
         newPost.setPhotoContent(photoData.getBytes());
 
         postRepository.save(newPost);
@@ -74,7 +75,7 @@ public class PostService {
 
     }
 
-    // Update post
+    // Update post without Photo
     public ResponseEntity updatePost(Long id, String stringToken, Post post) {
 
         Post postForUpdating = postRepository.findById(id).get();
@@ -91,9 +92,29 @@ public class PostService {
         } else {
 
             return new ResponseEntity<>("You are not authorized to edit this post.", HttpStatus.UNAUTHORIZED);
-
         }
+    }
 
+    // Update post with Photo
+    public ResponseEntity updatePost(Long id, String stringToken, String title, String content,
+            MultipartFile photoData) throws IOException {
+
+        Post postForUpdating = postRepository.findById(id).get();
+        String postAuthorName = postForUpdating.getCounselor().getUsername();
+        String authenticatedUserName = jwtToken.getUsernameFromToken(stringToken);
+
+        if (authenticatedUserName.equals(postAuthorName)) {
+
+            postForUpdating.setTitle(title);
+            postForUpdating.setContent(content);
+            postForUpdating.setPhotoContent(photoData.getBytes());
+            postRepository.save(postForUpdating);
+            return new ResponseEntity<>("Post updated successfully", HttpStatus.OK);
+
+        } else {
+
+            return new ResponseEntity<>("You are not authorized to edit this post.", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     // Get counselor posts
