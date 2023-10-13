@@ -13,6 +13,7 @@ type PostsProps = {
   title: string;
   content: string;
   photoContent: string;
+  photoData: File;
   counselor: {
     id: number;
     firstName: string;
@@ -26,11 +27,17 @@ const Home = () => {
   const [activeButton, setActiveButton] = useState("all");
   const [showPostForm, setShowPostForm] = useState<boolean>(false);
   const [imageFileName, setImageFileName] = useState<string>("");
-  const [imageSrc, setImageSrc] = useState<string>("");
+  const [imageSrc, setImageSrc] = useState("");
   const [counselor, setCounselor] = useState<any>({});
   const [showPostOptions, setShowPostOptions] = useState<number | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditForm, setShowEditForm] = useState<boolean>(false);
   const [newPost, setNewPost] = useState<{ title: string; content: string; photoData: File }>({
+    title: "",
+    content: "",
+    photoData: new File([], ""),
+  });
+  const [editingPost, setEditingPost] = useState<{ title: string; content: string; photoData: File }>({
     title: "",
     content: "",
     photoData: new File([], ""),
@@ -89,6 +96,33 @@ const Home = () => {
       [name]: value,
     }));
     console.log(newPost);
+  };
+
+  const handleUpdateInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setEditingPost((prevPost) => ({
+      ...prevPost,
+      [name]: value,
+    }));
+    console.log(editingPost);
+  };
+
+  const handleEditImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setEditingPost((prevPost) => ({
+        ...prevPost,
+        photoData: file,
+      }));
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageSrc = event.target?.result as string;
+        setImageSrc(imageSrc);
+      };
+      reader.readAsDataURL(file);
+      setImageFileName(file.name);
+    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,6 +242,73 @@ const Home = () => {
     }
   };
 
+  const handleOpenEditForm = (postId: number) => {
+    const post = myPost.find((post) => post.id === postId);
+    if (post) {
+      setEditingPost({
+        title: post.title,
+        content: post.content,
+        photoData: new File([], ""),
+      });
+      setShowEditForm(true);
+      console.log(post);
+    }
+  };
+
+  const handleCloseEditForm = () => {
+    setEditingPost({
+      title: "",
+      content: "",
+      photoData: new File([], ""),
+    });
+    setShowEditForm(false);
+  };
+
+  const handleEditPost = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    //formData is used for posting with photos
+    const formData = new FormData();
+    formData.append("title", editingPost.title);
+    formData.append("content", editingPost.content);
+    formData.append("photoData", editingPost.photoData);
+    console.log(editingPost.photoData);
+
+    //body is used for posting without photos
+    const body = {
+      title: editingPost.title,
+      content: editingPost.content,
+    };
+
+    //headers is used for authorization
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+
+    try {
+      let response;
+      const postId = myPost.find((post) => post.id === showPostOptions)?.id;
+      if (editingPost?.photoData?.name === "") {
+        // Update post without photo
+        response = await axios.put(`/posts/${postId}`, body, config);
+      } else {
+        // Update post with photo
+        response = await axios.put(`/posts/photo/${postId}`, formData, config);
+        console.log(response);
+        setEditingPost({
+          title: "",
+          content: "",
+          photoData: new File([], ""),
+        });
+      }
+      console.log(response);
+      alert("Post updated!");
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <div className=" ml-72 top-20 absolute flex flex-col">
@@ -241,7 +342,8 @@ const Home = () => {
               Add new Post
             </button>
           </div>
-          {/* <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center"> */}
+
+          {/* Conditionally displays the form to create a new post */}
           {showPostForm && (
             <div className="fixed inset-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-10">
               <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
@@ -292,6 +394,7 @@ const Home = () => {
             </div>
           )}
 
+          {/* Conditionally displays all the posts */}
           {activeButton === "all" && (
             <div className=" pr-3 w-full flex flex-col items-center gap-4 h-[550px] scroll-smooth overflow-auto border-t-2 py-2 bg-gray-50">
               <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-[600px]">
@@ -340,6 +443,8 @@ const Home = () => {
               ))}
             </div>
           )}
+
+          {/* Conditionally displays the user's posts */}
           {activeButton === "my" && (
             <div className=" pr-3 w-full flex flex-col items-center gap-4 h-[550px] scroll-smooth overflow-auto border-t-2 py-2 bg-gray-50">
               <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-[600px]">
@@ -367,20 +472,77 @@ const Home = () => {
                       <HiOutlineDotsHorizontal onClick={() => handleOpenOptions(post.id)} className="text-gray-500 cursor-pointer" />
                       {showPostOptions === post.id && (
                         <div ref={postOptionsRef} key={post.id} className="absolute right-0 top-5 bg-white shadow border rounded-md px-2 py-2">
-                          <div className="text-sm text-tertiary cursor-pointer flex items-center gap-1 p-1 mb-2 rounded-lg hover:bg-blue-500 hover:text-white">
+                          <div className="text-sm text-tertiary cursor-pointer flex items-center gap-1 p-1 mb-2 rounded-lg border-inherit hover:bg-blue-500 hover:text-white">
                             <MdOutlineModeEdit size={15} />
-                            <span className=" flex gap-1">
+                            <p onClick={() => handleOpenEditForm(post.id)} className=" flex gap-1">
                               <span>Edit</span>
                               <span>post</span>
-                            </span>
+                            </p>
                           </div>
+
+                          {/* Conditionally displays the form to update post */}
+                          {showEditForm && post.id && (
+                            <div key={post.id} className="fixed inset-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-10">
+                              <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
+                                <button onClick={handleCloseEditForm} className="text-tertiary hover:text-primary text-xl px-4 py-2 absolute top-0 right-0">
+                                  <IoMdClose />
+                                </button>
+                                <p className="text-xl font-bold text-center py-4">Update post</p>
+                                <form onSubmit={handleEditPost}>
+                                  <input
+                                    type="text"
+                                    name="title"
+                                    value={editingPost.title}
+                                    onChange={handleUpdateInputChange}
+                                    className="w-full border-secondary border-2 rounded-md p-2 mb-2 outline-none"
+                                    placeholder="Title"
+                                    required
+                                  />
+                                  <textarea
+                                    name="content"
+                                    value={editingPost.content}
+                                    onChange={handleUpdateInputChange}
+                                    className="w-full border-secondary border-2 resize-none rounded-md p-2 mb-2 outline-none"
+                                    rows={4}
+                                    required
+                                  />
+                                  <div className="flex justify-between">
+                                    <label
+                                      htmlFor="imageUpload"
+                                      className="cursor-pointer border-secondary border-2 rounded-md p-2 text-sm outline-none flex items-center gap-1 text-tertiary"
+                                    >
+                                      <RiImageAddFill />
+                                      {imageSrc ? imageFileName : "Upload an Image"}
+                                    </label>
+                                    <input id="imageUpload" type="file" name="photoData" className="hidden" onChange={handleEditImageUpload} />
+                                  </div>
+                                  <div className="mt-2">
+                                    <img
+                                      src={imageSrc ? imageSrc : `data:image/jpeg;base64,${post.photoContent}`}
+                                      alt="Uploaded Image"
+                                      className="max-w-auto max-h-auto cursor-pointer"
+                                      onChange={() => window.location.reload()}
+                                      onClick={handleImageClick}
+                                    />
+                                  </div>
+
+                                  <button type="submit" className=" mt-5 rounded-full w-full bg-secondary border-inherit text-white p-2 outline-none">
+                                    Update
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          )}
+
                           <p className="w-full border"></p>
-                          <div className="text-sm text-tertiary flex items-center gap-1 p-1 mt-2 rounded-lg hover:bg-red-500 hover:text-white">
+                          <div className=" cursor-pointer text-sm text-tertiary flex items-center gap-1 p-1 mt-2 rounded-lg hover:bg-red-500 hover:text-white">
                             <RiDeleteBin5Line size={15} />
                             <p onClick={() => handleOpenConfirmDelete(post.id)} className=" flex gap-1">
                               <span>Delete</span>
                               <span>post</span>
                             </p>
+
+                            {/* Conditionally displays the delete confirmation modal */}
                             {showDeleteModal && (
                               <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center z-10">
                                 <div className="bg-white rounded-lg p-4 flex flex-col">
