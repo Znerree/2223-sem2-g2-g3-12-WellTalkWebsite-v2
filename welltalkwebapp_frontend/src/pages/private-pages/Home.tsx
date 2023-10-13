@@ -243,7 +243,7 @@ const Home = () => {
           </div>
           {/* <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center"> */}
           {showPostForm && (
-            <div className="fixed inset-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70">
+            <div className="fixed inset-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-10">
               <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
                 <button onClick={handleClosePostForm} className="text-tertiary hover:text-primary text-xl px-4 py-2 absolute top-0 right-0">
                   <IoMdClose />
@@ -375,14 +375,14 @@ const Home = () => {
                             </span>
                           </div>
                           <p className="w-full border"></p>
-                          <div className="text-sm text-tertiary cursor-pointer flex items-center gap-1 p-1 mt-2 rounded-lg hover:bg-red-500 hover:text-white">
+                          <div className="text-sm text-tertiary flex items-center gap-1 p-1 mt-2 rounded-lg hover:bg-red-500 hover:text-white">
                             <RiDeleteBin5Line size={15} />
                             <p onClick={() => handleOpenConfirmDelete(post.id)} className=" flex gap-1">
                               <span>Delete</span>
                               <span>post</span>
                             </p>
                             {showDeleteModal && (
-                              <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center">
+                              <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center z-10">
                                 <div className="bg-white rounded-lg p-4 flex flex-col">
                                   <h1 className=" text-black font-semibold text-lg">Delete</h1>
                                   <p className=" text-gray-500  border-t border-b py-4 px-1 my-3">Are you sure you want to delete this post?</p>
