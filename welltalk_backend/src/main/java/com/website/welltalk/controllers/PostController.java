@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -97,7 +96,6 @@ public class PostController {
         postService.updatePost(postid, stringToken, title, content, photoData);
         return new ResponseEntity<>("Post updated!", HttpStatus.CREATED);
     }
-
 
     // Get user posts
     @RequestMapping(value = "/myPosts", method = RequestMethod.GET)

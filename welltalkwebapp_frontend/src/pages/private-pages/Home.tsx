@@ -6,6 +6,7 @@ import { FaRegComment } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { RiImageAddFill } from "react-icons/ri";
 import { MdPostAdd } from "react-icons/md";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
 type PostsProps = {
   id: number;
@@ -311,6 +312,7 @@ const Home = () => {
                     <h1 className=" font-bold text-md">
                       {post.counselor.firstName} {post.counselor.lastName}
                     </h1>
+                    <HiOutlineDotsHorizontal className=" text-gray-500 ml-auto cursor-pointer" />
                   </div>
                   <h2 className=" font-semibold mt-2">{post.title}</h2>
                   <p className=" mt-3 text-justify">{post.content}</p>
