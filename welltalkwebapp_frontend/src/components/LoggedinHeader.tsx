@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { AiOutlineSearch, AiFillAlert } from "react-icons/ai";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/images/logo.png";
 
 const LoggedinHeader = () => {
   // State to toggle the dropdown menu
@@ -48,11 +49,11 @@ const LoggedinHeader = () => {
 
   return (
     <>
-      <div className="w-full flex justify-between absolute">
-        <h1>{""}</h1>
-        <div className="py-4 px-6 flex gap-2 items-center relative">
+      <div className=" flex w-full items-center justify-between px-5">
+        <h1> {""} </h1>
+        <div className=" flex items-center py-4">
           <div className="relative">
-            <input name="search" className="outline-none border bg-gray-100 border-gray-300 rounded-lg h-8 pl-8 pr-2 p-2" placeholder="Search..." />
+            <input name="search" className="outline-none border bg-gray-50 border-gray-300 rounded-lg h-8 pl-8 pr-2 p-2" placeholder="Search..." />
             <div className="absolute top-0 left-2 flex items-center h-full text-gray-400">
               <AiOutlineSearch />
             </div>

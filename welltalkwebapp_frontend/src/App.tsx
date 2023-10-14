@@ -8,7 +8,6 @@ import Students from "./pages/private-pages/Students";
 import Login from "./pages/Login";
 import EmailChecker from "./pages/EmailChecker";
 import { StudentReferral } from "./pages/private-pages/StudentReferral";
-import CounselorNavs from "./components/CounselorNavs";
 import Home from "./pages/private-pages/Home";
 import Notes from "./pages/private-pages/Notes";
 import Landing from "./pages/Landing";
@@ -37,36 +36,30 @@ function App() {
     const currentRoute = location.pathname;
 
     // Set the document title based on the current route
-    document.title = `WellTalk  ${
-      routeToTitle[currentRoute] || "Page Not Found"
-    }`;
+    document.title = `WellTalk  ${routeToTitle[currentRoute] || "Page Not Found"}`;
   }, [location]);
 
   return (
     <>
-      <div className="  flex h-screen flex-col w-full">
-        <Routes>
-          {/* public routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="/email-verification" element={<EmailChecker />} />
+      <Routes>
+        {/* public routes */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="/email-verification" element={<EmailChecker />} />
 
-          {/* private routes */}
-          <Route path="/" element={<CounselorNavs />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/students" element={<Students />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/notes" element={<Notes />} />
-          </Route>
-          <Route path="/student-referral" element={<StudentReferral />} />
+        {/* private routes */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/students" element={<Students />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/student-referral" element={<StudentReferral />} />
 
-          {/* displayed when navigated to unknown endpoint */}
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </div>
+        {/* displayed when navigated to unknown endpoint */}
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
     </>
   );
 }
