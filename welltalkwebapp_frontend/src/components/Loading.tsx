@@ -10,7 +10,7 @@ export const Loading: React.FC<LoadingProps> = ({ size }) => {
       <div style={{ width: `${size}px`, height: `${size}px` }} className="animate-spin">
         <div
           className="h-full w-full border-4 border-t-primary
-       border-b-primary rounded-[50%]"
+       rounded-[50%]"
         ></div>
       </div>
       <div>
