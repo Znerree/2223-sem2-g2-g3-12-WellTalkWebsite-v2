@@ -11,6 +11,7 @@ import { StudentReferral } from "./pages/private-pages/StudentReferral";
 import Home from "./pages/private-pages/Home";
 import Notes from "./pages/private-pages/Notes";
 import Landing from "./pages/Landing";
+import CounselorLayout from "./components/CounselorLayout";
 
 const routeToTitle: { [key: string]: string } = {
   "/": " ",
@@ -25,8 +26,6 @@ const routeToTitle: { [key: string]: string } = {
   "/email-verification": "| Email Verification",
   "/student-referral": "| Student Referral",
 };
-
-type Props = {};
 
 function App() {
   const location = useLocation();

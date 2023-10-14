@@ -4,7 +4,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
-const LoggedinHeader = () => {
+const CounselorHeader = () => {
   // State to toggle the dropdown menu
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -73,4 +73,4 @@ const LoggedinHeader = () => {
   );
 };
 
-export default LoggedinHeader;
+export default CounselorHeader;

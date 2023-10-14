@@ -8,6 +8,7 @@ import { RiDeleteBin5Line, RiImageAddFill } from "react-icons/ri";
 import { MdOutlineModeEdit, MdPostAdd } from "react-icons/md";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import CounselorLayout from "@/components/CounselorLayout";
+import useFetchUser from "@/hooks/useFetchUser";
 
 type PostsProps = {
   id: number;
@@ -29,7 +30,6 @@ const Home = () => {
   const [showPostForm, setShowPostForm] = useState<boolean>(false);
   const [imageFileName, setImageFileName] = useState<string>("");
   const [imageSrc, setImageSrc] = useState("");
-  const [counselor, setCounselor] = useState<any>({});
   const [showPostOptions, setShowPostOptions] = useState<number | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
@@ -46,15 +46,7 @@ const Home = () => {
 
   const postOptionsRef = useRef<HTMLDivElement>(null);
 
-  const getCounselor = async () => {
-    try {
-      const username = localStorage.getItem("user");
-      const response = await axios.get(`/users/username/${username}`);
-      setCounselor(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const { user } = useFetchUser();
 
   const getAllPosts = async () => {
     try {
@@ -87,7 +79,6 @@ const Home = () => {
     } else {
       getMyPosts();
     }
-    getCounselor();
   }, [activeButton]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -369,7 +360,7 @@ const Home = () => {
                   value={newPost.content}
                   onChange={handleInputChange}
                   className="w-full border-secondary border-2 resize-none rounded-md p-2 mb-2 outline-none"
-                  placeholder={"What do you want to post today, " + counselor.firstName + "?"}
+                  placeholder={"What do you want to post today, " + user?.firstName + "?"}
                   rows={4}
                   required
                 />

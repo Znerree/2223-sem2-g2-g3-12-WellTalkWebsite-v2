@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
-const HomeNav = () => {
+const LandingHeader = () => {
   let navs = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
@@ -27,11 +27,7 @@ const HomeNav = () => {
           {navs.map((nav, index) => (
             <Link
               key={index}
-              className={
-                active == index
-                  ? " mx-3 text-primary hover:text-primary"
-                  : " mx-3 hover:text-primary"
-              }
+              className={active == index ? " mx-3 text-primary hover:text-primary" : " mx-3 hover:text-primary"}
               to={nav.path}
               onClick={() => {
                 setActive(index);
@@ -40,16 +36,10 @@ const HomeNav = () => {
               {nav.name}
             </Link>
           ))}
-          <Link
-            to="/login"
-            className=" text-center w-16 h-10 border border-primary text-primary rounded-md p-2 hover:shadow-primary hover:shadow"
-          >
+          <Link to="/login" className=" text-center w-16 h-10 border border-primary text-primary rounded-md p-2 hover:shadow-primary hover:shadow">
             Login
           </Link>
-          <Link
-            to="/register"
-            className="  bg-primary text-white rounded-md p-2 h-10 w-20 text-center hover:shadow-primary hover:shadow"
-          >
+          <Link to="/register" className="  bg-primary text-white rounded-md p-2 h-10 w-20 text-center hover:shadow-primary hover:shadow">
             Register
           </Link>
         </ul>
@@ -58,4 +48,4 @@ const HomeNav = () => {
   );
 };
 
-export default HomeNav;
+export default LandingHeader;

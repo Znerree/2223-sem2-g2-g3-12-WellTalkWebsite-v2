@@ -1,14 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { IoNotifications, IoSettingsSharp } from "react-icons/io5";
 import { BiSolidDashboard, BiSolidCalendar } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaNoteSticky } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import axios from "../api/axios";
-import { AiOutlineSearch, AiFillAlert } from "react-icons/ai";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import useFetchUser from "@/hooks/useFetchUser";
 
 const SidebarNav = () => {
   //sidebar navs (names, icons, paths)
@@ -33,25 +30,11 @@ const SidebarNav = () => {
     setActive(activeIndex);
   }, [location]);
 
-  const [user, setUser] = useState<any>({});
+  const { user } = useFetchUser();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const username = localStorage.getItem("user");
-        const response = await axios.get(`/users/username/${username}`);
-        console.log(response.data);
-        setUser(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchUser();
+    user;
   }, []);
-
-  if (!user) {
-    window.location.href = "/login";
-  }
 
   return (
     <>
@@ -61,12 +44,14 @@ const SidebarNav = () => {
             <IoNotifications className="text-red-400 h-6 w-6" />
             <IoSettingsSharp className="text-gray-300 h-6 w-6" />
           </div>
-          <div className=" text-center my-3">
-            <h1 className=" font-bold text-xl text-primary">
-              {user.firstName} {user.lastName}
-            </h1>
-            <h3 className=" text-sm text-gray-300">{user.userType}</h3>
-          </div>
+          {user && (
+            <div className=" text-center my-3">
+              <h1 className=" font-bold text-xl text-primary">
+                {user.firstName} {user.lastName}
+              </h1>
+              <h3 className=" text-sm text-gray-300">{user.userType}</h3>
+            </div>
+          )}
           <ul className=" text-gray-300 text-lg my-6">
             {navs.map((nav, index) => (
               <Link
@@ -87,8 +72,8 @@ const SidebarNav = () => {
             ))}
           </ul>
         </div>
-        <Outlet />
       </div>
+      <Outlet />
     </>
   );
 };
