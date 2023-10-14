@@ -32,9 +32,9 @@ const SidebarNav = () => {
 
   const { user } = useFetchUser();
 
-  useEffect(() => {
-    user;
-  }, []);
+  if (!user) {
+    window.location.href = "/login";
+  }
 
   return (
     <>
