@@ -6,6 +6,7 @@ import { FaNoteSticky } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import useFetchUser from "@/hooks/useFetchUser";
+import { Loading } from "./Loading";
 
 const SidebarNav = () => {
   //sidebar navs (names, icons, paths)
@@ -24,6 +25,7 @@ const SidebarNav = () => {
   const location = useLocation();
   //useState for active nav using index of navs array
   const [active, setActive] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const activeIndex = navs.findIndex((nav) => nav.path === location.pathname);
@@ -32,12 +34,22 @@ const SidebarNav = () => {
 
   const { user } = useFetchUser();
 
-  if (!user) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const isLoggedin = localStorage.getItem("user");
+
+  if (!isLoggedin) {
     window.location.href = "/login";
   }
 
   return (
     <>
+      {loading && <Loading size={25} />}
       <div className="flex">
         <div className=" w-64 h-screen py-8 p-5 bg-tertiary">
           <div className="flex justify-between">
