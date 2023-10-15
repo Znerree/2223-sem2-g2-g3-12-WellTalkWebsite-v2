@@ -1,5 +1,5 @@
 import axios from "@/api/axios";
-import { get } from "https";
+import CounselorLayout from "@/components/CounselorLayout";
 import { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import { PiNotePencilBold } from "react-icons/pi";
@@ -94,17 +94,21 @@ const Notes = () => {
 
   return (
     <>
-      <div className=" ml-72 top-20 flex absolute">
-        <div className=" flex justify-between w-full absolute">
+      <CounselorLayout>
+        <div className=" flex justify-between w-full sticky top-5">
           <h1 className=" font-semibold">Notes</h1>
+        </div>
+        <div className=" w-full flex justify-between items-center">
+          <h1>{""}</h1>
           <button
             onClick={openAddNoteModal}
-            className=" py-2 flex items-center px-3 bg-tertiary shadow bg-opacity-90 rounded-full text-white gap-2 hover:bg-opacity-100"
+            className=" py-2 flex items-center px-3 bg-tertiary shadow bg-opacity-90 rounded-full text-white hover:bg-opacity-100"
           >
             <PiNotePencilBold size={15} />
             <p>Add a note</p>
           </button>
         </div>
+
         {showAddNote && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
             <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
@@ -142,8 +146,8 @@ const Notes = () => {
           </div>
         )}
 
-        <div className=" mt-12 border bg-gray-50 flex  overflow-y-auto">
-          <div className="grid grid-cols-4 gap-2 flex-grow p-2 h-[600px] overflow-auto">
+        <div className=" mt-3 flex">
+          <div className="grid grid-cols-4 gap-2 flex-grow p-2 h-[600px] ">
             {userNotes.map((note: any) => (
               <div
                 key={note.id}
@@ -182,7 +186,7 @@ const Notes = () => {
             </div>
           )}
         </div>
-      </div>
+      </CounselorLayout>
     </>
   );
 };

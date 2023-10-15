@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "@/api/axios";
 import { BsChatLeftDots } from "react-icons/bs";
+import CounselorLayout from "@/components/CounselorLayout";
 
 type StudentProps = {
   student: {
@@ -37,7 +38,7 @@ const Students = () => {
 
   return (
     <>
-      <div className=" ml-72 top-20 absolute flex">
+      <CounselorLayout>
         <h1 className=" font-semibold">Students</h1>
         <div className=" w-full">
           <table className=" mt-10">
@@ -68,7 +69,7 @@ const Students = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </CounselorLayout>
     </>
   );
 };

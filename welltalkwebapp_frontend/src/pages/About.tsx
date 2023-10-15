@@ -1,6 +1,6 @@
 import background from "@/assets/images/homebg.png";
 import Footer from "@/components/Footer";
-import HeadNav from "@/components/HomeNav";
+import HeadNav from "@/components/LandingHeader";
 
 const About = () => {
   const bg = {
@@ -12,10 +12,7 @@ const About = () => {
   return (
     <>
       <HeadNav />
-      <div
-        className="flex flex-col h-screen bg-primary bg-opacity-20"
-        style={bg}
-      >
+      <div className="flex flex-col h-screen bg-primary bg-opacity-20" style={bg}>
         <h1>About</h1>
       </div>
       <Footer />

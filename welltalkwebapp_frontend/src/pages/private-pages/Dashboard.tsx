@@ -1,9 +1,13 @@
+import CounselorLayout from "@/components/CounselorLayout";
+
 const Dashboard = () => {
   return (
     <>
-      <div className="ml-72 top-20 absolute">
-        <h1 className="font-semibold">Dashboard</h1>
-      </div>
+      <CounselorLayout>
+        <div className=" sticky top-5">
+          <h1 className="font-semibold">Dashboard</h1>
+        </div>
+      </CounselorLayout>
     </>
   );
 };
