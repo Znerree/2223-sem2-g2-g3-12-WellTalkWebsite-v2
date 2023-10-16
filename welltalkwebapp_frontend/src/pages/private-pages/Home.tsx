@@ -9,6 +9,7 @@ import { MdOutlineModeEdit, MdPostAdd } from "react-icons/md";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import CounselorLayout from "@/components/CounselorLayout";
 import useFetchUser from "@/hooks/useFetchUser";
+import useLoading from "@/hooks/useLoading";
 
 type PostsProps = {
   id: number;

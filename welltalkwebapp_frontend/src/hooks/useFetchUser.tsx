@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "@/api/axios";
+import useLoading from "./useLoading";
 
 type userProps = {
   id: number;
@@ -14,6 +15,8 @@ type userProps = {
 const useFetchUser = () => {
   const [user, setUser] = useState<userProps>();
 
+  const { loading } = useLoading();
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -23,13 +26,13 @@ const useFetchUser = () => {
         setUser(response.data);
       } catch (error) {
         console.log(error);
+      } finally {
       }
     };
-
     fetchUser();
-  }, []);
+  }, [loading]);
 
-  return { user };
+  return { user, setUser };
 };
 
 export default useFetchUser;

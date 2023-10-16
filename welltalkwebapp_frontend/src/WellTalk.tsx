@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import About from "./pages/About";
@@ -12,6 +13,9 @@ import Home from "./pages/private-pages/Home";
 import Notes from "./pages/private-pages/Notes";
 import Landing from "./pages/Landing";
 import CounselorLayout from "./components/CounselorLayout";
+import { AuthProvider } from "./contexts/AuthContext";
+import useFetchUser from "./hooks/useFetchUser";
+import { PrivateRoute } from "./PrivateRoutes";
 
 const routeToTitle: { [key: string]: string } = {
   "/": " ",
@@ -27,7 +31,7 @@ const routeToTitle: { [key: string]: string } = {
   "/student-referral": "| Student Referral",
 };
 
-function App() {
+function WellTalk() {
   const location = useLocation();
 
   useEffect(() => {
@@ -39,27 +43,26 @@ function App() {
   }, [location]);
 
   return (
-    <>
+    <AuthProvider>
       <Routes>
         {/* public routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/email-verification" element={<EmailChecker />} />
 
         {/* private routes */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/students" element={<Students />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/notes" element={<Notes />} />
-        <Route path="/student-referral" element={<StudentReferral />} />
+        <Route path="/home" element={<PrivateRoute userType="Counselor" component={Home} />} />
+        <Route path="/dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
+        <Route path="/students" element={<PrivateRoute userType="Counselor" component={Students} />} />
+        <Route path="/calendar" element={<PrivateRoute userType="Counselor" component={Calendar} />} />
+        <Route path="/notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+        <Route path="/student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
 
-        {/* displayed when navigated to unknown endpoint */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </>
+    </AuthProvider>
   );
 }
 
@@ -67,4 +70,4 @@ function PageNotFound() {
   return <h1>Page not found</h1>;
 }
 
-export default App;
+export default WellTalk;

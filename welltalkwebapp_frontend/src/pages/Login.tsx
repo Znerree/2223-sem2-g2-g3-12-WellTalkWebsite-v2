@@ -4,6 +4,9 @@ import formbackground from "../assets/images/formbg.png";
 import pageBackground from "../assets/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import useLoading from "@/hooks/useLoading";
+import { LoadingScreen } from "@/components/Loading";
+import { useAuth } from "@/contexts/AuthContext";
 
 const LOGIN_URL = "/authenticate";
 
@@ -39,6 +42,9 @@ const Login = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLInputElement>(null);
 
+  const { loading, setLoading } = useLoading();
+  const { login } = useAuth();
+
   useEffect(() => {
     if (!userRef.current) throw Error("No userRef");
     userRef.current;
@@ -50,61 +56,26 @@ const Login = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ username, password }),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const getUserType = await axios.get(`/users/username/${username}`);
-      const userType = getUserType.data.userType;
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", username);
-      localStorage.setItem("userType", userType);
-      console.log("logged in");
-      console.log(localStorage.getItem("token"));
-      console.log(localStorage.getItem("user"));
 
+    const { success, userType, error } = await login(username, password);
+
+    if (success) {
       if (userType === "Counselor") {
         navigate("/home");
       } else {
         navigate("/student-referral");
       }
-    } catch (err: any) {
-      if (!err?.response) {
-        setErrMsg("Something went wrong");
-      } else if (err.response?.status == 400) {
-        setErrMsg("Invalid username or password");
-      } else if (err.response?.status == 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
-      errRef.current?.focus();
+    } else {
+      setErrMsg(error.message);
     }
   };
 
   return (
     <>
-      <div
-        className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center absolute"
-        style={pageBg}
-      >
-        <div
-          className=" w-[720px] rounded-2xl bg-white shadow-md h-auto flex justify-between"
-          style={formbg}
-        >
-          <form
-            className=" py-6 px-10 left-0 w-[360px] flex flex-col"
-            onSubmit={handleSubmit}
-          >
-            <h1 className=" text-center font-medium text-primary text-4xl mb-3">
-              Login
-            </h1>
+      <div className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center absolute" style={pageBg}>
+        <div className=" w-[720px] rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
+          <form className=" py-6 px-10 left-0 w-[360px] flex flex-col" onSubmit={handleSubmit}>
+            <h1 className=" text-center font-medium text-primary text-4xl mb-3">Login</h1>
             <input
               name="username"
               ref={userRef}
@@ -126,31 +97,19 @@ const Login = () => {
               value={password}
               required
             />
-            <p
-              ref={errRef}
-              className={errMsg ? " text-red-400" : "offscreen"}
-              aria-live="assertive"
-            >
+            <p ref={errRef} className={errMsg ? " text-red-400" : "offscreen"} aria-live="assertive">
               {errMsg}
             </p>
-            <button
-              type="submit"
-              className=" bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
-            >
+            <button type="submit" className=" bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2">
               Login
             </button>
 
             <p className=" text-secondary text-xs my-2">
               Don't have an account?{" "}
-              <Link
-                to="/register"
-                className="font-bold text-primary cursor-pointer"
-              >
+              <Link to="/register" className="font-bold text-primary cursor-pointer">
                 Create
               </Link>
-              <a className=" flex flex-1 text-center w-full">
-                Forgot Password?
-              </a>
+              <a className=" flex flex-1 text-center w-full">Forgot Password?</a>
             </p>
           </form>
           <div className=" flex relative justify-end px-6 py-5">
@@ -160,6 +119,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {loading && <LoadingScreen />}
     </>
   );
 };

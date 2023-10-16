@@ -6,7 +6,6 @@ import { FaNoteSticky } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import useFetchUser from "@/hooks/useFetchUser";
-import { Loading } from "./Loading";
 
 const SidebarNav = () => {
   //sidebar navs (names, icons, paths)
@@ -25,45 +24,29 @@ const SidebarNav = () => {
   const location = useLocation();
   //useState for active nav using index of navs array
   const [active, setActive] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const activeIndex = navs.findIndex((nav) => nav.path === location.pathname);
-    setActive(activeIndex);
-  }, [location]);
 
   const { user } = useFetchUser();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    const activeIndex = navs.findIndex((nav) => nav.path === location.pathname);
 
-  const isLoggedin = localStorage.getItem("user");
-
-  if (!isLoggedin) {
-    window.location.href = "/login";
-  }
+    setActive(activeIndex);
+  }, [location]);
 
   return (
     <>
-      {loading && <Loading size={25} />}
       <div className="flex">
         <div className=" w-64 h-screen py-8 p-5 bg-tertiary">
           <div className="flex justify-between">
             <IoNotifications className="text-red-400 h-6 w-6" />
             <IoSettingsSharp className="text-gray-300 h-6 w-6" />
           </div>
-          {user && (
-            <div className=" text-center my-3">
-              <h1 className=" font-bold text-xl text-primary">
-                {user.firstName} {user.lastName}
-              </h1>
-              <h3 className=" text-sm text-gray-300">{user.userType}</h3>
-            </div>
-          )}
+          <div className=" text-center my-3">
+            <h1 className=" font-bold text-xl text-primary">
+              {user?.firstName} {user?.lastName}
+            </h1>
+            <h3 className=" text-sm text-gray-300">{user?.userType}</h3>
+          </div>
           <ul className=" text-gray-300 text-lg my-6">
             {navs.map((nav, index) => (
               <Link
