@@ -17,6 +17,7 @@ type NotesProps = {
   id?: number;
   title: string;
   content: string;
+  color: string;
 };
 
 const Notes = () => {
@@ -27,6 +28,7 @@ const Notes = () => {
   const [newNote, setNewNote] = useState<NotesProps>({
     title: "",
     content: "",
+    color: "",
   });
   const [refresher, setRefresher] = useState(0);
 
@@ -74,16 +76,23 @@ const Notes = () => {
     };
 
     try {
-      await axios.post("/notes", newNote, config);
+      const color = getRandomColor();
+      const response = await axios.post("/notes", { ...newNote, color: color }, config);
       alert("Note created successfully");
       setRefresher(Math.random());
-      setNewNote(newNote);
+      setNewNote({
+        title: "",
+        content: "",
+        color: color,
+      });
+      setUserNotes((prevNotes) => [response.data, ...prevNotes]);
       console.log(newNote);
     } catch (error) {
       console.log(error);
     }
     closeAddNoteModal();
   };
+
   const openAddNoteModal = () => {
     setShowAddNote(true);
   };
@@ -95,14 +104,13 @@ const Notes = () => {
   return (
     <>
       <CounselorLayout>
-        <div className=" flex justify-between w-full sticky top-5">
+        <div className=" sticky top-5 flex justify-between">
           <h1 className=" font-semibold">Notes</h1>
         </div>
-        <div className=" w-full flex justify-between items-center">
-          <h1>{""}</h1>
+        <div className=" absolute bottom-0 right-0 pb-8 pr-8">
           <button
             onClick={openAddNoteModal}
-            className=" py-2 flex items-center px-3 bg-tertiary shadow bg-opacity-90 rounded-full text-white hover:bg-opacity-100"
+            className=" overflow-hidden py-2 flex items-center px-3 bg-tertiary shadow bg-opacity-90 rounded-full text-white hover:bg-opacity-100 hover:shadow-md"
           >
             <PiNotePencilBold size={15} />
             <p>Add a note</p>
@@ -110,7 +118,7 @@ const Notes = () => {
         </div>
 
         {showAddNote && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
+          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
             <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
               <button className="text-tertiary hover:text-primary text-xl px-4 py-2 absolute top-0 right-0" onClick={closeAddNoteModal}>
                 <IoMdClose />
@@ -146,46 +154,45 @@ const Notes = () => {
           </div>
         )}
 
-        <div className=" mt-3 flex">
-          <div className="grid grid-cols-4 gap-2 flex-grow p-2 h-[600px] ">
-            {userNotes.map((note: any) => (
-              <div
-                key={note.id}
-                onClick={() => handleNoteClick(note.id)}
-                className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer"
-                style={{ backgroundColor: getRandomColor() }}
-              >
-                <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
-                <p>{note.content}</p>
-              </div>
-            ))}
-          </div>
-          {displayClickedNote && (
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
-              <div className="h-[500px] bg-white w-[450px] overflow-auto rounded-lg">
-                <div className="flex justify-between items-center">
-                  <h1 className="text-2xl font-semibold p-4">Note</h1>
-                  <button className="text-tertiary hover:text-primary text-xl px-4 py-2" onClick={() => setDisplayClickedNote(false)}>
-                    <IoMdClose />
-                  </button>
-                </div>
-                {userNotes
-                  .filter((note: any) => note.id === clickedNoteId) // Filter for the clicked note
-                  .map((note: any) => (
-                    <div className="flex justify-between px-3 flex-col" key={note.id}>
-                      <h1 className="text-2xl font-semibold">{note.title}</h1>
-
-                      {note.id === clickedNoteId && (
-                        <div>
-                          <p>{note.content}</p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-              </div>
+        <div className=" flex w-full flex-wrap gap-4 justify-center mt-2">
+          {userNotes.map((note: any) => (
+            <div
+              key={note.id}
+              onClick={() => handleNoteClick(note.id)}
+              className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer"
+              style={{ backgroundColor: note.color }}
+            >
+              <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
+              <p>{note.content}</p>
             </div>
-          )}
+          ))}
         </div>
+
+        {displayClickedNote && (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
+            <div className="h-[500px] bg-white w-[450px] overflow-auto rounded-lg">
+              <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-semibold p-4">Note</h1>
+                <button className="text-tertiary hover:text-primary text-xl px-4 py-2" onClick={() => setDisplayClickedNote(false)}>
+                  <IoMdClose />
+                </button>
+              </div>
+              {userNotes
+                .filter((note: any) => note.id === clickedNoteId) // Filter for the clicked note
+                .map((note: any) => (
+                  <div className="flex justify-between px-3 flex-col" key={note.id}>
+                    <h1 className="text-2xl font-semibold">{note.title}</h1>
+
+                    {note.id === clickedNoteId && (
+                      <div key={note.id}>
+                        <p>{note.content}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+            </div>
+          </div>
+        )}
       </CounselorLayout>
     </>
   );

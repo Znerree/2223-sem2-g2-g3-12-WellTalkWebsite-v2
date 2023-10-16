@@ -340,7 +340,7 @@ const Home = () => {
 
         {/* Conditionally displays the form to create a new post */}
         {showPostForm && (
-          <div className="fixed inset-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-10">
+          <div className="fixed inset-0 w-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-10">
             <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
               <button onClick={handleClosePostForm} className="text-tertiary hover:text-primary text-xl px-4 py-2 absolute top-0 right-0">
                 <IoMdClose />
@@ -391,12 +391,12 @@ const Home = () => {
 
         {/* Conditionally displays all the posts */}
         {activeButton === "all" && (
-          <div className=" w-full flex flex-col items-center gap-4 scroll-smooth h-full border-t-2 py-2 bg-gray-50">
+          <div className=" flex flex-col w-full items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
             <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-[600px]">
               <input
                 type="text"
                 placeholder="Create a post"
-                className=" cursor-pointer w-full outline-none p-2 rounded-full bg-gray-200 hover:bg-gray-50 "
+                className=" cursor-pointer outline-none w-full p-2 rounded-full bg-gray-200 hover:bg-gray-50 "
                 onClick={handleOpenPostForm}
               />
               <div onClick={handleOpenPostForm} className=" w-[70px] cursor-pointer mt-2 rounded-lg flex items-center gap-1 bg-secondary p-1 ">
@@ -421,7 +421,7 @@ const Home = () => {
                     className=" shadow mt-3 max-w-auto max-h-auto cursor-pointer rounded-md "
                   />
                 ) : null}
-                <div className=" flex w-full justify-between items-center border-t border-b px-3 pb-2 border-gray-300 mt-3">
+                <div className=" flex justify-between items-center border-t border-b px-3 pb-2 border-gray-300 mt-3">
                   <div className=" flex items-center gap-4 mt-2">
                     <button className=" text-sm text-gray-500 hover:text-primary flex items-center gap-1">
                       <AiOutlineHeart />
@@ -441,7 +441,7 @@ const Home = () => {
 
         {/* Conditionally displays the user's posts */}
         {activeButton === "my" && (
-          <div className=" pr-3 w-full h-screen flex flex-col items-center gap-4 full border-t-2 py-2 bg-gray-50">
+          <div className=" pr-3 flex flex-col items-center gap-4 full border-t-2 py-2 bg-gray-50">
             <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-[600px]">
               <input
                 type="text"

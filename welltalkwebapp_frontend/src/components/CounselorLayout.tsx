@@ -15,13 +15,17 @@ const CounselorLayout = ({ children }: Props) => {
   return (
     <>
       <div className="flex h-screen overflow-hidden">
-        <SidebarNav />
-        <div className=" flex-1 flex flex-col overflow-auto">
-          <nav className=" shadow bg-white sticky top-0">
+        <aside>
+          <SidebarNav />
+        </aside>
+
+        <div className=" w-full flex flex-col overflow-y-auto">
+          <header className=" w-full sticky top-0 bg-white shadow ">
+            {loading && <ProgressBar />}
             <Header />
-          </nav>
-          {loading && <ProgressBar />}
-          <div className=" md:container flex flex-col pt-2 bg-gray-50">{children}</div>
+          </header>
+
+          {!loading && <main className=" p-4 bg-gray-50">{children}</main>}
         </div>
       </div>
     </>
