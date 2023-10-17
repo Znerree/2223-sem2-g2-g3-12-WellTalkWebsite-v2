@@ -66,7 +66,7 @@ const Login = () => {
         navigate("/student-referral");
       }
     } else {
-      setErrMsg(error.message);
+      setErrMsg("Login failed. Please try again.");
     }
   };
 

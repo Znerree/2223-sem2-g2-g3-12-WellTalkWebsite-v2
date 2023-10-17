@@ -57,7 +57,7 @@ const Calendar = () => {
           <div className=" w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
             {/* Set an appointment */}
             <div className="flex items-center justify-between border-b">
-              <h1 className=" font-semibold text-md top-0 bg-white py-4 pl-2">{showAnnounceSchedule ? "Announce a Schedule" : "Set an Appointment"}</h1>
+              <h1 className=" font-semibold text-md top-0 py-4 pl-2">{showAnnounceSchedule ? "Announce a Schedule" : "Set an Appointment"}</h1>
 
               <HiSwitchHorizontal className="text-black-300 h-6 w-6 cursor-pointer" onClick={() => setShowAnnounceSchedule(!showAnnounceSchedule)} />
             </div>
