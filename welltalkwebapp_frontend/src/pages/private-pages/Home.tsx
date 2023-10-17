@@ -308,7 +308,7 @@ const Home = () => {
         <div className=" sticky top-5">
           <h1 className=" font-semibold">Welcome to Welltalk!</h1>
 
-          <div className=" px-5 flex justify-between py-8">
+          <div className=" flex justify-between py-8">
             <nav className=" flex gap-2">
               <button
                 className={`rounded-full h-10 p-2 text-xs ${
