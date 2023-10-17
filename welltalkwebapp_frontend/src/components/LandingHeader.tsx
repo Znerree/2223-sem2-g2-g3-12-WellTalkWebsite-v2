@@ -18,10 +18,8 @@ const LandingHeader = () => {
 
   return (
     <>
-      <nav className=" flex items-center top-0 p-2 sticky justify-between px-8 bg-primary bg-opacity-20">
-        <div className="flex items-center">
-          <img src={logo} alt="welltalk logo" className="w-20" />
-        </div>
+      <nav className=" flex items-center top-0 p-2 sticky justify-between px-4 bg-primary bg-opacity-20">
+        <h1>{""}</h1>
         <ul className=" text-sm font-medium flex items-center text-secondary gap-4">
           {navs.map((nav, index) => (
             <Link

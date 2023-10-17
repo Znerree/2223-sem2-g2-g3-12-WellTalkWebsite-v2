@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import About from "./pages/About";
@@ -12,9 +11,7 @@ import { StudentReferral } from "./pages/private-pages/StudentReferral";
 import Home from "./pages/private-pages/Home";
 import Notes from "./pages/private-pages/Notes";
 import Landing from "./pages/Landing";
-import CounselorLayout from "./components/CounselorLayout";
 import { AuthProvider } from "./contexts/AuthContext";
-import useFetchUser from "./hooks/useFetchUser";
 import { PrivateRoute } from "./PrivateRoutes";
 
 const routeToTitle: { [key: string]: string } = {
