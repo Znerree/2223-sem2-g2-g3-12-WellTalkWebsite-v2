@@ -67,8 +67,8 @@ const SidebarNav = () => {
             ))}
           </ul>
         </div>
+        <Outlet />
       </div>
-      <Outlet />
     </>
   );
 };

@@ -1,8 +1,8 @@
 import useLoading from "@/hooks/useLoading";
-import Header from "./Header";
 import { ProgressBar } from "./Loading";
 import background from "@/assets/images/homebg.png";
 import Footer from "./Footer";
+import LandingHeader from "./LandingHeader";
 
 type Props = {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ const LandingLayout = ({ children }: Props) => {
       <div className="flex h-screen flex-col">
         <header>
           {loading && <ProgressBar />}
-          <Header />
+          <LandingHeader />
         </header>
 
         <main className=" h-full" style={bg}>
