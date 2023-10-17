@@ -189,7 +189,6 @@ const Notes = () => {
                 .map((note: any) => (
                   <div className="flex justify-between px-3 flex-col" key={note.id}>
                     <h1 className="text-2xl font-semibold">{note.title}</h1>
-
                     {note.id === clickedNoteId && (
                       <div key={note.id}>
                         <p className="break-words text-justify">{note.content}</p>

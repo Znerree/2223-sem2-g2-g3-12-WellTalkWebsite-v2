@@ -239,7 +239,7 @@ export const StudentReferral = () => {
                     <p className="text-sm ">
                       {student.firstname} {student.lastname}
                     </p>
-                    <p className="text-xs text-gray-300">Student id: {student.studentID}</p>
+                    <p className="text-xs text-gray-300">Student ID: {student.studentID}</p>
                   </li>
                 ))}
               </ul>
