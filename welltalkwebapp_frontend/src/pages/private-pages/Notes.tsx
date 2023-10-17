@@ -154,7 +154,7 @@ const Notes = () => {
           </div>
         )}
 
-        <div className=" flex w-full flex-wrap gap-4 justify-center mt-2">
+        <div className=" flex w-full flex-wrap gap-4 pl-2 mt-2">
           {userNotes.map((note: any) => (
             <div
               key={note.id}
