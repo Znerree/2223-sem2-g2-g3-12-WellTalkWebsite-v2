@@ -25,7 +25,7 @@ const CounselorLayout = ({ children }: Props) => {
             <Header />
           </header>
 
-          {!loading && <main className="px-4 bg-gray-50">{children}</main>}
+          {!loading && <main className="p-4 bg-gray-50">{children}</main>}
         </div>
       </div>
     </>
