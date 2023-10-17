@@ -14,13 +14,13 @@ const CounselorLayout = ({ children }: Props) => {
 
   return (
     <>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-screen overflow-hidden bg-gray-50">
         <aside>
           <SidebarNav />
         </aside>
 
         <div className=" w-full flex flex-col overflow-y-auto">
-          <header className=" w-full sticky top-0 bg-white shadow ">
+          <header className=" w-full sticky top-0 bg-white shadow">
             {loading && <ProgressBar />}
             <Header />
           </header>
