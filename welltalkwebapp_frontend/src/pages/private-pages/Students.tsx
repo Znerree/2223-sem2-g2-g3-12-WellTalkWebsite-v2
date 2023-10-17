@@ -19,10 +19,16 @@ type StudentProps = {
 const Students = () => {
   const [students, setStudents] = useState<StudentProps["student"][]>([]);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [filterYear, setFilterYear] = useState<string | null>(null);
+  const [filterCourse, setFilterCourse] = useState<string | null>(null);
+  const [filterCollege, setFilterCollege] = useState<string | null>(null);
+
+  const [originalStudents, setOriginalStudents] = useState<StudentProps["student"][]>([]); // Save the original list of students to be used for filtering.
 
   const fetchStudents = async () => {
     const response = await axios.get("/students");
     setStudents(response.data);
+    setOriginalStudents(response.data);
     console.log(response);
   };
 
@@ -104,83 +110,171 @@ const Students = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
+  // const applyFilter = (year: string | null) => {
+  //   if (year) {
+  //     const filteredStudents = originalStudents.filter((student) => student.year.toString() === year);
+  //     setStudents(filteredStudents);
+  //   } else {
+  //     fetchStudents(); // If no filter is selected, reset to the original list.
+  //   }
+  // };
+
+  // const handleFilterByYear = (selectedYear: string | null) => {
+  //   setFilterYear(selectedYear);
+  //   applyFilter(selectedYear);
+  // };
+
+  const applyFilter = (year: string | null, course: string | null, college: string | null) => {
+    let filteredStudents = [...originalStudents];
+
+    if (year) {
+      filteredStudents = filteredStudents.filter((student) => student.year.toString() === year);
+    }
+
+    if (course) {
+      filteredStudents = filteredStudents.filter((student) => student.course === course);
+    }
+
+    if (college) {
+      filteredStudents = filteredStudents.filter((student) => student.department === college);
+    }
+
+    setStudents(filteredStudents);
+  };
+
+  const handleFilterByYear = (selectedYear: string | null) => {
+    setFilterYear(selectedYear);
+    applyFilter(selectedYear, filterCourse, filterCollege);
+  };
+
+  const handleFilterByCourse = (selectedCourse: string | null) => {
+    setFilterCourse(selectedCourse);
+    applyFilter(filterYear, selectedCourse, filterCollege);
+  };
+
+  const handleFilterByCollege = (selectedCollege: string | null) => {
+    setFilterCollege(selectedCollege);
+    applyFilter(filterYear, filterCourse, selectedCollege);
+  };
+
   return (
     <>
       <CounselorLayout>
         <h1 className=" font-semibold">Students</h1>
         <div className=" w-full flex justify-center ">
           <div className="border-2 rounded-lg px-5 py-5 shadow-lg bg-white">
-          <div className=" max-h-[550px] overflow-y-auto">
-            <table className=" mt-10 pt-0">
-              <thead className="text-left sticky top-0 bg-white shadow-sm">
-                <tr className="py-4 pr-4">
-                  <th className="py-4 pl-4 pr-14">
-                    <div className="flex items-center">
-                      First Name
-                      <div className="ml-auto">
-                        <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByFirstName} />
+            <div className=" max-h-[550px] overflow-y-auto">
+              <div className="flex gap-5">
+                <div className="filter-container mb-4 p-2 flex justify-between items-center">
+                  <label className="mr-2 whitespace-nowrap">Filter by Year:</label>
+                  <select
+                    className="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-lg"
+                    value={filterYear || ""}
+                    onChange={(e) => handleFilterByYear(e.target.value || null)}
+                  >
+                    <option value="">All</option>
+                    <option value="1">Year 1</option>
+                    <option value="2">Year 2</option>
+                    <option value="3">Year 3</option>
+                    <option value="4">Year 4</option>
+                    <option value="5">Year 5</option>
+                  </select>
+                </div>
+                <div className="filter-container mb-4 p-2 flex justify-between items-center">
+                  <label className="mr-2 whitespace-nowrap">Filter by Course:</label>
+                  <select
+                    className="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-lg"
+                    value={filterCourse || ""}
+                    onChange={(e) => handleFilterByCourse(e.target.value || null)}
+                  >
+                    <option value="">All</option>
+                    <option value="BSIT">BSIT</option>
+                    <option value="BSCS">BSCS</option>
+                    <option value="BSEE">BSEE</option>
+                  </select>
+                </div>
+                <div className="filter-container mb-4 p-2 flex justify-between items-center">
+                  <label className="mr-2 whitespace-nowrap">Filter by College:</label>
+                  <select
+                    className="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-lg"
+                    value={filterCollege || ""}
+                    onChange={(e) => handleFilterByCollege(e.target.value || null)}
+                  >
+                    <option value="">All</option>
+                    {/* Add options for available colleges */}
+                  </select>
+                </div>
+              </div>
+              <table className=" pt-0">
+                <thead className="text-left sticky top-0 bg-white shadow-sm">
+                  <tr className="py-4 pr-4">
+                    <th className="py-4 pl-4 pr-14">
+                      <div className="flex items-center">
+                        First Name
+                        <div className="ml-auto">
+                          <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByFirstName} />
+                        </div>
                       </div>
-                    </div>
-                  </th>
-                  <th className="py-4 pl-4 pr-14">
-                    <div className="flex items-center">
-                      Last Name
-                      <div className="ml-auto">
-                        <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByLastName} />
+                    </th>
+                    <th className="py-4 pl-4 pr-14">
+                      <div className="flex items-center">
+                        Last Name
+                        <div className="ml-auto">
+                          <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByLastName} />
+                        </div>
                       </div>
-                    </div>
-                  </th>
-                  <th className="py-4 pl-4 pr-14">
-                    <div className="flex items-center">
-                      Student ID
-                      <div className="ml-auto">
-                        <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByStudentID} />
+                    </th>
+                    <th className="py-4 pl-4 pr-14">
+                      <div className="flex items-center">
+                        Student ID
+                        <div className="ml-auto">
+                          <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByStudentID} />
+                        </div>
                       </div>
-                    </div>
-                  </th>
-                  <th className="py-4 pl-4 pr-14">
-                    <div className="flex items-center">
-                      Year
-                      <div className="ml-auto">
-                        <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByYear} />
+                    </th>
+                    <th className="py-4 pl-4 pr-14">
+                      <div className="flex items-center">
+                        Year
+                        <div className="ml-auto">
+                          <FaSort className="cursor-pointer ml-2 hover:text-primary" size={10} onClick={handleSortByYear} />
+                        </div>
                       </div>
-                    </div>
-                  </th>
-                  <th className="py-4 pl-4 pr-14">
-                    <div className="flex items-center">
-                      Course
-                      <div className="ml-auto"></div>
-                    </div>
-                  </th>
-                  <th className="py-4 pl-4 pr-14">
-                    <div className="flex items-center">
-                      College
-                      <div className="ml-auto"></div>
-                    </div>
-                  </th>
-                  <th className="py-4 pl-4 pr-14">
-                    <div className="flex items-center">
-                      <div className="ml-auto"></div>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className=" text-left">
-                {students.map((student) => (
-                  <tr key={student.id} className="items-left border-t-2 hover:shadow-md hover:bg-gray-200  cursor-pointer">
-                    <td className=" py-4 px-4">{student.firstname}</td>
-                    <td className=" py-4 px-4">{student.lastname}</td>
-                    <td className=" py-4 px-4">{student.studentID}</td>
-                    <td className=" py-4 px-4">{student.year}</td>
-                    <td className=" py-4 px-4">{student.course}</td>
-                    <td className=" py-4 px-4">{student.department}</td>
-                    <td className=" py-4 px-4">
-                      <BsChatLeftDots className=" text-blue-500 cursor-pointer" />
-                    </td>
+                    </th>
+                    <th className="py-4 pl-4 pr-14">
+                      <div className="flex items-center">
+                        Course
+                        <div className="ml-auto"></div>
+                      </div>
+                    </th>
+                    <th className="py-4 pl-4 pr-14">
+                      <div className="flex items-center">
+                        College
+                        <div className="ml-auto"></div>
+                      </div>
+                    </th>
+                    <th className="py-4 pl-4 pr-14">
+                      <div className="flex items-center">
+                        <div className="ml-auto"></div>
+                      </div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className=" text-left">
+                  {students.map((student) => (
+                    <tr key={student.id} className="items-left border-t-2 hover:shadow-md hover:bg-gray-200  cursor-pointer">
+                      <td className=" py-4 px-4">{student.firstname}</td>
+                      <td className=" py-4 px-4">{student.lastname}</td>
+                      <td className=" py-4 px-4">{student.studentID}</td>
+                      <td className=" py-4 px-4">{student.year}</td>
+                      <td className=" py-4 px-4">{student.course}</td>
+                      <td className=" py-4 px-4">{student.department}</td>
+                      <td className=" py-4 px-4">
+                        <BsChatLeftDots className=" text-blue-500 cursor-pointer" />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
