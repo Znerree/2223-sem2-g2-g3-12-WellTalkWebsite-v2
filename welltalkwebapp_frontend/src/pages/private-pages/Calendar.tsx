@@ -95,7 +95,7 @@ const Calendar = () => {
                   <ul className="max-h-60 overflow-y-auto absolute w-full max-w-[250px] bg-white border border-gray-300 rounded-b-md">
                     {results.map((student) => (
                       <li
-                        className=" w-full border p-2 cursor-pointer hover:bg-gray-100"
+                        className=" w-full border p-2 cursor-pointer hover:bg-gray-100 hover:shadow-lg hover:border-secondary"
                         key={student.id}
                         onClick={() => handleStudentInput(student.firstname + " " + student.lastname, students, setStudentId, setValue, setResults, setQuery)}
                       >
