@@ -159,11 +159,18 @@ const Notes = () => {
             <div
               key={note.id}
               onClick={() => handleNoteClick(note.id)}
-              className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer"
+              className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer wrap overflow-hidden hover:shadow-lg hover:border-secondary"
               style={{ backgroundColor: note.color }}
             >
               <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
-              <p>{note.content}</p>
+              {note.content.length > 250 ? (
+                <p className="break-words text-justify mb-2 text-ellipsis">
+                  {note.content.slice(0, 250)}
+                  <span className=" text-base font-medium"> .... </span>
+                </p>
+              ) : (
+                <p className="break-words text-justify mb-2 text-ellipsis">{note.content}</p>
+              )}
             </div>
           ))}
         </div>
@@ -185,7 +192,7 @@ const Notes = () => {
 
                     {note.id === clickedNoteId && (
                       <div key={note.id}>
-                        <p>{note.content}</p>
+                        <p className="break-words text-justify">{note.content}</p>
                       </div>
                     )}
                   </div>
