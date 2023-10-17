@@ -269,7 +269,9 @@ const Students = () => {
                       <td className=" py-4 px-4">{student.course}</td>
                       <td className=" py-4 px-4">{student.department}</td>
                       <td className=" py-4 px-4">
-                        <BsChatLeftDots className=" text-blue-500 cursor-pointer" />
+                        <a href={`msteams://teams.microsoft.com/l/chat/0/0?users=${student.firstname} ${student.lastname}&topicName=New%20Chat`}>
+                          <BsChatLeftDots className=" text-blue-500 cursor-pointer" />
+                        </a>
                       </td>
                     </tr>
                   ))}
