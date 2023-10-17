@@ -110,19 +110,6 @@ const Students = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
-  // const applyFilter = (year: string | null) => {
-  //   if (year) {
-  //     const filteredStudents = originalStudents.filter((student) => student.year.toString() === year);
-  //     setStudents(filteredStudents);
-  //   } else {
-  //     fetchStudents(); // If no filter is selected, reset to the original list.
-  //   }
-  // };
-
-  // const handleFilterByYear = (selectedYear: string | null) => {
-  //   setFilterYear(selectedYear);
-  //   applyFilter(selectedYear);
-  // };
 
   const applyFilter = (year: string | null, course: string | null, college: string | null) => {
     let filteredStudents = [...originalStudents];
