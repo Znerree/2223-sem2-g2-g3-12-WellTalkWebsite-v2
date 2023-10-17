@@ -16,8 +16,10 @@ export const ProgressBar = () => {
   }, [loading]);
 
   return (
-    <div className="relative h-[2px] w-full bg-neutral-200 dark:bg-neutral-600">
-      <div className={`absolute top-0 left-0 h-full bg-primary transition-width duration-1000 ease-in-out ${loadingComplete ? "w-full" : "w-0"}`}></div>
+    <div className="fixed h-screen w-full">
+      <div className="relative h-[2px] w-full bg-neutral-200 dark:bg-neutral-600">
+        <div className={`absolute top-0 left-0 h-full bg-primary transition-width duration-1000 ease-in-out ${loadingComplete ? "w-full" : "w-2"}`}></div>
+      </div>
     </div>
   );
 };
