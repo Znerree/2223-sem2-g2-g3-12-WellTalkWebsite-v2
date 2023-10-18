@@ -155,7 +155,7 @@ const Students = () => {
                 <div className="filter-container mb-4 p-2 flex justify-between items-center">
                   <label className="mr-2 whitespace-nowrap">Filter by Year:</label>
                   <select
-                    className="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                    className="block w-full py-2 pl-3 pr-8 border hover:cursor-pointer border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     value={filterYear || ""}
                     onChange={(e) => handleFilterByYear(e.target.value || null)}
                   >
@@ -170,7 +170,7 @@ const Students = () => {
                 <div className="filter-container mb-4 p-2 flex justify-between items-center">
                   <label className="mr-2 whitespace-nowrap">Filter by Course:</label>
                   <select
-                    className="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                    className="block w-full py-2 pl-3 pr-8 border hover:cursor-pointer border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     value={filterCourse || ""}
                     onChange={(e) => handleFilterByCourse(e.target.value || null)}
                   >
@@ -183,7 +183,7 @@ const Students = () => {
                 <div className="filter-container mb-4 p-2 flex justify-between items-center">
                   <label className="mr-2 whitespace-nowrap">Filter by College:</label>
                   <select
-                    className="block w-full py-2 pl-3 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                    className="block w-full py-2 pl-3 pr-8 border hover:cursor-pointer border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     value={filterCollege || ""}
                     onChange={(e) => handleFilterByCollege(e.target.value || null)}
                   >
@@ -248,7 +248,7 @@ const Students = () => {
                 </thead>
                 <tbody className=" text-left">
                   {students.map((student) => (
-                    <tr key={student.id} className="items-left border-t-2 hover:shadow-md hover:bg-gray-200  cursor-pointer">
+                    <tr key={student.id} className="items-left border-t-2 hover:bg-gray-200 cursor-pointer">
                       <td className=" py-4 px-4">{student.firstname}</td>
                       <td className=" py-4 px-4">{student.lastname}</td>
                       <td className=" py-4 px-4">{student.studentID}</td>

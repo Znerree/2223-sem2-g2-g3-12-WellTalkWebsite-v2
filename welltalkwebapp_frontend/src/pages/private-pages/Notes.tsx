@@ -79,14 +79,13 @@ const Notes = () => {
       const color = getRandomColor();
       const response = await axios.post("/notes", { ...newNote, color: color }, config);
       alert("Note created successfully");
-      setRefresher(Math.random());
       setNewNote({
         title: "",
         content: "",
         color: color,
       });
-      setUserNotes((prevNotes) => [response.data, ...prevNotes]);
-      console.log(newNote);
+      console.log(response.data);
+      setRefresher(Math.random());
     } catch (error) {
       console.log(error);
     }
@@ -153,27 +152,34 @@ const Notes = () => {
             </div>
           </div>
         )}
-
-        <div className=" flex w-full flex-wrap gap-4 pl-2 mt-2">
-          {userNotes.map((note: any) => (
-            <div
-              key={note.id}
-              onClick={() => handleNoteClick(note.id)}
-              className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer wrap overflow-hidden hover:shadow-lg hover:border-secondary"
-              style={{ backgroundColor: note.color }}
-            >
-              <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
-              {note.content.length > 250 ? (
-                <p className="break-words text-justify mb-2 text-ellipsis">
-                  {note.content.slice(0, 250)}
-                  <span className=" text-base font-medium"> .... </span>
-                </p>
-              ) : (
-                <p className="break-words text-justify mb-2 text-ellipsis">{note.content}</p>
-              )}
+        {userNotes.length > 0 ? (
+          <>
+            <div className=" flex w-full flex-wrap gap-4 pl-2 mt-2">
+              {userNotes.map((note: any) => (
+                <div
+                  key={note.id}
+                  onClick={() => handleNoteClick(note.id)}
+                  className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer wrap overflow-hidden hover:shadow-lg hover:border-secondary"
+                  style={{ backgroundColor: note.color }}
+                >
+                  <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
+                  {note.content.length > 250 ? (
+                    <p className="break-words text-justify mb-2 text-ellipsis">
+                      {note.content.slice(0, 250)}
+                      <span className=" text-base font-medium"> .... </span>
+                    </p>
+                  ) : (
+                    <p className="break-words text-justify mb-2 text-ellipsis">{note.content}</p>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        ) : (
+          <div className="w-full mt-40">
+            <p className="text-center text-2xl font-semibold mt-10">You have no notes yet</p>
+          </div>
+        )}
 
         {displayClickedNote && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
