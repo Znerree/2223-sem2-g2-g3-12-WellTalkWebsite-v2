@@ -32,23 +32,13 @@ public class AuthController {
     private JwtUserDetailsService jwtUserDetailsService;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest, HttpSession session) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-        final UserDetails userDetails = jwtUserDetailsService
-
-                .loadUserByUsername(authenticationRequest.getUsername());
+        final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtToken.generateToken(userDetails);
-
-        if(userDetails instanceof Counselor) {
-            session.setAttribute("user", (Counselor) userDetails);
-        } else if(userDetails instanceof Teacher) {
-            session.setAttribute("user", (Teacher) userDetails);
-        } else {
-            session.setAttribute("user", userDetails);
-        }
 
         return ResponseEntity.ok(new JwtResponse(token));
 
