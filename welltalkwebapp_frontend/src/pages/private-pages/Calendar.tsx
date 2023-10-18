@@ -53,8 +53,8 @@ const Calendar = () => {
           <h1 className=" font-semibold">Calendar</h1>
         </div>
 
-        <div className=" w-full flex justify-between flex-grow gap-2">
-          <div className=" w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
+        <div className="ml-14 w-full flex flex-grow gap-10">
+          <div className=" bg-white w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
             {/* Set an appointment */}
             <div className="flex items-center justify-between border-b">
               <h1 className=" font-semibold text-md top-0 py-4 pl-2">{showAnnounceSchedule ? "Announce a Schedule" : "Set an Appointment"}</h1>
