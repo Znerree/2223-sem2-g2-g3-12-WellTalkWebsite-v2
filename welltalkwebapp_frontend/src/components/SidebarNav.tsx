@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IoNotifications, IoSettingsSharp } from "react-icons/io5";
+import { IoLogOut, IoNotifications, IoSettingsSharp } from "react-icons/io5";
 import { BiSolidDashboard, BiSolidCalendar } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaNoteSticky } from "react-icons/fa6";
@@ -33,6 +33,11 @@ const SidebarNav = () => {
     setActive(activeIndex);
   }, [location]);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
   return (
     <>
       <div className="flex">
@@ -65,10 +70,14 @@ const SidebarNav = () => {
                 {nav.name}
               </Link>
             ))}
+            <div className="cursor-pointer flex items-center gap-3 text-white font-semibold rounded-md p-3 my-2 bg-red-400 hover:bg-red-500 mt-60">
+              <IoLogOut />
+              <button onClick={handleLogout}>Logout</button>
+            </div>
           </ul>
         </div>
-        <Outlet />
       </div>
+      <Outlet />
     </>
   );
 };

@@ -1,5 +1,5 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import About from "./pages/About";
 import Calendar from "./pages/private-pages/Calendar";
 import Register from "./pages/Register";
@@ -11,8 +11,10 @@ import { StudentReferral } from "./pages/private-pages/StudentReferral";
 import Home from "./pages/private-pages/Home";
 import Notes from "./pages/private-pages/Notes";
 import Landing from "./pages/Landing";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { PrivateRoute } from "./PrivateRoutes";
+import EmergencyLink from "./pages/EmergencyLink";
+import axios from "./api/axios";
 
 const routeToTitle: { [key: string]: string } = {
   "/": " ",
@@ -26,10 +28,12 @@ const routeToTitle: { [key: string]: string } = {
   "/notes": "| Notes",
   "/email-verification": "| Email Verification",
   "/student-referral": "| Student Referral",
+  "/emergency-link": "| Emergency Contact Numbers",
 };
 
 function WellTalk() {
   const location = useLocation();
+  const [isTokenExpired, setIsTokenExpired] = useState(false);
 
   useEffect(() => {
     // Get the current route from the location
@@ -39,8 +43,77 @@ function WellTalk() {
     document.title = `WellTalk  ${routeToTitle[currentRoute] || "Page Not Found"}`;
   }, [location]);
 
+  useEffect(() => {
+    // Function to clear local storage when the token has expired
+    const clearLocalStorageOnTokenExpiry = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        // Parse the JWT token to get the expiration time
+        const { exp } = JSON.parse(atob(token.split(".")[1]));
+
+        // Check if the token has expired
+        if (exp * 1000 < Date.now()) {
+          // Token has expired, set the isTokenExpired state variable to true
+          setIsTokenExpired(true);
+          // localStorage.removeItem("token");
+        } else {
+          // Token has not expired, set the isTokenExpired state variable to false
+          setIsTokenExpired(false);
+        }
+      }
+    };
+
+    // Call the function when the component mounts to check for token expiration
+    clearLocalStorageOnTokenExpiry();
+
+    // You can also set up an interval to periodically check the token's expiration
+    const tokenExpiryCheckInterval = setInterval(clearLocalStorageOnTokenExpiry, 10000); // Check every minute
+
+    // Clean up the interval when the component unmounts
+    return () => {
+      clearInterval(tokenExpiryCheckInterval);
+    };
+  }, []);
+
+  // const { login } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleExtend = async () => {
+    const username = localStorage.getItem("user");
+    const password = localStorage.getItem("password");
+    const userType = localStorage.getItem("userType");
+
+    try {
+      const response = await axios.post(
+        "/authenticate",
+        { username, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      localStorage.setItem("token", response.data.token);
+      if (userType === "Counselor") {
+        navigate("/home");
+      } else {
+        navigate("/student-referral");
+      }
+    } catch (error) {
+      return { success: false, error };
+    } finally {
+      setIsTokenExpired(false);
+    }
+  };
+
+  const handleCancelExtend = () => {
+    localStorage.clear();
+    setIsTokenExpired(false);
+  };
   return (
     <AuthProvider>
+      {/* Routes */}
       <Routes>
         {/* public routes */}
         <Route path="/" element={<Landing />} />
@@ -48,6 +121,8 @@ function WellTalk() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/email-verification" element={<EmailChecker />} />
+
+        <Route path="/emergency-link" element={<EmergencyLink />} />
 
         {/* private routes */}
         <Route path="/home" element={<PrivateRoute userType="Counselor" component={Home} />} />
@@ -59,6 +134,24 @@ function WellTalk() {
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+
+      {/* Show the token expired message if the token has expired */}
+      {isTokenExpired && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-4 rounded-lg">
+            <h1 className="text-2xl font-bold text-red-500">Your session has expired.</h1>
+            <p className="text-gray-600">Please login again to continue.</p>
+            <div className=" flex mt-5 gap-2">
+              <button className=" bg-tertiary text-white py-1 px-3 rounded-sm" onClick={handleExtend}>
+                Extend session
+              </button>
+              <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleCancelExtend}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AuthProvider>
   );
 }
