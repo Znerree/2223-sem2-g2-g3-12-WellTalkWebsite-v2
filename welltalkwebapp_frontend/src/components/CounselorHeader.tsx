@@ -39,7 +39,7 @@ const CounselorHeader = () => {
 
   return (
     <>
-      <div className=" flex justify-between px-4">
+      <div className=" flex justify-between px-4 shadow bg-white">
         <h1> {""} </h1>
         <div className=" flex items-center py-4 gap-4">
           <div className="relative">

@@ -23,7 +23,7 @@ interface Referral {
     id: number;
     firstName: string;
     lastName: string;
-  }
+  };
   date_referred: string;
   reason: string;
   isAccepted: boolean;
@@ -144,7 +144,6 @@ export const StudentReferral = () => {
 
   return (
     <>
-      <ReferralHeader />
       <div className=" px-4 flex justify-between">
         <h1>
           Good day! {""}
@@ -177,7 +176,10 @@ export const StudentReferral = () => {
                       </h1>
                       <div className=" flex justify-between ">
                         <p className=" text-xs text-gray-400">
-                        Counselor: <span className=" text-white italic">{referral.counselor.firstName} {referral.counselor.lastName}</span>
+                          Counselor:{" "}
+                          <span className=" text-white italic">
+                            {referral.counselor.firstName} {referral.counselor.lastName}
+                          </span>
                         </p>
                         <p>{referral.isAccepted ? <span className=" text-green-500">Accepted</span> : <span className=" text-red-500">Pending</span>}</p>
                       </div>

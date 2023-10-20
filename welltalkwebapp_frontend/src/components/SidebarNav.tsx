@@ -38,19 +38,24 @@ const SidebarNav = () => {
     window.location.href = "/";
   };
 
+  const userNameInitials = `${user?.firstName[0]}${user?.lastName[0]}`;
+
   return (
     <>
       <div className="flex">
-        <div className=" w-64 h-screen py-8 p-5 bg-tertiary">
+        <div className=" w-64 py-8 px-5 bg-tertiary">
           <div className="flex justify-between">
             <IoNotifications className="text-red-400 h-6 w-6" />
             <IoSettingsSharp className="text-gray-300 h-6 w-6" />
           </div>
-          <div className=" text-center my-3">
-            <h1 className=" font-bold text-xl text-primary">
-              {user?.firstName} {user?.lastName}
-            </h1>
-            <h3 className=" text-sm text-gray-300">{user?.userType}</h3>
+          <div className=" flex my-3 justify-center flex-col items-center gap-2">
+            <div className=" bg-gray-200 rounded-full h-24 w-24 text-3xl flex items-center justify-center"> {userNameInitials} </div>
+            <div className=" flex flex-col items-center">
+              <h1 className=" font-bold text-xl text-primary">
+                {user?.firstName} {user?.lastName}
+              </h1>
+              <h3 className=" text-sm text-gray-300">{user?.userType}</h3>
+            </div>
           </div>
           <ul className=" text-gray-300 text-lg my-6">
             {navs.map((nav, index) => (
@@ -70,7 +75,7 @@ const SidebarNav = () => {
                 {nav.name}
               </Link>
             ))}
-            <div className="cursor-pointer flex items-center gap-3 text-white font-semibold rounded-md p-3 my-2 bg-red-400 hover:bg-red-500 mt-60">
+            <div className="cursor-pointer flex items-center gap-3 text-white font-semibold rounded-md p-3 my-2 bg-primary bg-opacity-20 hover:bg-opacity-30 mt-[140px]">
               <IoLogOut />
               <button onClick={handleLogout}>Logout</button>
             </div>

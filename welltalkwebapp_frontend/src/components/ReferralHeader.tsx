@@ -48,7 +48,7 @@ const ReferralHeader = () => {
 
   return (
     <>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between shadow bg-white">
         <h1>{""}</h1>
         <div className="py-4 px-6 flex gap-2 items-center relative">
           <RiArrowDropDownLine className="text-secondary h-8 w-8 hover:text-primary cursor-pointer" onClick={toggleDropdown} />

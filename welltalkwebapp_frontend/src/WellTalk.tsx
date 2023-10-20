@@ -15,6 +15,14 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { PrivateRoute } from "./PrivateRoutes";
 import EmergencyLink from "./pages/EmergencyLink";
 import axios from "./api/axios";
+import SidebarNav from "./components/SidebarNav";
+import CounselorHeader from "./components/CounselorHeader";
+import LandingHeader from "./components/LandingHeader";
+import ReferralHeader from "./components/ReferralHeader";
+import CounselorLayout from "./components/Layout";
+import { ProgressBar } from "./components/Loading";
+import useLoading from "./hooks/useLoading";
+import Layout from "./components/Layout";
 
 const routeToTitle: { [key: string]: string } = {
   "/": " ",
@@ -75,9 +83,8 @@ function WellTalk() {
     };
   }, []);
 
-  // const { login } = useAuth();
-
   const navigate = useNavigate();
+  const { loading } = useLoading();
 
   const handleExtend = async () => {
     const username = localStorage.getItem("user");
@@ -111,48 +118,54 @@ function WellTalk() {
     localStorage.clear();
     setIsTokenExpired(false);
   };
+
   return (
-    <AuthProvider>
-      {/* Routes */}
-      <Routes>
-        {/* public routes */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/email-verification" element={<EmailChecker />} />
+    <>
+      <AuthProvider>
+        <Layout>
+          {/* Routes */}
+          <Routes>
+            {/* public routes */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/email-verification" element={<EmailChecker />} />
 
-        <Route path="/emergency-link" element={<EmergencyLink />} />
+            <Route path="/emergency-link" element={<EmergencyLink />} />
 
-        {/* private routes */}
-        <Route path="/home" element={<PrivateRoute userType="Counselor" component={Home} />} />
-        <Route path="/dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
-        <Route path="/students" element={<PrivateRoute userType="Counselor" component={Students} />} />
-        <Route path="/calendar" element={<PrivateRoute userType="Counselor" component={Calendar} />} />
-        <Route path="/notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
-        <Route path="/student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
+            {/* private routes */}
+            <Route path="/home" element={<PrivateRoute userType="Counselor" component={Home} />} />
+            <Route path="/dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
+            <Route path="/students" element={<PrivateRoute userType="Counselor" component={Students} />} />
+            <Route path="/calendar" element={<PrivateRoute userType="Counselor" component={Calendar} />} />
+            <Route path="/notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
 
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+            <Route path="/student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
 
-      {/* Show the token expired message if the token has expired */}
-      {isTokenExpired && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-lg">
-            <h1 className="text-2xl font-bold text-red-500">Your session has expired.</h1>
-            <p className="text-gray-600">Please login again to continue.</p>
-            <div className=" flex mt-5 gap-2">
-              <button className=" bg-tertiary text-white py-1 px-3 rounded-sm" onClick={handleExtend}>
-                Extend session
-              </button>
-              <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleCancelExtend}>
-                Cancel
-              </button>
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Layout>
+
+        {/* Show the token expired message if the token has expired */}
+        {isTokenExpired && (
+          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-4 rounded-lg">
+              <h1 className="text-2xl font-bold text-red-500">Your session has expired.</h1>
+              <p className="text-gray-600">Please login again to continue.</p>
+              <div className=" flex mt-5 gap-2">
+                <button className=" bg-tertiary text-white py-1 px-3 rounded-sm" onClick={handleExtend}>
+                  Extend session
+                </button>
+                <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleCancelExtend}>
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </AuthProvider>
+        )}
+      </AuthProvider>
+    </>
   );
 }
 

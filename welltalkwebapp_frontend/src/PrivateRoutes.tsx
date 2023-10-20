@@ -12,11 +12,7 @@ interface Props {
 
 export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent, userType }) => {
   const { user } = useFetchUser();
-  const { loading } = useLoading();
   const isLoggedIn = localStorage.getItem("token");
-  if (loading) {
-    return <ProgressBar />;
-  }
   const userIsAuthorized = user?.userType === userType;
 
   if (isLoggedIn && userIsAuthorized) {

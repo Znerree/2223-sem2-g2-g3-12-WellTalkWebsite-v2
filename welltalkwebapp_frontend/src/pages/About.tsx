@@ -1,13 +1,11 @@
-import LandingLayout from "@/components/LandingLayout";
+import { bgStyle } from "./Landing";
 
 const About = () => {
   return (
     <>
-      <LandingLayout>
-        <div className="flex flex-col h-full bg-primary bg-opacity-20">
-          <h1>About</h1>
-        </div>
-      </LandingLayout>
+      <div className="flex flex-col h-full bg-primary bg-opacity-20" style={bgStyle}>
+        <h1>About</h1>
+      </div>
     </>
   );
 };

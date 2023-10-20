@@ -1,13 +1,11 @@
-import CounselorLayout from "@/components/CounselorLayout";
+import CounselorLayout from "@/components/Layout";
 
 const Dashboard = () => {
   return (
     <>
-      <CounselorLayout>
-        <div className=" sticky top-5">
-          <h1 className="font-semibold">Dashboard</h1>
-        </div>
-      </CounselorLayout>
+      <div className=" sticky top-5">
+        <h1 className="font-semibold">Dashboard</h1>
+      </div>
     </>
   );
 };
