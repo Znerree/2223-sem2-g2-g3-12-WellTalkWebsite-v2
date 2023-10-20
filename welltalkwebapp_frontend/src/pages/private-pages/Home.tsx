@@ -448,7 +448,7 @@ const Home = () => {
 
       {/* Conditionally displays the user's posts */}
       {activeButton === "my" && (
-        <div className=" pr-3 flex flex-col items-center gap-4 full border-t-2 py-2 bg-gray-50">
+        <div className=" flex flex-col w-full items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
           <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-[600px]">
             <input
               type="text"
