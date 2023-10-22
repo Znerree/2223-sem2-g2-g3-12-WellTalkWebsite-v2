@@ -390,8 +390,8 @@ const Home = () => {
 
       {/* Conditionally displays all the posts */}
       {activeButton === "all" && (
-        <div className=" flex flex-col items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
-          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-full">
+        <div className=" w-full flex flex-col items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
+          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-3/4">
             <input
               type="text"
               placeholder="Create a post"
@@ -406,7 +406,7 @@ const Home = () => {
           {allPost.length > 0 ? (
             <>
               {allPost.map((post) => (
-                <div key={post.id} className=" w-full rounded-lg bg-white shadow flex flex-col">
+                <div key={post.id} className="w-3/4 rounded-lg bg-white shadow flex flex-col">
                   <div className=" flex flex-col px-3 pt-3 gap-2">
                     <div className=" flex gap-2 items-center">
                       <BsPersonCircle size={20} className=" text-gray-500" />
@@ -448,7 +448,7 @@ const Home = () => {
 
       {/* Conditionally displays the user's posts */}
       {activeButton === "my" && (
-        <div className=" flex flex-col items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
+        <div className=" w-full flex flex-col items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
           <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-full">
             <input
               type="text"
@@ -464,7 +464,7 @@ const Home = () => {
           {myPost.length > 0 ? (
             <>
               {myPost.map((post) => (
-                <div key={post.id} className=" w-full rounded-lg bg-white shadow flex flex-col">
+                <div key={post.id} className=" w-3/4 rounded-lg bg-white shadow flex flex-col">
                   <div className=" flex px-3 pt-3 gap-2 justify-between">
                     <div className=" flex gap-2 items-center">
                       <BsPersonCircle size={20} className=" text-gray-500" />
