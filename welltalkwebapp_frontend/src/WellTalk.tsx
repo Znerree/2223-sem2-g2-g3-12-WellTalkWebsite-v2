@@ -63,7 +63,7 @@ function WellTalk() {
         if (exp * 1000 < Date.now()) {
           // Token has expired, set the isTokenExpired state variable to true
           setIsTokenExpired(true);
-          // localStorage.removeItem("token");
+          localStorage.removeItem("token");
         } else {
           // Token has not expired, set the isTokenExpired state variable to false
           setIsTokenExpired(false);
@@ -84,37 +84,8 @@ function WellTalk() {
   }, []);
 
   const navigate = useNavigate();
-  const { loading } = useLoading();
 
-  const handleExtend = async () => {
-    const username = localStorage.getItem("user");
-    const password = localStorage.getItem("password");
-    const userType = localStorage.getItem("userType");
-
-    try {
-      const response = await axios.post(
-        "/authenticate",
-        { username, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      localStorage.setItem("token", response.data.token);
-      if (userType === "Counselor") {
-        navigate("/home");
-      } else {
-        navigate("/student-referral");
-      }
-    } catch (error) {
-      return { success: false, error };
-    } finally {
-      setIsTokenExpired(false);
-    }
-  };
-
-  const handleCancelExtend = () => {
+  const handleOkExpire = () => {
     localStorage.clear();
     setIsTokenExpired(false);
   };
@@ -154,10 +125,10 @@ function WellTalk() {
               <h1 className="text-2xl font-bold text-red-500">Your session has expired.</h1>
               <p className="text-gray-600">Please login again to continue.</p>
               <div className=" flex mt-5 gap-2">
-                <button className=" bg-tertiary text-white py-1 px-3 rounded-sm" onClick={handleExtend}>
+                {/* <button className=" bg-tertiary text-white py-1 px-3 rounded-sm" onClick={handleExtend}>
                   Extend session
-                </button>
-                <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleCancelExtend}>
+                </button> */}
+                <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleOkExpire}>
                   Cancel
                 </button>
               </div>

@@ -153,25 +153,27 @@ const Notes = () => {
       )}
       {userNotes.length > 0 ? (
         <>
-          <div className=" flex w-full flex-wrap gap-4">
-            {userNotes.map((note: any) => (
-              <div
-                key={note.id}
-                onClick={() => handleNoteClick(note.id)}
-                className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer wrap overflow-hidden hover:shadow-lg hover:border-secondary"
-                style={{ backgroundColor: note.color }}
-              >
-                <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
-                {note.content.length > 250 ? (
-                  <p className="break-words text-justify mb-2 text-ellipsis">
-                    {note.content.slice(0, 250)}
-                    <span className=" text-base font-medium"> .... </span>
-                  </p>
-                ) : (
-                  <p className="break-words text-justify mb-2 text-ellipsis">{note.content}</p>
-                )}
-              </div>
-            ))}
+          <div className=" flex w-full flex-wrap gap-4 justify-center">
+            <div className=" flex flex-wrap justify-center gap-3">
+              {userNotes.map((note: any) => (
+                <div
+                  key={note.id}
+                  onClick={() => handleNoteClick(note.id)}
+                  className=" p-4 rounded-md shadow border w-72 h-72 cursor-pointer wrap overflow-hidden hover:shadow-lg hover:border-secondary"
+                  style={{ backgroundColor: note.color }}
+                >
+                  <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
+                  {note.content.length > 250 ? (
+                    <p className="break-words text-justify mb-2 text-ellipsis">
+                      {note.content.slice(0, 250)}
+                      <span className=" text-base font-medium"> .... </span>
+                    </p>
+                  ) : (
+                    <p className="break-words text-justify mb-2 text-ellipsis">{note.content}</p>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </>
       ) : (

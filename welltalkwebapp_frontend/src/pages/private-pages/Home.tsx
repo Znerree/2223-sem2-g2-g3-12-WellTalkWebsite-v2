@@ -390,8 +390,8 @@ const Home = () => {
 
       {/* Conditionally displays all the posts */}
       {activeButton === "all" && (
-        <div className=" flex flex-col w-full items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
-          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-[600px]">
+        <div className=" flex flex-col items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
+          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-full">
             <input
               type="text"
               placeholder="Create a post"
@@ -406,24 +406,25 @@ const Home = () => {
           {allPost.length > 0 ? (
             <>
               {allPost.map((post) => (
-                <div key={post.id} className=" w-[600px] rounded-lg bg-white border-2 shadow flex p-2 flex-col">
-                  <div className=" flex items-center gap-2">
-                    <BsPersonCircle size={20} className=" text-gray-500" />
-                    <h1 className=" font-bold text-md">
-                      {post.counselor.firstName} {post.counselor.lastName}
-                    </h1>
+                <div key={post.id} className=" w-full rounded-lg bg-white shadow flex flex-col">
+                  <div className=" flex flex-col px-3 pt-3 gap-2">
+                    <div className=" flex gap-2 items-center">
+                      <BsPersonCircle size={20} className=" text-gray-500" />
+                      <h1 className=" font-bold text-md">
+                        {post.counselor.firstName} {post.counselor.lastName}
+                      </h1>
+                    </div>
+                    <h2 className=" font-semibold">{post.title}</h2>
+                    <p className=" text-justify pb-2">{post.content}</p>
                   </div>
-                  <h2 className=" font-semibold mt-2">{post.title}</h2>
-                  <p className=" mt-3 text-justify">{post.content}</p>
-                  {post.photoContent ? (
-                    <img
-                      src={`data:image/jpeg;base64,${post.photoContent}`}
-                      alt="Posted Image"
-                      className=" shadow mt-3 max-w-auto max-h-auto cursor-pointer rounded-md "
-                    />
-                  ) : null}
-                  <div className=" flex justify-between items-center border-t border-b px-3 pb-2 border-gray-300 mt-3">
-                    <div className=" flex items-center gap-4 mt-2">
+                  <span className=" w-full border">
+                    {post.photoContent ? (
+                      <img src={`data:image/jpeg;base64,${post.photoContent}`} alt="Posted Image" className=" max-w-full max-h-auto cursor-pointer " />
+                    ) : null}
+                  </span>
+                  <p className=" text-xs text-gray-400 px-2 py-1">21 Likes</p>
+                  <div className=" flex justify-between items-center border-t border-gray-200 px-3">
+                    <div className=" flex items-center gap-4 py-2">
                       <button className=" text-sm text-gray-500 hover:text-primary flex items-center gap-1">
                         <AiOutlineHeart />
                         <p>Like</p>
@@ -433,7 +434,6 @@ const Home = () => {
                         <p>Comment</p>
                       </button>
                     </div>
-                    <p className=" text-xs text-gray-400">21 Likes</p>
                   </div>
                 </div>
               ))}
@@ -448,12 +448,12 @@ const Home = () => {
 
       {/* Conditionally displays the user's posts */}
       {activeButton === "my" && (
-        <div className=" flex flex-col w-full items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
-          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-[600px]">
+        <div className=" flex flex-col items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
+          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-full">
             <input
               type="text"
               placeholder="Create a post"
-              className=" cursor-pointer w-full outline-none p-2 rounded-full bg-gray-200 hover:bg-gray-50 "
+              className=" cursor-pointer outline-none w-full p-2 rounded-full bg-gray-200 hover:bg-gray-50 "
               onClick={handleOpenPostForm}
             />
             <div onClick={handleOpenPostForm} className=" w-[70px] cursor-pointer mt-2 rounded-lg flex items-center gap-1 bg-secondary p-1 ">
@@ -464,9 +464,9 @@ const Home = () => {
           {myPost.length > 0 ? (
             <>
               {myPost.map((post) => (
-                <div key={post.id} className=" w-[600px] rounded-lg bg-white border-2 shadow flex p-2 flex-col">
-                  <div className=" flex justify-between items-center">
-                    <div className=" flex items-center gap-2">
+                <div key={post.id} className=" w-full rounded-lg bg-white shadow flex flex-col">
+                  <div className=" flex px-3 pt-3 gap-2 justify-between">
+                    <div className=" flex gap-2 items-center">
                       <BsPersonCircle size={20} className=" text-gray-500" />
                       <h1 className=" font-bold text-md">
                         {post.counselor.firstName} {post.counselor.lastName}
@@ -568,17 +568,18 @@ const Home = () => {
                       )}
                     </div>
                   </div>
-                  <h2 className=" font-semibold mt-2">{post.title}</h2>
-                  <p className=" mt-3 text-justify">{post.content}</p>
-                  {post.photoContent ? (
-                    <img
-                      src={`data:image/jpeg;base64,${post.photoContent}`}
-                      alt="Posted Image"
-                      className=" shadow mt-3 max-w-auto max-h-auto cursor-pointer rounded-md"
-                    />
-                  ) : null}
-                  <div className=" flex w-full justify-between items-center border-t border-b px-3 pb-2 border-gray-300 mt-3">
-                    <div className=" flex items-center gap-4 mt-2">
+                  <span className=" px-3 py-2">
+                    <h2 className=" font-semibold">{post.title}</h2>
+                    <p className=" text-justify pt-2">{post.content}</p>
+                  </span>
+                  <span className=" w-full border">
+                    {post.photoContent ? (
+                      <img src={`data:image/jpeg;base64,${post.photoContent}`} alt="Posted Image" className=" shadow max-w-auto max-h-auto cursor-pointer" />
+                    ) : null}
+                  </span>
+                  <p className=" text-xs text-gray-400 px-2 py-1">21 Likes</p>
+                  <div className=" flex justify-between items-center border-t border-gray-200 px-3">
+                    <div className=" flex items-center gap-4 py-2">
                       <button className=" text-sm text-gray-500 hover:text-primary flex items-center gap-1">
                         <AiOutlineHeart />
                         <p>Like</p>
@@ -588,7 +589,6 @@ const Home = () => {
                         <p>Comment</p>
                       </button>
                     </div>
-                    <p className=" text-xs text-gray-400">21 Likes</p>
                   </div>
                 </div>
               ))}
