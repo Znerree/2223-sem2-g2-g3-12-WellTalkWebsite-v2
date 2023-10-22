@@ -145,9 +145,7 @@ const Students = () => {
 
   return (
     <>
-      <h1 className=" font-semibold sticky top-0 mb-3">Students</h1>
-
-      <div className=" border-2 rounded-lg px-5 py-5 shadow-lg bg-white">
+      <div className=" border-2 rounded-lg px-5 mx-4 shadow-lg bg-white">
         <div className=" flex flex-col max-h-[550px] overflow-y-auto">
           <div className="flex flex-wrap">
             <div className=" mb-4 p-2 flex justify-between items-center">

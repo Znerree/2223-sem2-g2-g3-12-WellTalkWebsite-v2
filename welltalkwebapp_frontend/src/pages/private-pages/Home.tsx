@@ -304,10 +304,8 @@ const Home = () => {
 
   return (
     <>
-      <div className=" sticky top-5">
-        <h1 className=" font-semibold">Welcome to Welltalk!</h1>
-
-        <div className=" flex justify-between py-8">
+      <div className=" sticky top-0">
+        <div className=" flex px-2 justify-between py-4">
           <nav className=" flex gap-2">
             <button
               className={`rounded-full h-10 p-2 text-xs ${
@@ -417,7 +415,7 @@ const Home = () => {
                     <h2 className=" font-semibold">{post.title}</h2>
                     <p className=" text-justify pb-2">{post.content}</p>
                   </div>
-                  <span className=" w-full border">
+                  <span className=" w-full border-t border-b flex justify-center">
                     {post.photoContent ? (
                       <img src={`data:image/jpeg;base64,${post.photoContent}`} alt="Posted Image" className=" max-w-full max-h-auto cursor-pointer " />
                     ) : null}
@@ -449,7 +447,7 @@ const Home = () => {
       {/* Conditionally displays the user's posts */}
       {activeButton === "my" && (
         <div className=" w-full flex flex-col items-center gap-4 scroll-smooth border-t-2 py-2 bg-gray-50">
-          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-full">
+          <div className=" bg-secondary bg-opacity-50 shadow p-3 rounded-lg w-3/4">
             <input
               type="text"
               placeholder="Create a post"
@@ -572,9 +570,9 @@ const Home = () => {
                     <h2 className=" font-semibold">{post.title}</h2>
                     <p className=" text-justify pt-2">{post.content}</p>
                   </span>
-                  <span className=" w-full border">
+                  <span className=" w-full border-t border-b flex justify-center">
                     {post.photoContent ? (
-                      <img src={`data:image/jpeg;base64,${post.photoContent}`} alt="Posted Image" className=" shadow max-w-auto max-h-auto cursor-pointer" />
+                      <img src={`data:image/jpeg;base64,${post.photoContent}`} alt="Posted Image" className=" max-w-full max-h-auto cursor-pointer" />
                     ) : null}
                   </span>
                   <p className=" text-xs text-gray-400 px-2 py-1">21 Likes</p>

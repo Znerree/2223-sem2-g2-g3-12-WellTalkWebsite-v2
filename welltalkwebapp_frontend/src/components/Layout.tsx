@@ -55,7 +55,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className={`h-screen flex ${isMobileView ? "flex flex-col" : ""}`}>
       {isMobileView && isLoggedIn && userType === "Counselor" && isCounselorRoutes && (
-        <button className="fixed top-0 w-16 h-16 z-50 ml-3 text-tertiary text-opacity-70 hover:text-tertiary" onClick={handleToggleSidebar}>
+        <button className="fixed top-0 w-16 h-16 z-10 ml-3 text-tertiary text-opacity-70 hover:text-tertiary" onClick={handleToggleSidebar}>
           <RxHamburgerMenu />
         </button>
       )}
@@ -66,7 +66,7 @@ const Layout = ({ children }: LayoutProps) => {
           </span>
         </div>
       )}
-      <div className="overflow-y-auto bg-gray-50 w-full h-full">
+      <div className="overflow-y-auto bg-gray-50 w-full h-full flex flex-col">
         <header className="sticky top-0">
           {loading && <ProgressBar />}
           {isLandingPage && <LandingHeader />}
@@ -74,12 +74,14 @@ const Layout = ({ children }: LayoutProps) => {
           {isCounselorRoutes && userType === "Counselor" && <CounselorHeader />}
         </header>
         {isSidebarOpen && isMobileView && isLoggedIn && userType === "Counselor" && isCounselorRoutes && (
-          <div className=" h-full p-4 bg-tertiary rounded-lg m-3 shadow">
-            <SidebarNav />
+          <div className="w-full fixed z-10 bg-gray-900 bg-opacity-70" onClick={() => setIsSidebarOpen(false)}>
+            <div className=" w-1/2 p-4 bg-tertiary shadow" onClick={(event) => event.stopPropagation()}>
+              <SidebarNav />
+            </div>
           </div>
         )}
-        <main className={`${isPrivatePages ? "container py-2" : "h-full"}`}>{children}</main>
-        {isLandingPage && <footer className="sticky bottom-0">{isLandingPage && <Footer />}</footer>}
+        <main className={`${isPrivatePages ? " overflow-y-auto h-full py-2" : "h-full"}`}>{children}</main>
+        {isLandingPage && <Footer />}
       </div>
     </div>
   );

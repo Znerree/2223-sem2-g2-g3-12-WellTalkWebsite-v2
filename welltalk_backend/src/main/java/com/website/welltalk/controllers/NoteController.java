@@ -28,8 +28,9 @@ public class NoteController {
     @Autowired
     NoteService noteService;
 
-    @RequestMapping(value="/notes", method = RequestMethod.POST)
-    public ResponseEntity<Object> createNote(@RequestHeader(value="Authorization") String stringToken, @RequestBody Notes note) {
+    @RequestMapping(value = "/notes", method = RequestMethod.POST)
+    public ResponseEntity<Object> createNote(@RequestHeader(value = "Authorization") String stringToken,
+            @RequestBody Notes note) {
         noteService.createNote(stringToken, note);
         return new ResponseEntity<>("Note created successfully", HttpStatus.CREATED);
     }
@@ -48,7 +49,7 @@ public class NoteController {
     }
 
     // Update notes
-    @RequestMapping(value = "/notes/{notesid}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/notes/{noteid}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updatePost(@PathVariable Long noteid,
             @RequestHeader(value = "Authorization") String stringToken, @RequestBody Notes note) {
         return noteService.updateNotes(noteid, stringToken, note);

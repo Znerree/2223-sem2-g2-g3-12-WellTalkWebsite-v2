@@ -11,10 +11,8 @@ export const bgStyle = {
 const Landing = () => {
   return (
     <>
-      <div className="flex h-full flex-col bg-primary bg-opacity-20" style={bgStyle}>
-        <div className="flex flex-col container">
-          <img src={logo} alt="WellTalk Logo" className="w-96 h-96" />
-        </div>
+      <div className=" h-full py-20 bg-primary bg-opacity-20" style={bgStyle}>
+        <img src={logo} alt="WellTalk Logo" className="w-96 h-96" />
       </div>
     </>
   );
