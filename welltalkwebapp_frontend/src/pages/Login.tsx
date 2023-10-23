@@ -13,13 +13,15 @@ const LOGIN_URL = "/authenticate";
 const formbg = {
   backgroundImage: `url(${formbackground})`,
   backgroundSize: " 50%",
-  backgroundPosition: "right",
+  backgroundPosition: "right center",
   backgroundRepeat: "no-repeat",
 };
 
 const pageBg = {
   backgroundImage: `url(${pageBackground})`,
   backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
 };
 
 const Login = () => {
@@ -72,8 +74,8 @@ const Login = () => {
   return (
     <>
       <div className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center" style={pageBg}>
-        <div className=" w-3/4 relative rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
-          <form className="py-6 px-4 left-0 w-80 flex flex-col" onSubmit={handleSubmit}>
+        <div className=" w-1/2 relative rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
+          <form className="py-6 px-4 w-96 flex flex-col" onSubmit={handleSubmit}>
             <h1 className=" text-center font-medium text-primary text-4xl mb-3">Login</h1>
             <input
               name="username"
@@ -113,7 +115,7 @@ const Login = () => {
           </form>
           <div className="p-3 absolute right-0">
             <Link to="/">
-              <IoMdClose className=" top-0 right-0 text-secondary hover:text-primary" />
+              <IoMdClose className=" text-secondary hover:text-primary" />
             </Link>
           </div>
         </div>
