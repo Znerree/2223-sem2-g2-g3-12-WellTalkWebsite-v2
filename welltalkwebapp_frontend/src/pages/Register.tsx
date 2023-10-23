@@ -4,7 +4,8 @@ import pageBackground from "../assets/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const formbg = {
   backgroundImage: `url(${formbackground})`,
   backgroundSize: " 50%",
@@ -14,7 +15,7 @@ const formbg = {
 
 const pageBg = {
   backgroundImage: `url(${pageBackground})`,
-  backgroundSize: " 100%",
+  backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
 };
 
@@ -78,59 +79,16 @@ const Register = () => {
 
   return (
     <>
-      <div
-        className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center absolute"
-        style={pageBg}
-      >
-        <div
-          className=" w-[720px] rounded-2xl bg-white shadow-md h-auto flex justify-between"
-          style={formbg}
-        >
-          <form
-            className=" py-6 px-10 left-0 w-[360px] flex flex-col"
-            onSubmit={handleSubmit}
-          >
-            <h1 className=" text-center font-medium text-primary text-4xl mb-3">
-              Register
-            </h1>
+      <div className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center" style={pageBg}>
+        <div className="w-1/2 relative rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
+          <form className=" py-6 px-4 w-96 flex flex-col" onSubmit={handleSubmit}>
+            <h1 className=" text-center font-medium text-primary text-4xl mb-3">Register</h1>
             <div className=" flex gap-2">
-              <input
-                name="firstName"
-                type="text"
-                style={inputStyle}
-                onChange={handleInput}
-                placeholder="Firstname"
-                autoComplete="off"
-                required
-              />
-              <input
-                name="lastName"
-                type="text"
-                style={inputStyle}
-                onChange={handleInput}
-                placeholder="Lastname"
-                autoComplete="off"
-                required
-              />
+              <input name="firstName" type="text" style={inputStyle} onChange={handleInput} placeholder="Firstname" autoComplete="off" required />
+              <input name="lastName" type="text" style={inputStyle} onChange={handleInput} placeholder="Lastname" autoComplete="off" required />
             </div>
-            <input
-              name="email"
-              type="email"
-              style={inputStyle}
-              onChange={handleInput}
-              placeholder="Email"
-              autoComplete="off"
-              required
-            />
-            <input
-              name="schoolID"
-              type="number"
-              style={inputStyle}
-              onChange={handleInput}
-              placeholder="Institutional ID"
-              autoComplete="off"
-              required
-            />
+            <input name="email" type="email" style={inputStyle} onChange={handleInput} placeholder="Email" autoComplete="off" required />
+            <input name="schoolID" type="number" style={inputStyle} onChange={handleInput} placeholder="Institutional ID" autoComplete="off" required />
             <select
               name="userType"
               onChange={handleUserTypeChange}
@@ -144,24 +102,8 @@ const Register = () => {
               <option value="Counselor">Counselor</option>
               <option value="Teacher">Teacher</option>
             </select>
-            <input
-              name="username"
-              type="text"
-              style={inputStyle}
-              onChange={handleInput}
-              placeholder="Username"
-              autoComplete="off"
-              required
-            />
-            <input
-              name="password"
-              type="password"
-              style={inputStyle}
-              onChange={handleInput}
-              placeholder="Password"
-              autoComplete="off"
-              required
-            />
+            <input name="username" type="text" style={inputStyle} onChange={handleInput} placeholder="Username" autoComplete="off" required />
+            <input name="password" type="password" style={inputStyle} onChange={handleInput} placeholder="Password" autoComplete="off" required />
             <input
               name="confirmPassword"
               type="password"
@@ -171,26 +113,20 @@ const Register = () => {
               autoComplete="off"
               required
             />
-            <button
-              type="submit"
-              className=" bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
-            >
+            <button type="submit" className=" bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2">
               Create Account
             </button>
 
             <p className=" text-secondary text-xs my-2">
               Already have an account?{" "}
-              <Link
-                to="/login"
-                className="font-bold text-primary cursor-pointer"
-              >
+              <Link to="/login" className="font-bold text-primary cursor-pointer">
                 Login
               </Link>
             </p>
           </form>
-          <div className=" flex relative justify-end px-6 py-5">
+          <div className=" p-3 right-0 absolute">
             <Link to="/">
-              <IoMdClose className=" top-0 right-0 text-secondary hover:text-primary cursor-pointer" />
+              <IoMdClose className=" text-secondary hover:text-primary cursor-pointer" />
             </Link>
           </div>
         </div>

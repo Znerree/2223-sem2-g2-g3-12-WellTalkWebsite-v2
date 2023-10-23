@@ -304,35 +304,33 @@ const Home = () => {
 
   return (
     <>
-      <div className=" sticky top-0">
-        <div className=" flex px-2 justify-between py-4">
-          <nav className=" flex gap-2">
-            <button
-              className={`rounded-full h-10 p-2 text-xs ${
-                activeButton === "all" ? "bg-secondary text-white border-inherit" : "border-secondary border-2 bg-white text-secondary"
-              }`}
-              onClick={() => {
-                setActiveButton("all");
-              }}
-            >
-              All Posts
-            </button>
-            <button
-              className={`rounded-full text-xs p-2 ${
-                activeButton === "my" ? "bg-secondary text-white border-inherit" : "border-secondary border-2 bg-white text-secondary"
-              }`}
-              onClick={() => {
-                setActiveButton("my");
-              }}
-            >
-              My Posts
-            </button>
-          </nav>
-          <button onClick={handleOpenPostForm} className=" border h-10 text-white px-2 bg-tertiary rounded-lg flex items-center gap-1 hover:bg-opacity-90">
-            <MdPostAdd />
-            Add new Post
+      <div className=" flex justify-center py-4 w-full">
+        <nav className=" flex gap-2 w-3/4">
+          <button
+            className={`rounded-full h-10 p-2 text-xs ${
+              activeButton === "all" ? "bg-secondary text-white border-inherit" : "border-secondary border-2 bg-white text-secondary"
+            }`}
+            onClick={() => {
+              setActiveButton("all");
+            }}
+          >
+            All Posts
           </button>
-        </div>
+          <button
+            className={`rounded-full text-xs p-2 ${
+              activeButton === "my" ? "bg-secondary text-white border-inherit" : "border-secondary border-2 bg-white text-secondary"
+            }`}
+            onClick={() => {
+              setActiveButton("my");
+            }}
+          >
+            My Posts
+          </button>
+        </nav>
+        {/* <button onClick={handleOpenPostForm} className=" border h-10 text-white px-2 bg-tertiary rounded-lg flex items-center gap-1 hover:bg-opacity-90">
+          <MdPostAdd />
+          Add new Post
+        </button> */}
       </div>
 
       {/* Conditionally displays the form to create a new post */}
