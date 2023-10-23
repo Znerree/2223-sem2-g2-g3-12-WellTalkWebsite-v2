@@ -19,7 +19,6 @@ const formbg = {
 
 const pageBg = {
   backgroundImage: `url(${pageBackground})`,
-  backgroundSize: " 100%",
   backgroundRepeat: "no-repeat",
 };
 
@@ -72,9 +71,9 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center absolute" style={pageBg}>
-        <div className=" w-[720px] rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
-          <form className=" py-6 px-10 left-0 w-[360px] flex flex-col" onSubmit={handleSubmit}>
+      <div className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center" style={pageBg}>
+        <div className=" w-3/4 relative rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
+          <form className="py-6 px-4 left-0 w-80 flex flex-col" onSubmit={handleSubmit}>
             <h1 className=" text-center font-medium text-primary text-4xl mb-3">Login</h1>
             <input
               name="username"
@@ -112,7 +111,7 @@ const Login = () => {
               <a className=" flex flex-1 text-center w-full">Forgot Password?</a>
             </p>
           </form>
-          <div className=" flex relative justify-end px-6 py-5">
+          <div className="p-3 absolute right-0">
             <Link to="/">
               <IoMdClose className=" top-0 right-0 text-secondary hover:text-primary" />
             </Link>
