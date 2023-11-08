@@ -5,8 +5,11 @@ import { HiSwitchHorizontal } from "react-icons/hi";
 import useStudentSearch from "@/actions/search-student-actions";
 import useAppointmentActions from "@/actions/calendar-appointment-actions";
 import CounselorLayout from "@/components/Layout";
+import { Calendar } from "@/components/ui/calendar";
 
-const Calendar = () => {
+const Calendarpage = () => {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+
   //css style for input
   const inputStyle = {
     borderBottom: "2px solid #769EAB",
@@ -48,10 +51,10 @@ const Calendar = () => {
 
   return (
     <>
-      <div className=" sticky top-5 flex justify-between mb-3">
-        <h1 className=" font-semibold">Calendar</h1>
-      </div>
-
+      <span className=" flex">
+        <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border w-72 bg-white" />
+        <p>You have no appointment for today.</p>
+      </span>
       <div className="flex flex-grow gap-10 justify-center">
         <div className=" bg-white w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
           {/* Set an appointment */}
@@ -129,4 +132,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default Calendarpage;

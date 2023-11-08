@@ -1,3 +1,7 @@
 export const AccessDenied = () => {
-  return <div>Access denied</div>;
+  return (
+    <div>
+      <div>Access denied</div>
+    </div>
+  );
 };

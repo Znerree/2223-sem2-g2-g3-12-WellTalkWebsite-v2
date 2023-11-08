@@ -209,7 +209,7 @@ const Notes = () => {
 
       {userNotes.length > 0 ? (
         <>
-          <div className=" w-full flex h-full overflow-y-hidden">
+          <div className=" w-full h-full flex overflow-auto">
             <div className=" w-2/5 border-r shadow-md overflow-y-auto ">
               <h1 className="text-2xl font-semibold p-3">My notes</h1>
               {userNotes.map((note: any) => (
@@ -234,7 +234,7 @@ const Notes = () => {
               ))}
             </div>
             {displayClickedNote && !showEditNote && (
-              <div className=" w-3/5 container flex flex-col overflow-y-hidden" key={clickedNoteId}>
+              <div className=" w-3/5 container flex flex-col h-full overflow-auto" key={clickedNoteId}>
                 {userNotes
                   .filter((note: any) => note.id === clickedNoteId) // Filter for the clicked note
                   .map((note: any) => (
@@ -290,13 +290,13 @@ const Notes = () => {
             )}
 
             {showEditNote && (
-              <div className={`w-3/5 container flex flex-col overflow-y-hidden ${!displayClickedNote ? "hidden" : ""}`}>
+              <div className={`w-3/5 container flex flex-col ${!displayClickedNote ? "hidden" : ""}`}>
                 {userNotes
                   .filter((note: any) => note.id === clickedNoteId)
                   .map((note: any) => (
                     <div key={note.id}>
-                      <form onSubmit={handleSaveEditedNote} className="flex flex-col text-sm gap-2 items-center my-3">
-                        <span className=" w-full flex items-center gap-2 justify-end">
+                      <form onSubmit={handleSaveEditedNote}>
+                        <span className=" w-full flex items-center gap-2x justify-end">
                           <button type="submit" className=" flex items-center gap-1 text-white rounded-md py-1 px-2 bg-green-500">
                             Save
                           </button>
@@ -304,8 +304,7 @@ const Notes = () => {
                             Cancel
                           </button>
                         </span>
-
-                        <span className=" flex flex-col w-full">
+                        <span className=" flex flex-col">
                           <input
                             onChange={handleEditInputChange}
                             type="text"
@@ -319,7 +318,7 @@ const Notes = () => {
                             name="content"
                             type="text"
                             placeholder="Content"
-                            className="break-words text-justify outline-none bg-gray-50"
+                            className="break-words outline-none bg-gray-50 h-full"
                             value={editingNote.content}
                           />
                         </span>

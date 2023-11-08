@@ -4,10 +4,15 @@ import { BiSolidDashboard, BiSolidCalendar } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaNoteSticky } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useFetchUser from "@/hooks/useFetchUser";
+import { useAuth } from "@/contexts/AuthContext";
 
-const SidebarNav = () => {
+type Props = {
+  navIsClicked?: boolean;
+};
+
+const SidebarNav = ({ navIsClicked }: Props) => {
   //sidebar navs (names, icons, paths)
   let navs = [
     {
@@ -26,6 +31,7 @@ const SidebarNav = () => {
   const [active, setActive] = useState(0);
 
   const { user } = useFetchUser();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const activeIndex = navs.findIndex((nav) => nav.path === location.pathname);
@@ -34,51 +40,50 @@ const SidebarNav = () => {
   }, [location]);
 
   const handleLogout = () => {
-    localStorage.clear();
-    window.location.href = "/";
+    logout();
   };
 
   const userNameInitials = `${user?.firstName[0]}${user?.lastName[0]}`;
 
   return (
     <>
-      <div className="flex justify-between">
-        <IoNotifications className="text-red-400 h-6 w-6" />
-        <IoSettingsSharp className="text-gray-300 h-6 w-6" />
-      </div>
-      <div className=" flex my-3 justify-center flex-col items-center gap-2">
-        <div className=" bg-gray-200 rounded-full h-24 w-24 text-3xl flex items-center justify-center"> {userNameInitials} </div>
-        <div className=" flex flex-col items-center">
-          <h1 className=" font-bold text-xl text-primary">
-            {user?.firstName} {user?.lastName}
-          </h1>
-          <h3 className=" text-sm text-gray-300">{user?.userType}</h3>
+      <div className="flex flex-col gap-2 bg-tertiary px-4 py-4 h-screen w-64">
+        <div className="flex justify-between items-center">
+          <div className="text-red-400 text-2xl font-semibold">
+            <IoNotifications />
+          </div>
+          <div className="text-gray-400 text-2xl font-semibold">
+            <IoSettingsSharp />
+          </div>
         </div>
-      </div>
-      <ul className=" text-gray-300 text-lg my-6">
+        <div className="flex flex-col justify-center items-center mb-5">
+          <div className="text-white text-lg font-semibold h-20 w-20 bg-gray-300 px-3 flex items-center justify-center rounded-full">{userNameInitials}</div>
+          <h1 className="text-primary text-lg font-semibold">{`${user?.firstName} ${user?.lastName}`}</h1>
+          <span className="text-gray-400 text-sm">{user?.userType}</span>
+        </div>
         {navs.map((nav, index) => (
           <Link
             to={nav.path}
             className={
               active == index
-                ? " text-gray-50 font-semibold cursor-pointer flex items-center gap-3 rounded-md p-3 my-2 bg-primary bg-opacity-20"
-                : "cursor-pointer flex items-center gap-3 rounded-md p-3 my-2 hover:bg-primary hover:bg-opacity-20"
+                ? "text-white font-semibold text-xl cursor-pointer flex items-center gap-3 rounded-md p-3 bg-primary bg-opacity-20"
+                : "text-gray-50 cursor-pointer text-lg flex items-center gap-3 rounded-md p-3 hover:bg-primary hover:bg-opacity-20"
             }
             key={index}
             onClick={() => {
               setActive(index);
+              navIsClicked = true;
             }}
           >
             {nav.icon}
             {nav.name}
           </Link>
         ))}
-        <div className="cursor-pointer flex items-center gap-3 text-white font-semibold rounded-md p-3 my-2 bg-primary bg-opacity-20 hover:bg-opacity-30 mt-[140px]">
+        <div className="text-gray-50 cursor-pointer text-lg flex items-center gap-3 rounded-md p-3 hover:bg-primary hover:bg-opacity-20" onClick={handleLogout}>
           <IoLogOut />
-          <button onClick={handleLogout}>Logout</button>
+          Logout
         </div>
-      </ul>
-      <Outlet />
+      </div>
     </>
   );
 };

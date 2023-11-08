@@ -80,7 +80,7 @@ const Register = () => {
   return (
     <>
       <div className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center" style={pageBg}>
-        <div className="w-1/2 relative rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
+        <div className="min-w-1/2 relative rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
           <form className=" py-6 px-4 w-96 flex flex-col" onSubmit={handleSubmit}>
             <h1 className=" text-center font-medium text-primary text-4xl mb-3">Register</h1>
             <div className=" flex gap-2">

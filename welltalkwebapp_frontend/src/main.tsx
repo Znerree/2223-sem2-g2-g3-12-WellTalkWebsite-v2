@@ -1,16 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./WellTalk.tsx";
+import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import WellTalk from "./WellTalk.tsx";
+import { AuthProvider } from "./contexts/AuthContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<WellTalk />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );

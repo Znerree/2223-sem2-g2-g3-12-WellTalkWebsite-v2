@@ -18,6 +18,7 @@ module.exports = {
     extend: {
       colors: { 
         primary:"#30D5C8",
+        primaryLight:"#D9F3F0",
         secondary:"#769EAB",
         tertiary:"#262A47"
       },
@@ -38,8 +39,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-  corePlugins: {
-    // ...
-    transform: false, // Disable the default transform classes to define custom transform classes
-  },
 }

@@ -5,10 +5,13 @@ import pageBackground from "../assets/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import useLoading from "@/hooks/useLoading";
-import { LoadingScreen } from "@/components/Loading";
+import { LoadingScreen } from "@/components/Loaders";
 import { useAuth } from "@/contexts/AuthContext";
-
-const LOGIN_URL = "/authenticate";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const formbg = {
   backgroundImage: `url(${formbackground})`,
@@ -21,7 +24,6 @@ const pageBg = {
   backgroundImage: `url(${pageBackground})`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
-  backgroundPosition: "center",
 };
 
 const Login = () => {
@@ -46,10 +48,10 @@ const Login = () => {
   const { loading, setLoading } = useLoading();
   const { login } = useAuth();
 
-  useEffect(() => {
-    if (!userRef.current) throw Error("No userRef");
-    userRef.current;
-  });
+  // useEffect(() => {
+  //   if (!userRef.current) throw Error("No userRef");
+  //   userRef.current;
+  // });
 
   useEffect(() => {
     setErrMsg("");
@@ -70,6 +72,19 @@ const Login = () => {
       setErrMsg("Login failed. Please try again.");
     }
   };
+
+  const form = useForm({
+    defaultValues: {
+      username: "",
+    },
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    resolver: undefined,
+    context: undefined,
+    criteriaMode: "firstError",
+    shouldFocusError: true,
+    shouldUnregister: false,
+  });
 
   return (
     <>
@@ -119,8 +134,8 @@ const Login = () => {
             </Link>
           </div>
         </div>
+        {loading && <LoadingScreen />}
       </div>
-      {loading && <LoadingScreen />}
     </>
   );
 };

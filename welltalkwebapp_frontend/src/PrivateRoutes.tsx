@@ -1,8 +1,7 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Route, useLocation } from "react-router-dom";
 import useFetchUser from "./hooks/useFetchUser";
 import { AccessDenied } from "./pages/AccessDenied";
-import useLoading from "./hooks/useLoading";
-import { LoadingScreen, ProgressBar } from "./components/Loading";
+import Layout from "./components/Layout";
 
 interface Props {
   component: React.ComponentType;
@@ -17,7 +16,11 @@ export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent, userT
 
   if (isLoggedIn && userIsAuthorized) {
     //User is authorized
-    return <RouteComponent />;
+    return (
+      <Layout>
+        <RouteComponent />
+      </Layout>
+    );
   }
 
   if (isLoggedIn && !userIsAuthorized) {
