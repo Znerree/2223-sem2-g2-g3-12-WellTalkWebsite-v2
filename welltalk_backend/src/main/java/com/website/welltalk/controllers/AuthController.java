@@ -2,13 +2,8 @@ package com.website.welltalk.controllers;
 
 import com.website.welltalk.services.JwtUserDetailsService;
 import com.website.welltalk.config.JwtToken;
-import com.website.welltalk.models.Counselor;
 import com.website.welltalk.models.JwtRequest;
 import com.website.welltalk.models.JwtResponse;
-import com.website.welltalk.models.Teacher;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
