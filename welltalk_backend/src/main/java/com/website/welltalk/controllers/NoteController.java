@@ -1,9 +1,7 @@
 package com.website.welltalk.controllers;
 
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.website.welltalk.models.Notes;
-import com.website.welltalk.models.Post;
 import com.website.welltalk.services.NoteService;
-import com.website.welltalk.services.PostService;
 
 // Serializes all responses of the PostController as HTTP responses
 // Serialization - An object in Java can be represented as a sequence of bytes that includes the object's data as well as information about the object's type and the types of data stored in the object
