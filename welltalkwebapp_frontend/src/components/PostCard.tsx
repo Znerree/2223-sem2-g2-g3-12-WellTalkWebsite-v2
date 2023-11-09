@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import {
@@ -17,21 +17,24 @@ import { Input } from "./ui/input";
 import Man_Avatar from "@/assets/images/man_avatar.svg";
 import { RiMoreFill } from "react-icons/ri";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
-import { GrEdit } from "react-icons/gr";
-import { MdOutlineModeEdit } from "react-icons/md";
-import useLoading from "@/hooks/useLoading";
-import { ProgressBar } from "./Loaders";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Label } from "./ui/label";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { useForm } from "react-hook-form";
+import axios from "@/api/axios";
+import { Textarea } from "./ui/textarea";
 
 export type PostsProps = {
   id: number;
-  key: number;
   title: string;
   content: string;
   photoContent: string;
-  photoData: File;
   activeBtn: string;
   showEdit?: () => void;
   showDeleteModal?: () => void;
+  saveChanges?: () => void;
+  photoData: File;
   counselor: {
     id: number;
     firstName: string;
@@ -40,14 +43,104 @@ export type PostsProps = {
   };
 };
 
-const PostCard = ({ id, title, content, photoContent, activeBtn, counselor, showDeleteModal, showEdit }: PostsProps) => {
+const PostCard = ({ id, title, content, photoContent, activeBtn, counselor, showDeleteModal, showEdit, saveChanges, photoData }: PostsProps) => {
+  const [post, setPost] = useState<PostsProps[]>([]);
+  const [myPost, setMyPost] = useState<PostsProps[]>([]);
+  const [imageFileName, setImageFileName] = useState("");
+  const [editingPost, setEditingPost] = useState<PostsProps>({} as PostsProps);
+  const [imageSrc, setImageSrc] = useState("");
   const userInitials = counselor.firstName.charAt(0) + counselor.lastName.charAt(0);
+  const form = useForm();
 
-  const { loading } = useLoading();
+  const handleEditImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setEditingPost((prevPost) => ({
+        ...prevPost,
+        photoData: file,
+      }));
 
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageSrc = event.target?.result as string;
+        setImageSrc(imageSrc);
+      };
+      reader.readAsDataURL(file);
+      setImageFileName(file.name);
+    }
+  };
 
+  const handleImageClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.preventDefault();
+    const input = document.querySelector("input[type=file]") as HTMLInputElement;
+    input.click();
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setEditingPost((prevPost) => ({
+      ...prevPost,
+      [name]: value,
+    }));
+    console.log(editingPost);
+  };
+
+  useEffect(() => {
+    setImageSrc(`data:image/jpeg;base64,${photoContent}`);
+  }, [post]);
+
+  const handleEditPost = async (event: any) => {
+    event.preventDefault();
+
+    //formData is used for posting with photos
+    const formData = new FormData();
+    formData.append("title", editingPost.title);
+    formData.append("content", editingPost.content);
+    formData.append("photoData", editingPost.photoData);
+    console.log(editingPost.photoData);
+
+    //body is used for posting without photos
+    const body = {
+      title: editingPost.title,
+      content: editingPost.content,
+    };
+
+    //headers is used for authorization
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+
+    try {
+      let response;
+      const postId = editingPost.id;
+      if (editingPost?.photoData?.name === "") {
+        // Update post without photo
+        response = await axios.put(`/posts/${postId}`, body, config);
+      } else {
+        // Update post with photo
+        response = await axios.put(`/posts/photo/${postId}`, formData, config);
+        console.log(response);
+        setEditingPost({
+          ...editingPost,
+          photoData: new File([], ""),
+        });
+      }
+      console.log(response);
+      alert("Post updated!");
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleUpdateInputChange = (event: any) => {
+    const { name, value } = event.target;
+    setEditingPost((prevPost) => ({
+      ...prevPost,
+      [name]: value,
+    }));
+    console.log(editingPost);
+  };
   return (
     <>
       <Card className="md:w-[700px] w-full mx-auto mb-3">
@@ -80,9 +173,89 @@ const PostCard = ({ id, title, content, photoContent, activeBtn, counselor, show
                     <DropdownMenuLabel>Options</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup className=" space-y-1">
-                      <Button variant={"ghost"} className=" cursor-pointer w-full flex justify-start text-sm" onClick={() => showEdit}>
-                        Edit
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant={"ghost"} className=" cursor-pointer w-full flex justify-start text-sm" onClick={showEdit}>
+                            Edit
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[500px]">
+                          <DialogHeader>
+                            <DialogTitle>Edit post</DialogTitle>
+                            <DialogDescription></DialogDescription>
+                          </DialogHeader>
+                          <Form {...form}>
+                            <form className="space-y-2" onSubmit={form.handleSubmit(handleEditPost)}>
+                              <FormField
+                                name="title"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Title</FormLabel>
+                                    <FormControl>
+                                      <Input placeholder="Title" {...field} defaultValue={editingPost.title} onChange={handleInputChange} />
+                                    </FormControl>
+                                    <FormDescription></FormDescription>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                name="content"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Content</FormLabel>
+                                    <FormControl>
+                                      <Textarea
+                                        placeholder="Content"
+                                        {...field}
+                                        defaultValue={editingPost.content}
+                                        className=" resize-none"
+                                        onChange={handleUpdateInputChange}
+                                      />
+                                    </FormControl>
+                                    <FormDescription></FormDescription>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+
+                              <FormField
+                                control={form.control._defaultValues.photoData}
+                                name="photoData"
+                                defaultValue={photoData}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Image</FormLabel>
+                                    <FormControl>
+                                      <>
+                                        <input
+                                          type="file"
+                                          id="imageUpload"
+                                          {...field}
+                                          onChange={handleEditImageUpload}
+                                          className={`${photoContent ? "hidden" : "flex"}`}
+                                        />
+
+                                        <Label htmlFor="imageUpload">
+                                          {imageSrc && photoContent && (
+                                            <img src={imageSrc} alt="Posted Image" className="mx-auto h-64 cursor-pointer" onClick={handleImageClick} />
+                                          )}
+                                        </Label>
+                                      </>
+                                    </FormControl>
+                                    <FormDescription></FormDescription>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </form>
+                          </Form>
+                          <DialogFooter>
+                            <Button type="submit">Save changes</Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+
                       <Button variant={"ghost"} className=" cursor-pointer w-full flex justify-start hover:text-red-500" onClick={showDeleteModal}>
                         Delete
                       </Button>

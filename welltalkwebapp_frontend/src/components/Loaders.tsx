@@ -60,9 +60,20 @@ export const LoadingScreen = () => {
 };
 
 export const Spinner = () => {
+  const [loadingComplete, setLoadingComplete] = useState(false);
+
+  useEffect(() => {
+    const handleLoadingComplete = () => {
+      setLoadingComplete(true);
+    };
+    handleLoadingComplete();
+  }, [10000]);
+
   return (
-    <div className=" w-full flex justify-center">
-      <div className="border-gray-300 h-12 w-12 animate-spin rounded-full border-4 border-t-tertiary" />;
-    </div>
+    <>
+      <div className=" w-full flex justify-center">
+        <div className="border-gray-300 h-12 w-12 animate-spin rounded-full border-4 border-t-tertiary" />;
+      </div>
+    </>
   );
 };

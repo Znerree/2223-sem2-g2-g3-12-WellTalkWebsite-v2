@@ -33,12 +33,6 @@ const SidebarNav = ({ navIsClicked }: Props) => {
   const { user } = useFetchUser();
   const { logout } = useAuth();
 
-  useEffect(() => {
-    const activeIndex = navs.findIndex((nav) => nav.path === location.pathname);
-
-    setActive(activeIndex);
-  }, [location]);
-
   const handleLogout = () => {
     logout();
   };
