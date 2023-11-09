@@ -39,6 +39,10 @@ const SidebarNav = ({ navIsClicked }: Props) => {
 
   const userNameInitials = `${user?.firstName[0]}${user?.lastName[0]}`;
 
+  if (location.pathname == "/student-referral") {
+    return null;
+  }
+
   return (
     <>
       <div className="flex flex-col gap-2 bg-tertiary px-4 py-4 h-screen w-64">
