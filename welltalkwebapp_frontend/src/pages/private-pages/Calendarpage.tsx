@@ -6,6 +6,7 @@ import useStudentSearch from "@/actions/search-student-actions";
 import useAppointmentActions from "@/actions/calendar-appointment-actions";
 import CounselorLayout from "@/components/Layout";
 import { Calendar } from "@/components/ui/calendar";
+import AppointmentRequests from "@/components/Calendar/calendar-list-of-requests";
 
 const Calendarpage = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -41,8 +42,18 @@ const Calendarpage = () => {
   } = useStudentSearch();
   const { students } = useFetchStudents();
 
-  const { startDate, setStartDate, startTime, showAnnounceSchedule, setShowAnnounceSchedule, handleSubmit, handleSelectTime, clearForm } =
-    useAppointmentActions();
+  const {
+    startDate,
+    setStartDate,
+    startTime,
+    showAnnounceSchedule,
+    setShowAnnounceSchedule,
+    showAppoinmentRequests,
+    setShowAppoinmentRequests,
+    handleSubmit,
+    handleSelectTime,
+    clearForm,
+  } = useAppointmentActions();
 
   const handleStudentNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     handleQueryChange(event, students, setResults, setShowResultsDropdown, setValue, setQuery);
@@ -51,10 +62,10 @@ const Calendarpage = () => {
 
   return (
     <>
-      <span className=" flex">
+      {/*<span className=" flex">
         <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border w-72 bg-white" />
         <p>You have no appointment for today.</p>
-      </span>
+  </span>*/}
       <div className="flex flex-grow gap-10 justify-center">
         <div className=" bg-white w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
           {/* Set an appointment */}
@@ -124,8 +135,11 @@ const Calendarpage = () => {
 
         {/* Referred students */}
         <div className="max-h-[400px] w-[400px] rounded-lg shadow-2xl px-2 flex flex-col border bg-white">
-          <h1 className=" font-semibold text-md border-b bg-white py-4 pl-2 w-full">Referred Students</h1>
-          <ReferredStudents />
+          <div className="flex items-center justify-between border-b">
+            <h1 className=" font-semibold text-md top-0 py-4 pl-2">{showAppoinmentRequests ? "Appointment Requests" : "Referred Students"}</h1>
+            <HiSwitchHorizontal className="text-black-300 h-6 w-6 cursor-pointer" onClick={() => setShowAppoinmentRequests(!showAppoinmentRequests)} />
+          </div>
+          {showAppoinmentRequests ? <AppointmentRequests /> : <ReferredStudents />}
         </div>
       </div>
     </>

@@ -6,6 +6,7 @@ const useAppointmentActions = () => {
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [showAnnounceSchedule, setShowAnnounceSchedule] = useState(false);
+  const [showAppoinmentRequests, setShowAppoinmentRequests] = useState(false);
 
   const handleSubmit = async (studentID: string, isSchedule: boolean) => {
     // Get the current date and time
@@ -72,6 +73,8 @@ const useAppointmentActions = () => {
     setStartTime,
     showAnnounceSchedule,
     setShowAnnounceSchedule,
+    showAppoinmentRequests,
+    setShowAppoinmentRequests,
     handleSubmit,
     handleSelectTime,
     clearForm,
