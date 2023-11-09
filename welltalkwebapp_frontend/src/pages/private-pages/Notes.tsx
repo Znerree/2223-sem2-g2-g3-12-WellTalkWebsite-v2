@@ -38,6 +38,7 @@ const Notes = () => {
   });
   const [refresher, setRefresher] = useState(0);
   const [showEditNote, setShowEditNote] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   //fetch user notes
   const fetchCurrentUserNotes = async () => {
@@ -246,7 +247,7 @@ const Notes = () => {
                         </button>
                       </div>
                       <h1 className="text-2xl font-semibold">{note.title}</h1>
-                      <p className="break-words text-justify">{note.content}</p>
+                      <textarea disabled={!isEditing} className="break-words text-justify w-full  h-screen">{note.content}</textarea>
                       {showEditNote && (
                         <div className={`w-3/5 container flex flex-col overflow-y-hidden ${!displayClickedNote ? "hidden" : ""}`}>
                           {userNotes
