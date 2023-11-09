@@ -62,10 +62,10 @@ const Calendarpage = () => {
 
   return (
     <>
-      <span className=" flex">
+      {/*<span className=" flex">
         <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border w-72 bg-white" />
         <p>You have no appointment for today.</p>
-      </span>
+  </span>*/}
       <div className="flex flex-grow gap-10 justify-center">
         <div className=" bg-white w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
           {/* Set an appointment */}
