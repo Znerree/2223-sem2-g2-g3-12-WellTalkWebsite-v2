@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/images/logo.png";
-import { Button } from "./ui/button";
+import logo from "@/assets/images/logo.png";
+import { Button } from "../ui/button";
 import { AiFillAlert, AiOutlineSearch } from "react-icons/ai";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 type LoggedInHeaderProps = {
@@ -17,7 +17,7 @@ const LoggedInHeader = ({ currentPathName, showSidebar }: LoggedInHeaderProps) =
 
   return (
     <>
-      <div className=" flex justify-between px-6 py-3 items-center shadow bg-white">
+      <div className=" flex justify-between px-6 py-2 items-center shadow bg-white">
         <div className=" flex items-center gap-2">
           <div className=" md:hidden">
             <Button variant="ghost" size={"icon"} onClick={handleShowSidebar}>

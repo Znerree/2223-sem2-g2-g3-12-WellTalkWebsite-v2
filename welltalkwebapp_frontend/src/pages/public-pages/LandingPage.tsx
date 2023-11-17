@@ -1,7 +1,7 @@
-import logo from "@/assets/images/WellTalk_Logo.svg";
 import homebg from "@/assets/images/homebg.png";
-import HeroHeader from "@/components/HeroHeader";
-import Footer from "@/components/Footer";
+import LandingPageContent from "@/components/landingpage-contents/LandingPageContent";
+import LandingContentBottom from "@/components/landingpage-contents/landingcontent-bottom";
+import LandingContentText from "@/components/landingpage-contents/landingcontent-text";
 
 export const bgStyle = {
   backgroundImage: `url(${homebg})`,
@@ -13,7 +13,7 @@ export const bgStyle = {
 const Homepage = () => {
   return (
     <>
-      <p></p>
+      <LandingPageContent />
     </>
   );
 };

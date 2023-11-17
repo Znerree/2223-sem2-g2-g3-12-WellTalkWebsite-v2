@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "./ui/button";
-import useFetchUser from "@/hooks/useFetchUser";
-import Logo from "./Logo";
+import { Button } from "../ui/button";
+import Logo from "@/components/headers/logo";
 import homebg from "@/assets/images/homebg.png";
 
 export const bgStyle = {
@@ -12,7 +11,7 @@ export const bgStyle = {
   backgroundRepeat: "no-repeat",
 };
 
-const HeroHeader = () => {
+const LandingHeader = () => {
   const location = useLocation();
   const [active, setActive] = useState(0);
 
@@ -24,24 +23,12 @@ const HeroHeader = () => {
   useEffect(() => {
     const activeIndex = heroNavs.findIndex((nav) => nav.path === location.pathname);
     setActive(activeIndex);
-  }, [location]);
-
-  if (location.pathname !== "/" && location.pathname !== "/about") {
-    return null;
-  }
-
-  const isLoggedin = localStorage.getItem("token");
-
-  const { user } = useFetchUser();
-
-  const userNameInitials = `${user?.firstName[0]}${user?.lastName[0]}`;
+  }, [active]);
 
   return (
     <>
-      <header className=" flex justify-between px-6 items-center sticky top-0">
-        <span className=" flex items-center">
-          <Logo />
-        </span>
+      <header className=" flex justify-between px-6 items-center py-2 sticky top-0">
+        <Logo />
 
         <div className=" gap-3 flex">
           {heroNavs.map((nav, index) => (
@@ -49,9 +36,7 @@ const HeroHeader = () => {
               asChild
               variant={"link"}
               key={index}
-              className={`${
-                active == index ? "text-primary hover:no-underline " : "text-gray-400 hover:no-underline hover:text-primary hover:text-opacity-70"
-              }`}
+              className={`${active === index ? "text-primary-700 hover:no-underline" : "text-gray-400 hover:no-underline hover:text-primary-600"}`}
               onClick={() => {
                 setActive(index);
               }}
@@ -60,14 +45,10 @@ const HeroHeader = () => {
             </Button>
           ))}
 
-          <Button
-            asChild
-            variant="outline"
-            className=" text-primary bg-inherit border-primary hover:bg-primary font-bold hover:text-primary hover:bg-opacity-10"
-          >
+          <Button asChild variant="outline" className=" hover:bg-primary-200 hover:bg-opacity-50">
             <Link to="/login">Login</Link>
           </Button>
-          <Button asChild className=" bg-primary hover:bg-primary hover:bg-opacity-70 font-bold">
+          <Button asChild>
             <Link to="/register">Register</Link>
           </Button>
         </div>
@@ -76,4 +57,4 @@ const HeroHeader = () => {
   );
 };
 
-export default HeroHeader;
+export default LandingHeader;

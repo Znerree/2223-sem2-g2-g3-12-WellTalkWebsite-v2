@@ -1,7 +1,7 @@
 import { Navigate, Route, useLocation } from "react-router-dom";
 import useFetchUser from "./hooks/useFetchUser";
-import { AccessDenied } from "./pages/AccessDenied";
-import Layout from "./components/Layout";
+import { AccessDenied } from "./pages/public-pages/AccessDenied";
+import Layout from "./app/layout/Layout";
 
 interface Props {
   component: React.ComponentType;
@@ -10,9 +10,9 @@ interface Props {
 }
 
 export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent, userType }) => {
-  const { user } = useFetchUser();
+  const currentUserType = localStorage.getItem("userType");
   const isLoggedIn = localStorage.getItem("token");
-  const userIsAuthorized = user?.userType === userType;
+  const userIsAuthorized = currentUserType === userType;
 
   if (isLoggedIn && userIsAuthorized) {
     //User is authorized

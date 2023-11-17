@@ -1,24 +1,7 @@
 import axios from "@/api/axios";
+import { Request } from "@/types/apppointment-req";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-interface Request {
-  id: number;
-  student: {
-    id: number;
-    course: string;
-    year: number;
-    email: string;
-    firstname: string;
-    lastname: string;
-    studentID: number;
-    department: string;
-  };
-  date_created: string;
-  time_created: string;
-  message: string;
-  decision: boolean;
-}
 
 type ConfirmationModalProps = {
   isOpen: boolean;
@@ -116,7 +99,10 @@ const AppointmentRequests = () => {
               >
                 <p>
                   {request.student.firstname} {request.student.lastname}
-                  <span className=" text-gray-400 text-xs"> - {new Date(request.date_created).toLocaleDateString()} {request.time_created}</span>
+                  <span className=" text-gray-400 text-xs">
+                    {" "}
+                    - {new Date(request.date_created).toLocaleDateString()} {request.time_created}
+                  </span>
                 </p>
                 <div className="flex flex-col">
                   <div className=" flex gap-2">

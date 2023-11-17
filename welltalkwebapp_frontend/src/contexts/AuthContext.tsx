@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import axios from "@/api/axios";
+import axios, { LOGIN_URL, REGISTER_URL } from "@/api/axios";
 import useLoading from "@/hooks/useLoading";
 import useFetchUser from "@/hooks/useFetchUser";
 
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: any) => {
 
     try {
       const response = await axios.post(
-        "/authenticate",
+        LOGIN_URL,
         { username, password },
         {
           headers: {
@@ -44,6 +44,24 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
+  const register = async (firstName: string, lastName: string, email: string, schoolID: number, userType: string, username: string, password: string) => {
+    setLoading(true);
+
+    try {
+      await axios.post(REGISTER_URL, JSON.stringify({ firstName, lastName, email, schoolID, userType, username, password }), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      return { success: true };
+    } catch (error) {
+      return { success: false, error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -52,5 +70,5 @@ export const AuthProvider = ({ children }: any) => {
     window.location.reload();
   };
 
-  return <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, loading, login, register, logout }}>{children}</AuthContext.Provider>;
 };

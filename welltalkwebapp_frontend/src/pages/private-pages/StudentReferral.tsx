@@ -1,5 +1,4 @@
 import axios from "@/api/axios";
-import ReferralHeader from "@/components/ReferralHeader";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import useStudentSearch from "@/actions/search-student-actions";
 import { AiOutlineClose } from "react-icons/ai";

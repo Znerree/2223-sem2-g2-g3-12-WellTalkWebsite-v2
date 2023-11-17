@@ -1,15 +1,6 @@
 import { useState, ChangeEvent, useEffect } from "react";
 import axios from "@/api/axios";
-
-type Student = {
-  id: number;
-  firstname: string;
-  lastname: string;
-  studentID: number;
-  email: string;
-  year: number;
-  department: string;
-};
+import { Student } from "@/types/student";
 
 //Custom hook for handling student search
 const useStudentSearch = () => {

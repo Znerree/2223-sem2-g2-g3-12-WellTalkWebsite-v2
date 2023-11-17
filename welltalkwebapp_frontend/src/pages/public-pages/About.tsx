@@ -1,4 +1,4 @@
-import { bgStyle } from "./Homepage";
+import { bgStyle } from "./LandingPage";
 
 const About = () => {
   return (

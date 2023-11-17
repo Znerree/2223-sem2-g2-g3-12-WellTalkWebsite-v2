@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import formbackground from "../assets/images/formbg.png";
-import pageBackground from "../assets/images/login-registerbg.png";
+import formbackground from "@/assets/images/formbg.png";
+import pageBackground from "@/assets/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
-import axios from "../api/axios";
+import axios from "../../api/axios";
 import { Link } from "react-router-dom";
 
 const formbg = {
@@ -70,21 +70,10 @@ const EmailChecker = () => {
 
   return (
     <>
-      <div
-        className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center absolute"
-        style={pageBg}
-      >
-        <div
-          className=" w-[720px] rounded-2xl bg-white shadow-md h-auto flex justify-between"
-          style={formbg}
-        >
-          <form
-            className="py-6 px-10 left-0 w-[360px] flex flex-col"
-            onSubmit={otpInputVisible ? handleOtpSubmit : handleEmailCheck}
-          >
-            <h1 className="text-center font-medium text-primary text-2xl mb-3">
-              {otpInputVisible ? "Enter OTP" : "Please verify your email"}
-            </h1>
+      <div className="flex flex-col h-screen w-full bg-gray-100 justify-center items-center absolute" style={pageBg}>
+        <div className=" w-[720px] rounded-2xl bg-white shadow-md h-auto flex justify-between" style={formbg}>
+          <form className="py-6 px-10 left-0 w-[360px] flex flex-col" onSubmit={otpInputVisible ? handleOtpSubmit : handleEmailCheck}>
+            <h1 className="text-center font-medium text-primary text-2xl mb-3">{otpInputVisible ? "Enter OTP" : "Please verify your email"}</h1>
             {otpInputVisible && (
               <input
                 name="otp"
@@ -97,39 +86,22 @@ const EmailChecker = () => {
               />
             )}
             {!otpInputVisible && (
-              <input
-                name="email"
-                type="email"
-                style={inputStyle}
-                onChange={handleInput}
-                placeholder="Institutional Email"
-                autoComplete="off"
-                required
-              />
+              <input name="email" type="email" style={inputStyle} onChange={handleInput} placeholder="Institutional Email" autoComplete="off" required />
             )}
             {otpInputVisible && (
-              <button
-                type="submit"
-                className="bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
-              >
+              <button type="submit" className="bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2">
                 Verify OTP
               </button>
             )}
             {!otpInputVisible && (
-              <button
-                type="submit"
-                className=" bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2"
-              >
+              <button type="submit" className=" bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2">
                 Check Email
               </button>
             )}
 
             <p className="text-secondary text-xs my-2">
               Already have an account?{" "}
-              <Link
-                to="/login"
-                className="font-bold text-primary cursor-pointer"
-              >
+              <Link to="/login" className="font-bold text-primary cursor-pointer">
                 Login
               </Link>
             </p>

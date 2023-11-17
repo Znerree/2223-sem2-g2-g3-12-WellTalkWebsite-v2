@@ -1,53 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { AvatarFallback } from "./ui/avatar";
-import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { AvatarFallback } from "../ui/avatar";
+import { Button } from "../ui/button";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FaRegCommentAlt } from "react-icons/fa";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import Man_Avatar from "@/assets/images/man_avatar.svg";
 import { RiMoreFill } from "react-icons/ri";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { DialogTrigger } from "@radix-ui/react-dialog";
-import { Label } from "./ui/label";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Label } from "../ui/label";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { useForm } from "react-hook-form";
 import axios from "@/api/axios";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "../ui/textarea";
+import { Post } from "@/types/post";
 
-export type PostsProps = {
-  id: number;
-  title: string;
-  content: string;
-  photoContent: string;
-  activeBtn: string;
-  showEdit?: () => void;
-  showDeleteModal?: () => void;
-  saveChanges?: () => void;
-  photoData: File;
-  counselor: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    userType: string;
-  };
-};
-
-const PostCard = ({ id, title, content, photoContent, activeBtn, counselor, showDeleteModal, showEdit, saveChanges, photoData }: PostsProps) => {
-  const [post, setPost] = useState<PostsProps[]>([]);
-  const [myPost, setMyPost] = useState<PostsProps[]>([]);
+const PostCard = ({ title, content, photoContent, activeBtn, counselor, showDeleteModal, showEdit, photoData }: Post) => {
+  const [post, setPost] = useState<Post[]>([]);
+  const [myPost, setMyPost] = useState<Post[]>([]);
   const [imageFileName, setImageFileName] = useState("");
-  const [editingPost, setEditingPost] = useState<PostsProps>({} as PostsProps);
+  const [editingPost, setEditingPost] = useState<Post>({} as Post);
   const [imageSrc, setImageSrc] = useState("");
   const userInitials = counselor.firstName.charAt(0) + counselor.lastName.charAt(0);
   const form = useForm();
@@ -143,7 +119,7 @@ const PostCard = ({ id, title, content, photoContent, activeBtn, counselor, show
   };
   return (
     <>
-      <Card className="md:w-[700px] w-full mx-auto mb-3">
+      <Card className="md:w-[700px] w-full mx-auto mb-3 ">
         <CardHeader className=" p-0">
           <span className=" flex justify-between p-3 gap-2">
             <Avatar className=" h-12 w-12">

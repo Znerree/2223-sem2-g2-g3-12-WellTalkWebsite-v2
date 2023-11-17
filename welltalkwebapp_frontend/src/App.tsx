@@ -1,24 +1,22 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import About from "./pages/About";
+import About from "./pages/public-pages/About";
 import Calendarpage from "./pages/private-pages/Calendarpage";
-import Register from "./pages/Register";
+import Register from "./pages/public-pages/Register";
 import Dashboard from "./pages/private-pages/Dashboard";
 import Students from "./pages/private-pages/Students";
-import Login from "./pages/Login";
-import EmailChecker from "./pages/EmailChecker";
+import Login from "./pages/public-pages/Login";
+import EmailChecker from "./pages/public-pages/EmailChecker";
 import { StudentReferral } from "./pages/private-pages/StudentReferral";
 import Home from "./pages/private-pages/Home";
 import Notes from "./pages/private-pages/Notes";
 import { AuthProvider } from "./contexts/AuthContext";
 import { PrivateRoute } from "./PrivateRoutes";
-import EmergencyLink from "./pages/EmergencyLink";
-import Layout from "./components/Layout";
-import { AccessDenied } from "./pages/AccessDenied";
+import EmergencyLink from "./pages/public-pages/EmergencyLink";
+import { AccessDenied } from "./pages/public-pages/AccessDenied";
 import useGetCurrentPath from "./hooks/useGetCurrentPath";
-import Homepage from "./pages/Homepage";
-import PublicLayout from "./components/PublicLayout";
-import Posts from "./components/PostCard";
+import Homepage from "./pages/public-pages/LandingPage";
+import PublicLayout from "./app/layout/PublicLayout";
 
 function App() {
   const location = useLocation();

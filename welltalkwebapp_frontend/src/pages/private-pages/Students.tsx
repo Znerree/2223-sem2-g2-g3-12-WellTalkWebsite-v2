@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "@/api/axios";
 import { BsChatLeftDots } from "react-icons/bs";
-import CounselorLayout from "@/components/Layout";
+import CounselorLayout from "@/app/layout/Layout";
 import { FaSort } from "react-icons/fa";
 
 type StudentProps = {
