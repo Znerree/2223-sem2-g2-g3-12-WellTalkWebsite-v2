@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 import { qrcode } from "vite-plugin-qrcode";
 
 export default defineConfig({
-  base: "https://welltalk.onrender.com",
+  base: "/",
   plugins: [react(), qrcode()],
   resolve: {
     alias: {
