@@ -1,4 +1,4 @@
-import homebg from "@/assets/images/homebg.png";
+import homebg from "@/media/images/homebg.png";
 import LandingPageContent from "@/components/landingpage-contents/LandingPageContent";
 import LandingContentBottom from "@/components/landingpage-contents/landingcontent-bottom";
 import LandingContentText from "@/components/landingpage-contents/landingcontent-text";

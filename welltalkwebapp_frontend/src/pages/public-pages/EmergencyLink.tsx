@@ -1,4 +1,4 @@
-import pageBackground from "@/assets/images/login-registerbg.png";
+import pageBackground from "@/media/images/login-registerbg.png";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 
 const pageBg = {

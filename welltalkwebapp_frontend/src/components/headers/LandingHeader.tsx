@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import Logo from "@/components/headers/logo";
-import homebg from "@/assets/images/homebg.png";
+import homebg from "@/media/images/homebg.png";
 
 export const bgStyle = {
   backgroundImage: `url(${homebg})`,

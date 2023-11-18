@@ -8,7 +8,7 @@ import useFetchUser from "@/hooks/useFetchUser";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Man_Avatar from "@/assets/images/man_avatar.svg";
+import Man_Avatar from "@/media/images/man_avatar.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LucideImagePlus } from "lucide-react";

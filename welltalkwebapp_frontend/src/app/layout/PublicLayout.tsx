@@ -1,8 +1,8 @@
 import React from "react";
 import LandingHeader from "../../components/headers/LandingHeader";
 import Footer from "../../components/footer/Footer";
-import pageBg from "@/assets/images/login-registerbg.png";
-import homebg from "@/assets/images/homebg.png";
+import pageBg from "@/media/images/login-registerbg.png";
+import homebg from "@/media/images/homebg.png";
 
 export const bgStyle = {
   backgroundImage: `url(${homebg})`,

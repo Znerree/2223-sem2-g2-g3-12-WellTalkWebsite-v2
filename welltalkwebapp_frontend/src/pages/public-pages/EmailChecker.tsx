@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
-import formbackground from "@/assets/images/formbg.png";
-import pageBackground from "@/assets/images/login-registerbg.png";
+import formbackground from "@/media/images/formbg.png";
+import pageBackground from "@/media/images/login-registerbg.png";
 import { IoMdClose } from "react-icons/io";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";

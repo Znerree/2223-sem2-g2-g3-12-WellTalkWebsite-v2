@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { Input } from "../ui/input";
-import Man_Avatar from "@/assets/images/man_avatar.svg";
+import Man_Avatar from "@/media/images/man_avatar.svg";
 import { RiMoreFill } from "react-icons/ri";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";

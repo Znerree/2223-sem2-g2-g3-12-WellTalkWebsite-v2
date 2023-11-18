@@ -102,22 +102,21 @@ function App() {
           <Route path="access-denied" element={<AccessDenied />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-
-        {/* Show the token expired message if the token has expired */}
-        {isTokenExpired && (
-          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-4 rounded-lg">
-              <h1 className="text-2xl font-bold text-red-500">Your session has ended.</h1>
-              <p className="text-gray-600">Please login again to continue.</p>
-              <div className=" flex mt-5 gap-2">
-                <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleOkExpire}>
-                  Ok
-                </button>
-              </div>
+      </AuthProvider>
+      {/* Show the token expired message if the token has expired */}
+      {isTokenExpired && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-4 rounded-lg">
+            <h1 className="text-2xl font-bold text-red-500">Your session has ended.</h1>
+            <p className="text-gray-600">Please login again to continue.</p>
+            <div className=" flex mt-5 gap-2">
+              <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleOkExpire}>
+                Ok
+              </button>
             </div>
           </div>
-        )}
-      </AuthProvider>
+        </div>
+      )}
     </>
   );
 }

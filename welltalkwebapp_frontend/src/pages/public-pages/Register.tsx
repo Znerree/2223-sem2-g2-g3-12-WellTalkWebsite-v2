@@ -1,4 +1,4 @@
-import pageBackground from "@/assets/images/login-registerbg.png";
+import pageBackground from "@/media/images/login-registerbg.png";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import RegisterForm from "@/components/authentication/register-form";

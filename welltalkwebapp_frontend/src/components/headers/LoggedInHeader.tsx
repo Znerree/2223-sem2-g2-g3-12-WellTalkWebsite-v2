@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "@/assets/images/logo.png";
+import logo from "@/media/images/logo.png";
 import { Button } from "../ui/button";
 import { AiFillAlert, AiOutlineSearch } from "react-icons/ai";
 import { Input } from "../ui/input";

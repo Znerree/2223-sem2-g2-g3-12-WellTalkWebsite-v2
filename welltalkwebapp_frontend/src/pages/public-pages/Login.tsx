@@ -1,4 +1,4 @@
-import pageBackground from "@/assets/images/login-registerbg.png";
+import pageBackground from "@/media/images/login-registerbg.png";
 import { Link } from "react-router-dom";
 import useLoading from "@/hooks/useLoading";
 import { LoadingScreen } from "@/components/Loaders";
