@@ -6,7 +6,7 @@ import { qrcode } from "vite-plugin-qrcode";
 export default defineConfig({
   plugins: [react(), qrcode()],
   build: {
-    outDir: "../welltalk_backend/src/main/resources/static",
+    outDir: "../src/main/resources/static",
     manifest: true,
     rollupOptions: {
       input: "index.html",
