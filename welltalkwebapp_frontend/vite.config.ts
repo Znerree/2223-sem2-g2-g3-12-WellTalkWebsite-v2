@@ -4,13 +4,17 @@ import { defineConfig } from "vite";
 import { qrcode } from "vite-plugin-qrcode";
 
 export default defineConfig({
+  base: "/",
   plugins: [react(), qrcode()],
   build: {
     outDir: "../src/main/resources/static",
-    manifest: true,
     rollupOptions: {
-      input: "index.html",
+      input: "/index.html",
     },
+  },
+  server: {
+    origin: "http://localhost:8080",
+    port: 8080,
   },
   resolve: {
     alias: {

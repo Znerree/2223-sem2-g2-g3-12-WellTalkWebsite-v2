@@ -1,9 +1,9 @@
 {
-  "index.css": {
-    "file": "assets/index-20630dfc.css",
-    "src": "index.css"
+  "src/main.css": {
+    "file": "assets/main-20630dfc.css",
+    "src": "src/main.css"
   },
-  "index.html": {
+  "src/main.tsx": {
     "assets": [
       "assets/login-registerbg-e46d2a74.png",
       "assets/formbg-686d3ed1.png",
@@ -12,15 +12,11 @@
       "assets/homebg-306fe37d.png"
     ],
     "css": [
-      "assets/index-20630dfc.css"
+      "assets/main-20630dfc.css"
     ],
-    "file": "assets/index-ad10abf6.js",
+    "file": "assets/main-60a81849.js",
     "isEntry": true,
-    "src": "index.html"
-  },
-  "public/favicon.ico": {
-    "file": "assets/favicon-ab905111.ico",
-    "src": "public/favicon.ico"
+    "src": "src/main.tsx"
   },
   "src/media/images/formbg.png": {
     "file": "assets/formbg-686d3ed1.png",
