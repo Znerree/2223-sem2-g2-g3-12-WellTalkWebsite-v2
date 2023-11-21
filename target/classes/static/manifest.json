@@ -1,4 +1,8 @@
 {
+  "favicon.ico": {
+    "file": "assets/favicon-ab905111.ico",
+    "src": "favicon.ico"
+  },
   "index.css": {
     "file": "assets/index-20630dfc.css",
     "src": "index.css"
@@ -14,7 +18,7 @@
     "css": [
       "assets/index-20630dfc.css"
     ],
-    "file": "assets/index-47120e58.js",
+    "file": "assets/index-d0636ccf.js",
     "isEntry": true,
     "src": "index.html"
   },
