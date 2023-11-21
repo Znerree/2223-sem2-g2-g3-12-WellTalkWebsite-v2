@@ -4,7 +4,6 @@ import { defineConfig } from "vite";
 import { qrcode } from "vite-plugin-qrcode";
 
 export default defineConfig({
-  base: "/",
   plugins: [react(), qrcode()],
   build: {
     outDir: "../src/main/resources/static",
