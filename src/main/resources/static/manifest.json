@@ -1,4 +1,8 @@
 {
+  "favicon.ico": {
+    "file": "assets/favicon-ab905111.ico",
+    "src": "favicon.ico"
+  },
   "index.css": {
     "file": "assets/index-20630dfc.css",
     "src": "index.css"
