@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "http://localhost:3306/";
 
 export const LOGIN_URL = "/authenticate";
 export const REGISTER_URL = "/users/register";
