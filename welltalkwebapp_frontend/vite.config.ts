@@ -8,15 +8,18 @@ export default defineConfig({
   plugins: [react(), qrcode()],
   build: {
     outDir: "../src/main/resources/static",
+    emptyOutDir: true,
     rollupOptions: {
-      input: "/index.html",
+      input: "index.html",
     },
   },
   server: {
-    origin: "http://localhost:8080",
-    port: 8080,
+    proxy: {
+      "/": "http://localhost:8080",
+    },
   },
   resolve: {
+    extensions: [".js", ".ts", ".jsx", ".tsx", ".json"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },

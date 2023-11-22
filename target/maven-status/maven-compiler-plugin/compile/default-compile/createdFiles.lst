@@ -5,6 +5,7 @@ com\website\welltalk\services\UserService.class
 com\website\welltalk\controllers\AppointmentController.class
 com\website\welltalk\repositories\UserRepository.class
 com\website\welltalk\controllers\AuthController.class
+com\website\welltalk\controllers\RoutesController.class
 com\website\welltalk\ServletInitializer.class
 com\website\welltalk\services\AvailableScheduleService.class
 com\website\welltalk\models\JwtResponse.class
