@@ -25,9 +25,9 @@ const SidebarNav = ({ navIsClicked }: Props) => {
       path: "/home",
     },
     { icon: <BiSolidDashboard />, name: "Dashboard", path: "/dashboard" },
-    { icon: <BsPeopleFill />, name: "Students", path: "/students" },
+    { icon: <BsPeopleFill />, name: "Students", path: "/students_list" },
     { icon: <BiSolidCalendar />, name: "Calendar", path: "/calendar" },
-    { icon: <FaNoteSticky />, name: "Notes", path: "/notes" },
+    { icon: <FaNoteSticky />, name: "Notes", path: "/my_notes" },
   ];
 
   const location = useLocation();
