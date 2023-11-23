@@ -29,20 +29,20 @@ public class RoutesController {
     public String dashboard() {
         return "index.html";
     }
-//
-//    @GetMapping("/students")
-//    public String students() {
-//        return "index.html";
-//    }
+
+   @GetMapping("/students_list")
+   public String students() {
+       return "index.html";
+   }
 
     @GetMapping("/calendar")
     public String calendar() {
         return "index.html";
     }
-//
-//    @GetMapping("/notes")
-//    public String notes() {
-//        return "index.html";
-//    }
+
+   @GetMapping("/my_notes")
+   public String notes() {
+       return "index.html";
+   }
 
 }
