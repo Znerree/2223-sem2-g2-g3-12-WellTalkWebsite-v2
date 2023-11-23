@@ -31,7 +31,7 @@ public class RoutesController {
     }
 
    @GetMapping("/students_list")
-   public String students() {
+   public String students_list() {
        return "index.html";
    }
 
@@ -41,7 +41,7 @@ public class RoutesController {
     }
 
    @GetMapping("/my_notes")
-   public String notes() {
+   public String my_notes() {
        return "index.html";
    }
 
