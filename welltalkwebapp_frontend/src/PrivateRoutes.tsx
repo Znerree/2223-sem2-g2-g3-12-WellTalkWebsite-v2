@@ -1,6 +1,6 @@
 import { Navigate, Route, useLocation } from "react-router-dom";
 import useFetchUser from "./hooks/useFetchUser";
-import { AccessDenied } from "./pages/public-pages/AccessDenied";
+import { AccessDenied } from "./pages/errors/AccessDenied";
 import Layout from "./app/layout/Layout";
 
 interface Props {

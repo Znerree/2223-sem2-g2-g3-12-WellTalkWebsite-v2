@@ -5,7 +5,6 @@ com\website\welltalk\services\UserService.class
 com\website\welltalk\controllers\AppointmentController.class
 com\website\welltalk\repositories\UserRepository.class
 com\website\welltalk\controllers\AuthController.class
-com\website\welltalk\controllers\RoutesController.class
 com\website\welltalk\ServletInitializer.class
 com\website\welltalk\services\AvailableScheduleService.class
 com\website\welltalk\models\JwtResponse.class
@@ -24,6 +23,7 @@ com\website\welltalk\config\JwtRequestFilter.class
 com\website\welltalk\repositories\AppointmentRepository.class
 com\website\welltalk\config\JwtToken.class
 com\website\welltalk\services\ReferralService.class
+com\website\welltalk\config\SpringConfiguration.class
 com\website\welltalk\controllers\AvailableScheduleController.class
 com\website\welltalk\repositories\CounselorRepository.class
 com\website\welltalk\WelltalkApplication.class
@@ -32,6 +32,7 @@ com\website\welltalk\models\Referral.class
 com\website\welltalk\models\Student.class
 com\website\welltalk\models\User.class
 com\website\welltalk\services\TeacherService.class
+com\website\welltalk\config\SpringConfiguration$1.class
 com\website\welltalk\models\AvailableSchedule.class
 com\website\welltalk\models\Post.class
 com\website\welltalk\exceptions\UserException.class

@@ -4,19 +4,14 @@ import { defineConfig } from "vite";
 import { qrcode } from "vite-plugin-qrcode";
 
 export default defineConfig({
-  base: "/",
   plugins: [react(), qrcode()],
+  base: "/webapp/",
   build: {
-    outDir: "../src/main/resources/static",
+    outDir: "../src/main/resources/webapp",
     emptyOutDir: true,
-    rollupOptions: {
-      input: "index.html",
-    },
   },
   server: {
-    proxy: {
-      "/": "http://localhost:8080",
-    },
+    origin: "*",
   },
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".json"],

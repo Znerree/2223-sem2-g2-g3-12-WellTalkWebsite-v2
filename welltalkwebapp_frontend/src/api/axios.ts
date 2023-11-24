@@ -1,20 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = "https://welltalk.onrender.com/";
+const { API_BASE_URL } = import.meta.env;
 
 export const LOGIN_URL = "/authenticate";
 export const REGISTER_URL = "/users/register";
 export const STUDENT_URL = "/students";
 
 export const instance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL as string,
 });
-
-export const setAuthHeader = () => {
-  const jwtToken = localStorage.getItem("token");
-  if (jwtToken) {
-    instance.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
-  }
-};
 
 export default instance;
