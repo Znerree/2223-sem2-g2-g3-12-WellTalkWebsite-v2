@@ -61,8 +61,14 @@ public class PostController {
 
     // Get posts
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
-    public ResponseEntity<Object> getPosts() {
+    public ResponseEntity<Object> getPosts(@RequestHeader(value = "Authorization") String stringToken) {
         return new ResponseEntity<>(postService.getPosts(), HttpStatus.OK);
+    }
+
+    // Get user posts
+    @RequestMapping(value = "/myPosts", method = RequestMethod.GET)
+    public ResponseEntity<Object> getMyPosts(@RequestHeader(value = "Authorization") String stringToken) {
+        return new ResponseEntity<>(postService.getMyPosts(stringToken), HttpStatus.OK);
     }
 
     // Delete post
@@ -97,11 +103,7 @@ public class PostController {
         return new ResponseEntity<>("Post updated!", HttpStatus.CREATED);
     }
 
-    // Get user posts
-    @RequestMapping(value = "/myPosts", method = RequestMethod.GET)
-    public ResponseEntity<Object> getPosts(@RequestHeader(value = "Authorization") String stringToken) {
-        return new ResponseEntity<>(postService.getMyPosts(stringToken), HttpStatus.OK);
-    }
+    
 
 
 }

@@ -21,14 +21,14 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    // Create user
+    // Create user -secured
     @RequestMapping(value="/users", method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@RequestBody User user) {
         userService.createUser(user);
         return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
     }
 
-    // Get users
+    // Get users - secured
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public ResponseEntity<Object> getUsers() {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
@@ -92,8 +92,9 @@ public class UserController {
         }
     }
 
+    // Find user by username
     @GetMapping(value = "/users/username/{username}")
-    public Optional<User> findByUsername(@PathVariable String username){     
+    public Optional<User> findByUsername(@PathVariable String username, @RequestHeader(value = "Authorization") String stringToken){     
         return userService.findByUsername(username);
     }
 

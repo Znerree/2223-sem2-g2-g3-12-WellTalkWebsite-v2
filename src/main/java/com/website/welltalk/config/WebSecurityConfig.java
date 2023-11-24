@@ -71,9 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //users
                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
-                .antMatchers(HttpMethod.GET, "/users").authenticated()
-                .antMatchers("/users/{email}").permitAll()
-                .antMatchers("/users/username/{username}").permitAll()
+                .antMatchers(HttpMethod.GET, "/users", "/users/{email}").authenticated()
+                // .antMatchers("/users/username/{username}").permitAll()
 
                 //referrals
                 .antMatchers("/referrals").permitAll()
@@ -87,12 +86,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //notes
                 .antMatchers(HttpMethod.POST, "/notes").permitAll()
+                .antMatchers(HttpMethod.GET, "/notes").authenticated()
 
                 //appointments
-                .antMatchers(HttpMethod.GET, "/appointments").permitAll()
+                .antMatchers(HttpMethod.GET, "/appointments").authenticated()
 
                 //requests
                 .antMatchers("/requests/all").permitAll()
+
+                //availableschedules
+                .antMatchers(HttpMethod.GET, "/availableschedules").authenticated()
                 
                 //students
                 .antMatchers("/students").permitAll()

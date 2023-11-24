@@ -23,7 +23,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/students")
-    public ResponseEntity<Object> getStudents(){
+    public ResponseEntity<Object> getStudents(@RequestHeader(value = "Authorization") String stringToken){
         return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
     }
 

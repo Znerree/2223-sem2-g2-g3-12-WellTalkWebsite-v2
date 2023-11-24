@@ -58,6 +58,12 @@ public class PostService {
     public Iterable<Post> getPosts() {
         return postRepository.findAll();
     }
+    
+    // Get counselor posts
+    public Iterable<Post> getMyPosts(String stringToken) {
+        Counselor author = counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
+        return author.getPosts();
+    }
 
     // Delete post
     public ResponseEntity deletePost(Long id, String stringToken) {
@@ -117,10 +123,6 @@ public class PostService {
         }
     }
 
-    // Get counselor posts
-    public Iterable<Post> getMyPosts(String stringToken) {
-        Counselor author = counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-        return author.getPosts();
-    }
+    
 
 }

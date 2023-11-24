@@ -26,11 +26,17 @@ export const AuthProvider = ({ children }: any) => {
           },
         }
       );
-
-      const getUserTypeResponse = await axios.get(`/users/username/${username}`);
-      const userType = getUserTypeResponse.data.userType;
-
       localStorage.setItem("token", response.data.token);
+
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+
+      const getUserTypeResponse = await axios.get(`/users/username/${username}`, config);
+      const userType = getUserTypeResponse.data.userType;
+      
       localStorage.setItem("user", username);
       localStorage.setItem("password", password);
       localStorage.setItem("userType", userType);

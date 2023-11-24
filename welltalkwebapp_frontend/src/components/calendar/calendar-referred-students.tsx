@@ -46,8 +46,11 @@ const ReferredStudents = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
     axios
-      .get<Referral[]>("/referrals")
+      .get<Referral[]>("/referrals", config)
       .then((response) => {
         setReferrals(response.data.filter((referral) => !referral.isAccepted));
         console.log(response.data);

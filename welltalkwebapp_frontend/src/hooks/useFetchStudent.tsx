@@ -7,8 +7,12 @@ export const useFetchStudent = () => {
 
   useEffect(() => {
     const fetchStudentsData = async () => {
-      const response = await axios.get(STUDENT_URL);
+      const config = {
+        headers: { Authorization: `${localStorage.getItem("token")}` },
+      };
+      const response = await axios.get(STUDENT_URL, config);
       setStudents(response.data);
+      console.log(response.data);
     };
     fetchStudentsData();
   }, []);

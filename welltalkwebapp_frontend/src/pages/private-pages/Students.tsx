@@ -26,7 +26,10 @@ const Students = () => {
   const [originalStudents, setOriginalStudents] = useState<StudentProps["student"][]>([]); // Save the original list of students to be used for filtering.
 
   const fetchStudents = async () => {
-    const response = await axios.get("/students");
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+    const response = await axios.get("/students", config);
     setStudents(response.data);
     setOriginalStudents(response.data);
     console.log(response);

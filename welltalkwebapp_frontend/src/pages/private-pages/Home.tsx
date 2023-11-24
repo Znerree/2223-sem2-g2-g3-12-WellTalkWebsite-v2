@@ -50,7 +50,10 @@ const Home = () => {
   const getAllPosts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("/posts");
+      const config = {
+        headers: { Authorization: `${localStorage.getItem("token")}` },
+      };
+      const response = await axios.get("/posts", config);
       const sortedPosts = response.data.sort((a: any, b: any) => b.id - a.id);
       console.log(response.data);
       setLoading(false);

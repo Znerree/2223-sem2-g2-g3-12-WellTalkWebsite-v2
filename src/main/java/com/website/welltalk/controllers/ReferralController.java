@@ -23,7 +23,7 @@ public class ReferralController {
     }
 
     @GetMapping(value = "/referrals")
-    public ResponseEntity<Object> getReferrals() {
+    public ResponseEntity<Object> getReferrals(@RequestHeader(value="Authorization") String stringToken) {
         return new ResponseEntity<>(referralService.getReferrals(), HttpStatus.OK);
     }
 
