@@ -1,4 +1,5 @@
-routes:
-  - type: redirect
-    source: /
-    destination: /webapp
+web:
+  - routes:
+      - type: redirect
+        source: /
+        destination: /webapp
