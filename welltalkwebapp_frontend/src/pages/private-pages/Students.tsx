@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "@/api/axios";
 import { BsChatLeftDots } from "react-icons/bs";
-import CounselorLayout from "@/components/Layout";
+import CounselorLayout from "@/app/layout/Layout";
 import { FaSort } from "react-icons/fa";
 
 type StudentProps = {
@@ -26,7 +26,10 @@ const Students = () => {
   const [originalStudents, setOriginalStudents] = useState<StudentProps["student"][]>([]); // Save the original list of students to be used for filtering.
 
   const fetchStudents = async () => {
-    const response = await axios.get("/students");
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+    const response = await axios.get("/students", config);
     setStudents(response.data);
     setOriginalStudents(response.data);
     console.log(response);

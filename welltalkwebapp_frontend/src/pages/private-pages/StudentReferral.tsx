@@ -1,5 +1,4 @@
 import axios from "@/api/axios";
-import ReferralHeader from "@/components/ReferralHeader";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import useStudentSearch from "@/actions/search-student-actions";
 import { AiOutlineClose } from "react-icons/ai";
@@ -89,8 +88,11 @@ export const StudentReferral = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const config = {
+          headers: { Authorization: `${localStorage.getItem("token")}` },
+        };
         const username = localStorage.getItem("user");
-        const response = await axios.get(`http://localhost:8080/users/username/${username}`);
+        const response = await axios.get(`http://localhost:8080/users/username/${username}`, config);
         console.log(response.data);
         setReferrer(response.data);
       } catch (error) {

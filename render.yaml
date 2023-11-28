@@ -1,0 +1,5 @@
+web:
+  - routes:
+      - type: redirect
+        source: /
+        destination: /webapp

@@ -1,12 +1,10 @@
-import ListOfAppointments from "@/components/Calendar/calendar-list-of-appointments";
-import ReferredStudents from "@/components/Calendar/calendar-referred-students";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import ReferredStudents from "@/components/calendar/calendar-referred-students";
+import { ChangeEvent, useRef, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import useStudentSearch from "@/actions/search-student-actions";
 import useAppointmentActions from "@/actions/calendar-appointment-actions";
-import CounselorLayout from "@/components/Layout";
-import { Calendar } from "@/components/ui/calendar";
-import AppointmentRequests from "@/components/Calendar/calendar-list-of-requests";
+import AppointmentRequests from "@/components/calendar/calendar-list-of-requests";
+import ListOfAppointments from "@/components/calendar/calendar-list-of-appointments";
 
 const Calendarpage = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());

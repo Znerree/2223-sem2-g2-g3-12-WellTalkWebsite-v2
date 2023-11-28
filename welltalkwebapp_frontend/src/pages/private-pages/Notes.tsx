@@ -1,5 +1,5 @@
 import axios from "@/api/axios";
-import CounselorLayout from "@/components/Layout";
+import CounselorLayout from "@/app/layout/Layout";
 import { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
@@ -247,7 +247,9 @@ const Notes = () => {
                         </button>
                       </div>
                       <h1 className="text-2xl font-semibold">{note.title}</h1>
-                      <textarea disabled={!isEditing} className="break-words text-justify w-full  h-screen">{note.content}</textarea>
+                      <textarea disabled={!isEditing} className="break-words text-justify w-full  h-screen">
+                        {note.content}
+                      </textarea>
                       {showEditNote && (
                         <div className={`w-3/5 container flex flex-col overflow-y-hidden ${!displayClickedNote ? "hidden" : ""}`}>
                           {userNotes

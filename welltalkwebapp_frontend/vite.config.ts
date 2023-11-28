@@ -5,10 +5,16 @@ import { qrcode } from "vite-plugin-qrcode";
 
 export default defineConfig({
   plugins: [react(), qrcode()],
+  base: "/webapp/",
+  build: {
+    outDir: "../src/main/resources/webapp",
+    emptyOutDir: true,
+  },
   server: {
-    host: "true",
+    origin: "*",
   },
   resolve: {
+    extensions: [".js", ".ts", ".jsx", ".tsx", ".json"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },

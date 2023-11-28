@@ -1,30 +1,28 @@
 import axios from "@/api/axios";
 import React, { useEffect, useState, useRef } from "react";
-import { AiFillHome, AiOutlineHeart, AiOutlineHome, AiTwotoneHome } from "react-icons/ai";
+import { AiFillHome, AiOutlineHome } from "react-icons/ai";
 import { BsPerson, BsPersonCircle, BsPersonFill } from "react-icons/bs";
-import { FaRegComment } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import { RiDeleteBin5Line, RiImageAddFill } from "react-icons/ri";
-import { MdOutlineModeEdit, MdPostAdd } from "react-icons/md";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { RiImageAddFill } from "react-icons/ri";
 import useFetchUser from "@/hooks/useFetchUser";
-import Posts from "@/components/PostCard";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Man_Avatar from "@/assets/images/man_avatar.svg";
+import Man_Avatar from "@/media/images/man_avatar.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LucideImagePlus } from "lucide-react";
-import { PostsProps } from "@/components/PostCard";
 import useLoading from "@/hooks/useLoading";
 import { ProgressBar, Spinner } from "@/components/Loaders";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
+import PostCard from "@/components/post/post-card";
+import { Post } from "@/types/post";
+import PostForm from "@/components/post/post-form";
+import { IoClose } from "react-icons/io5";
 
 const Home = () => {
-  const [allPost, setAllPost] = useState<PostsProps[]>([]);
-  const [myPost, setMyPost] = useState<PostsProps[]>([]);
+  const [allPost, setAllPost] = useState<Post[]>([]);
+  const [myPost, setMyPost] = useState<Post[]>([]);
   const [activeButton, setActiveButton] = useState("all");
   const [showPostForm, setShowPostForm] = useState<boolean>(false);
   const [imageFileName, setImageFileName] = useState<string>("");
@@ -52,7 +50,10 @@ const Home = () => {
   const getAllPosts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("/posts");
+      const config = {
+        headers: { Authorization: `${localStorage.getItem("token")}` },
+      };
+      const response = await axios.get("/posts", config);
       const sortedPosts = response.data.sort((a: any, b: any) => b.id - a.id);
       console.log(response.data);
       setLoading(false);
@@ -85,124 +86,6 @@ const Home = () => {
       getMyPosts();
     }
   }, [activeButton]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setNewPost((prevPost) => ({
-      ...prevPost,
-      [name]: value,
-    }));
-    console.log(newPost);
-  };
-
-  const handleUpdateInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setEditingPost((prevPost) => ({
-      ...prevPost,
-      [name]: value,
-    }));
-    console.log(editingPost);
-  };
-
-  const handleEditImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setEditingPost((prevPost) => ({
-        ...prevPost,
-        photoData: file,
-      }));
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const imageSrc = event.target?.result as string;
-        setImageSrc(imageSrc);
-      };
-      reader.readAsDataURL(file);
-      setImageFileName(file.name);
-    }
-  };
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setNewPost((prevPost) => ({
-        ...prevPost,
-        photoData: file,
-      }));
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const imageSrc = event.target?.result as string;
-        setImageSrc(imageSrc);
-      };
-      reader.readAsDataURL(file);
-      setImageFileName(file.name);
-    }
-  };
-
-  const handleImageClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    event.preventDefault();
-    const input = document.querySelector("input[type=file]") as HTMLInputElement;
-    input.click();
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    //formData is used for posting with photos
-    const formData = new FormData();
-    formData.append("title", newPost.title);
-    formData.append("content", newPost.content);
-    formData.append("photoData", newPost.photoData);
-    console.log(newPost.photoData);
-
-    //body is used for posting without photos
-    const body = {
-      title: newPost.title,
-      content: newPost.content,
-    };
-
-    //headers is used for authorization
-    const config = {
-      headers: { Authorization: `${localStorage.getItem("token")}` },
-    };
-    try {
-      if (newPost.photoData.name === "") {
-        const response = await axios.post("/posts", body, config);
-        console.log(response);
-      } else {
-        const response = await axios.post("/posts/photo", formData, config);
-        console.log(response);
-        setNewPost({
-          title: "",
-          content: "",
-          photoData: new File([], ""),
-        });
-      }
-      alert("Post created!");
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (postOptionsRef.current && !postOptionsRef.current.contains(event.target as Node)) {
-        setShowPostOptions(null);
-      }
-    };
-
-    if (showPostOptions) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showPostOptions]);
 
   const handleOpenConfirmDelete = (postId: number) => {
     myPost.find((post) => post.id === postId);
@@ -245,15 +128,6 @@ const Home = () => {
       setShowEditForm(true);
       console.log(post);
     }
-  };
-
-  const handleCloseEditForm = () => {
-    setEditingPost({
-      title: "",
-      content: "",
-      photoData: new File([], ""),
-    });
-    setShowEditForm(false);
   };
 
   const handleEditPost = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -304,7 +178,7 @@ const Home = () => {
   return (
     <>
       <div className=" w-full flex flex-col">
-        <Card className=" md:w-[700px] mx-auto mb-3">
+        <Card className=" w-full md:w-[700px] mx-auto mb-3">
           <CardContent className=" flex flex-row items-center px-3 py-5 gap-2">
             <Avatar>
               <AvatarImage className=" rounded-full" src={Man_Avatar} />
@@ -321,7 +195,7 @@ const Home = () => {
           </CardContent>
         </Card>
 
-        <Card className=" md:w-[700px] mx-auto mb-3">
+        <Card className=" md:w-[700px] w-full mx-auto mb-3">
           <CardContent className=" flex flex-row items-center py-3 px-3 gap-3">
             <Button
               property="active"
@@ -352,55 +226,21 @@ const Home = () => {
         {/* Conditionally displays the form to create a new post */}
         {showPostForm && (
           <div className="fixed inset-0 w-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-10">
-            <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
-              <button onClick={handleClosePostForm} className="text-tertiary hover:text-primary text-xl px-4 py-2 absolute top-0 right-0">
-                <IoMdClose />
-              </button>
-              <p className="text-xl font-bold text-center py-4">Create post</p>
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="title"
-                  value={newPost.title}
-                  onChange={handleInputChange}
-                  className="w-full border-secondary border-2 rounded-md p-2 mb-2 outline-none"
-                  placeholder="Title"
-                  required
-                />
-                <textarea
-                  name="content"
-                  value={newPost.content}
-                  onChange={handleInputChange}
-                  className="w-full border-secondary border-2 resize-none rounded-md p-2 mb-2 outline-none"
-                  placeholder={"What do you want to post today, " + user?.firstName + "?"}
-                  rows={4}
-                  required
-                />
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="imageUpload"
-                    className="cursor-pointer border-secondary border-2 rounded-md p-2 text-sm outline-none flex items-center gap-1 text-tertiary"
-                  >
-                    <RiImageAddFill />
-                    {imageSrc ? imageFileName : "Upload an Image"}
-                  </label>
-                  <input id="imageUpload" type="file" name="photoData" className="hidden" onChange={handleImageUpload} />
-                </div>
-                {imageSrc && (
-                  <div className="mt-2">
-                    <img src={imageSrc} alt="Uploaded Image" className="max-w-auto max-h-auto cursor-pointer" onClick={handleImageClick} />
-                  </div>
-                )}
-
-                <button type="submit" className=" mt-5 rounded-full w-full bg-secondary border-inherit text-white p-2 outline-none">
-                  Post
-                </button>
-              </form>
-            </div>
+            <Card className="w-[600px] mx-2">
+              <CardHeader className=" text-center text-2xl font-semibold">
+                <span className=" flex justify-between items-center">
+                  Create post
+                  <Button size="icon" variant="ghost" className="w-8 h-8 rounded-full p-1" asChild>
+                    <IoMdClose onClick={() => setShowPostForm(false)} />
+                  </Button>
+                </span>
+              </CardHeader>
+              <CardContent>
+                <PostForm />
+              </CardContent>
+            </Card>
           </div>
         )}
-
-        {loading && <Spinner />}
 
         <>
           {/* Conditionally displays all the posts */}
@@ -408,7 +248,7 @@ const Home = () => {
             <>
               {allPost.map((post) => (
                 <React.Fragment key={post.id}>
-                  <Posts
+                  <PostCard
                     id={post.id}
                     title={post.title}
                     content={post.content}
@@ -428,7 +268,7 @@ const Home = () => {
               {myPost.map((post) => (
                 <React.Fragment key={post.id}>
                   <>
-                    <Posts
+                    <PostCard
                       id={post.id}
                       title={post.title}
                       content={post.content}
