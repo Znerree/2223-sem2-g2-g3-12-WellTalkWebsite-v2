@@ -1,17 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
-const jwtToken = "token";
+const { API_BASE_URL } = import.meta.env;
 
-const BASE_URL = 'http://localhost:8080/';
+export const LOGIN_URL = "/authenticate";
+export const REGISTER_URL = "/users/register";
+export const STUDENT_URL = "/students";
 
-export default axios.create({
-    baseURL: BASE_URL,
-    // headers: {Authorization: `Bearer ${jwtToken}`,},
-    // withCredentials: true,
+export const instance = axios.create({
+  baseURL: API_BASE_URL as string,
 });
 
-export const axiosPrivate = axios.create({
-    baseURL: BASE_URL,
-    headers: {Authorization: `Bearer ${jwtToken}`,},
-    withCredentials: true,
-})
+export default instance;

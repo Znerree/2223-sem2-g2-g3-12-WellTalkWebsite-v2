@@ -6,7 +6,10 @@ import { qrcode } from "vite-plugin-qrcode";
 export default defineConfig({
   plugins: [react(), qrcode()],
   server: {
-    host: "true",
+    port: 3000,
+  },
+  preview: {
+    port: 8080,
   },
   resolve: {
     alias: {
