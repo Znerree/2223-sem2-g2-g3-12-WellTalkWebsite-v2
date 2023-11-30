@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.website.welltalk.services.RequestAppointmentService;
 import com.website.welltalk.models.RequestAppointment;
 import com.website.welltalk.repositories.RequestAppointmentRepository;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/requests")
@@ -25,14 +26,15 @@ public class RequestAppointmentController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> deleteRequest(@RequestHeader(value="Authorization") @PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteRequest(@RequestHeader(value = "Authorization") @PathVariable("id") Long id) {
         requestAppointmentService.deleteRequest(id);
         return new ResponseEntity<>("Request deleted successfully", HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> updateAppointment(@RequestHeader(value="Authorization") String stringToken, @PathVariable("id") Long id) {
-        requestAppointmentService.updateAppointment( id, stringToken);
+    public ResponseEntity<Object> updateAppointment(@RequestHeader(value = "Authorization") String stringToken,
+            @PathVariable("id") Long id) {
+        requestAppointmentService.updateAppointment(id, stringToken);
         return new ResponseEntity<>("Request updated successfully", HttpStatus.OK);
     }
 
