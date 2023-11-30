@@ -69,46 +69,46 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
                 .antMatchers(HttpMethod.POST, "/send-otp").permitAll()
 
-                //users
+                // users
                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/users", "/users/{email}").authenticated()
                 // .antMatchers("/users/username/{username}").permitAll()
 
-                //referrals
+                // referrals
                 .antMatchers("/referrals").permitAll()
                 .antMatchers(HttpMethod.PUT, "/referrals/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/referrals/teachers").permitAll()
 
-                //posts
+                // posts
                 .antMatchers("/posts").permitAll()
                 .antMatchers(HttpMethod.PUT, "/posts/{id}").permitAll()
                 .antMatchers(HttpMethod.PUT, "/posts/photo/{id}").permitAll()
 
-                //notes
+                // notes
                 .antMatchers(HttpMethod.POST, "/notes").permitAll()
                 .antMatchers(HttpMethod.GET, "/notes").authenticated()
 
-                //appointments
+                // appointments
                 .antMatchers(HttpMethod.GET, "/appointments").authenticated()
 
-                //requests
+                // requests
                 .antMatchers("/requests/all").permitAll()
 
-                //availableschedules
+                // availableschedules
                 .antMatchers(HttpMethod.GET, "/availableschedules").authenticated()
-                
-                //students
+
+                // students
                 .antMatchers("/students").permitAll()
                 .antMatchers(HttpMethod.GET, "/students/{studentid}").permitAll()
 
-                //counselors
+                // counselors
                 .antMatchers("/counselors").permitAll()
 
-                //teachers
+                // teachers
                 .antMatchers("/teachers").permitAll()
                 .antMatchers(HttpMethod.GET, "/teachers/{teacherid}").permitAll()
-                
-                //others
+
+                // others
                 .antMatchers(HttpMethod.POST, "/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/**").permitAll()

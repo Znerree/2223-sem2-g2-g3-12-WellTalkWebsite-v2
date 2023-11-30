@@ -18,29 +18,31 @@ import com.website.welltalk.services.AppointmentService;
 @RestController
 @CrossOrigin
 public class AppointmentController {
-    
+
     @Autowired
     AppointmentService appointmentService;
 
     @PostMapping(value = "/appointments")
-    public ResponseEntity<Object> createAppointment(@RequestHeader(value="Authorization") String stringToken, @RequestParam(value = "student") Long studentid, @RequestBody Appointment appointment) {
+    public ResponseEntity<Object> createAppointment(@RequestHeader(value = "Authorization") String stringToken,
+            @RequestParam(value = "student") Long studentid, @RequestBody Appointment appointment) {
         appointmentService.createAppointment(stringToken, studentid, appointment);
         return ResponseEntity.ok("appointment created successfully");
-        
+
     }
 
-    @GetMapping(value = "/appointments")
-    public ResponseEntity<Object> getAppointments() {
-        return ResponseEntity.ok(appointmentService.getAppointments());
-    }
+    // @GetMapping(value = "/appointments")
+    // public ResponseEntity<Object> getAppointments() {
+    // return ResponseEntity.ok(appointmentService.getAppointments());
+    // }
 
     @GetMapping(value = "/myappointments")
-    public ResponseEntity<Object> getMyAppointments(@RequestHeader(value="Authorization") String stringToken) {
+    public ResponseEntity<Object> getMyAppointments(@RequestHeader(value = "Authorization") String stringToken) {
         return ResponseEntity.ok(appointmentService.getMyAppointments(stringToken));
     }
 
     @PutMapping(value = "/appointments/{id}")
-    public ResponseEntity<Object> updateAppointment(@PathVariable Long id, @RequestHeader(value="Authorization") String stringToken) {
+    public ResponseEntity<Object> updateAppointment(@PathVariable Long id,
+            @RequestHeader(value = "Authorization") String stringToken) {
         return ResponseEntity.ok(appointmentService.updateAppointment(id, stringToken));
     }
 

@@ -1,9 +1,10 @@
 export type Student = {
-  id: number;
-  firstname: string;
-  lastname: string;
-  studentID: number;
+  userid: number | string;
+  firstName: string;
+  lastName: string;
+  course: string;
   email: string;
-  year: number;
-  department: string;
+  password: string;
+  phoneNumber: number;
+  studentId: number;
 };

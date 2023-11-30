@@ -47,21 +47,25 @@ const Home = () => {
   const { loading, setLoading } = useLoading();
   const form = useForm();
 
-  const getAllPosts = async () => {
-    try {
-      setLoading(true);
-      const config = {
-        headers: { Authorization: `${localStorage.getItem("token")}` },
-      };
-      const response = await axios.get("/posts", config);
-      const sortedPosts = response.data.sort((a: any, b: any) => b.id - a.id);
-      console.log(response.data);
-      setLoading(false);
-      setAllPost(sortedPosts);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  useEffect(() => {
+    const getPosts = async () => {
+      const postApi = activeButton === "all" ? "/posts" : "/myPosts";
+      try {
+        setLoading(true);
+        const config = {
+          headers: { Authorization: `${localStorage.getItem("token")}` },
+        };
+        const response = await axios.get(`${postApi}`, config);
+        const sortedPosts = response.data.sort((a: any, b: any) => b.id - a.id);
+        console.log(response.data);
+        setLoading(false);
+        setAllPost(sortedPosts);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getPosts();
+  }, []);
 
   const getMyPosts = async () => {
     const config = {
@@ -78,14 +82,6 @@ const Home = () => {
       console.error(err);
     }
   };
-
-  useEffect(() => {
-    if (activeButton === "all") {
-      getAllPosts();
-    } else {
-      getMyPosts();
-    }
-  }, [activeButton]);
 
   const handleOpenConfirmDelete = (postId: number) => {
     myPost.find((post) => post.id === postId);
@@ -242,67 +238,39 @@ const Home = () => {
           </div>
         )}
 
-        <>
-          {/* Conditionally displays all the posts */}
-          {activeButton === "all" && (
-            <>
-              {allPost.map((post) => (
-                <React.Fragment key={post.id}>
-                  <PostCard
-                    id={post.id}
-                    title={post.title}
-                    content={post.content}
-                    photoContent={post.photoContent}
-                    photoData={post.photoData}
-                    counselor={post.counselor}
-                    activeBtn="all"
-                  />
-                </React.Fragment>
-              ))}
-            </>
-          )}
+        {(activeButton === "all" ? allPost : myPost).map((post) => (
+          <div key={post.id}>
+            <PostCard
+              id={post.id}
+              title={post.title}
+              content={post.content}
+              photoContent={post.photoContent}
+              photoData={post.photoData}
+              counselor={post.counselor}
+              activeBtn={activeButton}
+              showDeleteModal={() => handleOpenConfirmDelete(post.id)}
+              showEdit={() => handleOpenEditForm(post.id)}
+              saveChanges={() => handleEditPost}
+            />
 
-          {/* Conditionally displays the user's posts */}
-          {activeButton === "my" && (
-            <>
-              {myPost.map((post) => (
-                <React.Fragment key={post.id}>
-                  <>
-                    <PostCard
-                      id={post.id}
-                      title={post.title}
-                      content={post.content}
-                      photoContent={post.photoContent}
-                      photoData={post.photoData}
-                      counselor={post.counselor}
-                      activeBtn="my"
-                      showDeleteModal={() => handleOpenConfirmDelete(post.id)}
-                      showEdit={() => handleOpenEditForm(post.id)}
-                      saveChanges={() => handleEditPost}
-                    />
-
-                    {showDeleteModal && (
-                      <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center z-10">
-                        <div className="bg-white rounded-lg p-4 flex flex-col">
-                          <h1 className=" text-black font-semibold text-lg">Delete</h1>
-                          <p className=" text-gray-500  border-t border-b py-4 px-1 my-3">Are you sure you want to delete this post?</p>
-                          <div className="flex justify-end mt-4">
-                            <button onClick={handleCancelDelete} className="text-sm text-gray-500 hover:text-primary mr-2">
-                              Cancel
-                            </button>
-                            <button onClick={() => handleDeletePost(post.id)} className="text-sm text-red-500 hover:text-red-700">
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                </React.Fragment>
-              ))}
-            </>
-          )}
-        </>
+            {showDeleteModal && (
+              <div className="fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center z-10">
+                <div className="bg-white rounded-lg p-4 flex flex-col">
+                  <h1 className=" text-black font-semibold text-lg">Delete</h1>
+                  <p className=" text-gray-500  border-t border-b py-4 px-1 my-3">Are you sure you want to delete this post?</p>
+                  <div className="flex justify-end mt-4">
+                    <Button onClick={handleCancelDelete} className="text-sm text-gray-500 hover:text-primary mr-2">
+                      Cancel
+                    </Button>
+                    <Button onClick={() => handleDeletePost(post.id)} className="text-sm text-red-500 hover:text-red-700">
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </>
   );

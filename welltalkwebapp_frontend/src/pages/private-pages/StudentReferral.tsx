@@ -92,7 +92,7 @@ export const StudentReferral = () => {
           headers: { Authorization: `${localStorage.getItem("token")}` },
         };
         const username = localStorage.getItem("user");
-        const response = await axios.get(`http://localhost:8080/users/username/${username}`, config);
+        const response = await axios.get(`/users/username/${username}`, config);
         console.log(response.data);
         setReferrer(response.data);
       } catch (error) {
@@ -238,13 +238,13 @@ export const StudentReferral = () => {
                   {results.map((student) => (
                     <li
                       className=" w-full border p-1 cursor-pointer hover:bg-gray-100 hover:shadow-lg hover:border-secondary"
-                      key={student.id}
-                      onClick={() => handleStudentInput(student.firstname + " " + student.lastname, students, setStudentId, setValue, setResults, setQuery)}
+                      key={student.userid}
+                      onClick={() => handleStudentInput(student.firstName + " " + student.lastName, students, setStudentId, setValue, setResults, setQuery)}
                     >
                       <p className="text-sm ">
-                        {student.firstname} {student.lastname}
+                        {student.firstName} {student.lastName}
                       </p>
-                      <p className="text-xs text-gray-300">Student ID: {student.studentID}</p>
+                      <p className="text-xs text-gray-300">Student ID: {student.userid}</p>
                     </li>
                   ))}
                 </ul>

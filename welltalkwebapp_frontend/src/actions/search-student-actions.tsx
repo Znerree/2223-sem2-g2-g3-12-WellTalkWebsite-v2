@@ -11,7 +11,7 @@ const useStudentSearch = () => {
   const [studentID, setStudentId] = useState("");
 
   const fetchStudents = async () => {
-    const response = await axios.get("students");
+    const response = await axios.get("/students");
     return response.data;
   };
 
@@ -41,7 +41,7 @@ const useStudentSearch = () => {
     setValue(inputValue);
     setQuery(inputValue);
     const filteredStudents = students.filter(
-      (student) => student.firstname.toLowerCase().includes(inputValue.toLowerCase()) || student.lastname.toLowerCase().includes(inputValue.toLowerCase())
+      (student) => student.firstName.toLowerCase().includes(inputValue.toLowerCase()) || student.lastName.toLowerCase().includes(inputValue.toLowerCase())
     );
     setResults(filteredStudents);
     setShowResultsDropdown(filteredStudents.length > 0);
@@ -59,9 +59,9 @@ const useStudentSearch = () => {
     setResults([]);
     setQuery("");
 
-    const selectedStudent = students.find((student) => student.firstname + " " + student.lastname === studentName);
+    const selectedStudent = students.find((student) => student.firstName + " " + student.lastName === studentName);
     if (selectedStudent) {
-      setStudentId(selectedStudent.id.toString());
+      setStudentId(selectedStudent.userid.toString());
     }
   };
 

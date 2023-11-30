@@ -99,13 +99,13 @@ const Calendarpage = () => {
                   {results.map((student) => (
                     <li
                       className=" w-full border p-2 cursor-pointer hover:bg-gray-100 hover:shadow-lg hover:border-secondary"
-                      key={student.id}
-                      onClick={() => handleStudentInput(student.firstname + " " + student.lastname, students, setStudentId, setValue, setResults, setQuery)}
+                      key={student.userid}
+                      onClick={() => handleStudentInput(student.firstName + " " + student.lastName, students, setStudentId, setValue, setResults, setQuery)}
                     >
                       <p className="text-sm bold">
-                        {student.firstname} {student.lastname}
+                        {student.firstName} {student.lastName}
                       </p>
-                      <p className="text-xs text-red-500">Student ID: {student.studentID}</p>
+                      <p className="text-xs text-red-500">Student ID: {student.userid}</p>
                     </li>
                   ))}
                 </ul>

@@ -248,9 +248,7 @@ const PostCard = ({ title, content, photoContent, activeBtn, counselor, showDele
             <p className=" font-semibold text-lg">{title}</p>
             <p className=" mb-2">{content}</p>
           </div>
-          {photoContent ? (
-            <img src={`data:image/jpeg;base64,${photoContent}`} alt="Posted Image" className=" w-full max-h-auto cursor-pointer border-b border-t" />
-          ) : null}
+          {photoContent ? <img src={imageSrc} alt="Posted Image" className=" w-full max-h-auto cursor-pointer border-b border-t" /> : null}
         </CardContent>
         <CardFooter className=" p-0 flex flex-col">
           {/* {hasReactions ?( <p>{reactionCounts}</p>) : null} */}

@@ -86,6 +86,11 @@
                  <groupId>org.springframework.boot</groupId>
                  <artifactId>spring-boot-maven-plugin</artifactId>
               </plugin>
+              <plugin>
+	            <groupId>com.github.eirslett</groupId>
+	            <artifactId>frontend-maven-plugin</artifactId>
+                  <version>1.14.1</version>
+              </plugin>
            </plugins>
         </build>
     </project>

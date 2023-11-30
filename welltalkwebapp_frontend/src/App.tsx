@@ -93,9 +93,9 @@ export default function App() {
         {/* private routes */}
         <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
         <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
-        <Route path="students_list" element={<PrivateRoute userType="Counselor" component={Students} />} />
+        <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
         <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
-        <Route path="my_notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+        <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
 
         <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
 

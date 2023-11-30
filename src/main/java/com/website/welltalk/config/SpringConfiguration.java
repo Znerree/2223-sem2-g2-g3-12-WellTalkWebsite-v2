@@ -17,7 +17,7 @@ public class SpringConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        this.serveDirectory(registry, "/webapp", "classpath:/webapp/");
+        this.serveDirectory(registry, "/", "classpath:/static");
     }
 
     private void serveDirectory(ResourceHandlerRegistry registry, String endpoint, String location) {
