@@ -1,7 +1,7 @@
 import { Navigate, Route, useLocation } from "react-router-dom";
 import useFetchUser from "./hooks/useFetchUser";
 import { AccessDenied } from "./pages/errors/AccessDenied";
-import Layout from "./app/layout/Layout";
+import Layout from "./components/layouts/Layout";
 
 interface Props {
   component: React.ComponentType;

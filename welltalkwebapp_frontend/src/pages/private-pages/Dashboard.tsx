@@ -1,4 +1,4 @@
-import CounselorLayout from "@/app/layout/Layout";
+import CounselorLayout from "@/components/layouts/Layout";
 import { Layout } from "lucide-react";
 
 const Dashboard = () => {

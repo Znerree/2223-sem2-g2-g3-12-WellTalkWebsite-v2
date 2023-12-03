@@ -54,7 +54,7 @@ const RegisterForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} placeholder="Firstname" type="text" />
+                  <Input {...field} placeholder="Firstname" type="text" autoComplete="yes" />
                 </FormControl>
                 {form.formState.errors.firstName && <FormMessage>{form.formState.errors.firstName.message}</FormMessage>}
               </FormItem>
@@ -66,7 +66,7 @@ const RegisterForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} placeholder="Lastname" type="text" />
+                  <Input {...field} placeholder="Lastname" type="text" autoComplete="yes" />
                 </FormControl>
                 {form.formState.errors.lastName && <FormMessage>{form.formState.errors.lastName.message}</FormMessage>}
               </FormItem>
@@ -79,7 +79,7 @@ const RegisterForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} placeholder="Email" type="email" />
+                <Input {...field} placeholder="Email" type="email" autoComplete="yes" />
               </FormControl>
               {form.formState.errors.email && <FormMessage>{form.formState.errors.email.message}</FormMessage>}
             </FormItem>
@@ -91,7 +91,7 @@ const RegisterForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} placeholder="ID number (example format: 12-3456-789)" />
+                <Input {...field} placeholder="ID number (example format: 12-3456-789)" autoComplete="yes" />
               </FormControl>
               {form.formState.errors.schoolID && <FormMessage>{form.formState.errors.schoolID.message}</FormMessage>}
             </FormItem>
@@ -123,7 +123,7 @@ const RegisterForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} placeholder="Username" type="text" />
+                <Input {...field} placeholder="Username" type="text" autoComplete="" />
               </FormControl>
               {form.formState.errors.username && <FormMessage>{form.formState.errors.username.message}</FormMessage>}
             </FormItem>
@@ -135,7 +135,7 @@ const RegisterForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} placeholder="Password" type="password" />
+                <Input {...field} placeholder="Password" type="password" autoComplete="" />
               </FormControl>
               {form.formState.errors.password && <FormMessage>{form.formState.errors.password.message}</FormMessage>}
             </FormItem>
@@ -147,7 +147,7 @@ const RegisterForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input {...field} placeholder="Confirm Password" type="password" />
+                <Input {...field} placeholder="Confirm Password" type="password" autoComplete="" />
               </FormControl>
               {form.formState.errors.confirmPassword && <FormMessage>{form.formState.errors.confirmPassword.message}</FormMessage>}
             </FormItem>

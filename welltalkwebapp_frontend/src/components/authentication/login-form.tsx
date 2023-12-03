@@ -1,19 +1,21 @@
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Alert, AlertDescription } from "../ui/alert";
 import { loginSchema } from "@/schema-zod/loginSchema";
+import { toast } from "../ui/use-toast";
+import { useEffect } from "react";
+import { ToastAction } from "../ui/toast";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
-  const [errMsg, setErrMsg] = useState<string | { message: string }>("");
+  const [errMsg, setErrMsg] = useState(false);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -32,16 +34,34 @@ const LoginForm = () => {
       const { success, userType, error } = await login(data.username, data.password);
 
       if (success) {
-        if (userType === "Counselor") {
-          navigate("/home");
-        } else {
-          navigate("/student-referral");
-        }
+        toast({
+          variant: "success",
+          title: "Success",
+          description: "Login success. Redirecting...",
+          duration: 1500,
+        });
+        const redirectTimeout = setTimeout(() => {
+          navigate(userType === "Counselor" ? "/home" : "/student-referral");
+        }, 2000);
+
+        return () => clearTimeout(redirectTimeout);
       } else {
         if (error.message === "Network Error") {
-          setErrMsg("No connection to the server");
+          setErrMsg(true);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "No connection to the server",
+            duration: 2000,
+          });
         } else {
-          setErrMsg("Invalid username or password");
+          setErrMsg(true);
+          toast({
+            variant: "destructive",
+            title: "Login failed",
+            description: "Invalid username or password. Please try again.",
+            duration: 2000,
+          });
         }
       }
     } catch (error) {
@@ -61,9 +81,9 @@ const LoginForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} placeholder="Username" type="text" />
+                  <Input {...field} autoComplete="on" placeholder="Type your username here" />
                 </FormControl>
-                {form.formState.errors.username && <FormMessage>{form.formState.errors.username.message}</FormMessage>}
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -73,20 +93,12 @@ const LoginForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="password" {...field} placeholder="Password" />
+                  <Input type="password" {...field} autoComplete="off" placeholder="Type your password here" />
                 </FormControl>
-                {form.formState.errors.password && <FormMessage>{form.formState.errors.password.message}</FormMessage>}
+                <FormMessage />
               </FormItem>
             )}
           />
-          <span>
-            <Link to="#" className=" text-primary-500 text-sm justify-end flex hover:underline">
-              Forgot Password?
-            </Link>
-          </span>
-          <Alert variant="destructive" className={`${errMsg ? "" : "hidden"}`}>
-            <AlertDescription>{typeof errMsg === "string" ? errMsg : errMsg.message}</AlertDescription>
-          </Alert>
           <Button type="submit" className=" w-full" disabled={loading}>
             {loading ? "Logging in..." : "Log in"}
           </Button>

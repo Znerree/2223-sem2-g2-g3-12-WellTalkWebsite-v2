@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import RegisterForm from "@/components/authentication/register-form";
 import { Label } from "@/components/ui/label";
+import logo from "@/media/images/logo.png";
 
 const pageBg = {
   backgroundImage: `url(${pageBackground})`,
@@ -14,9 +15,14 @@ const Register = () => {
   return (
     <>
       <div className="flex flex-col h-screen w-full justify-center items-center" style={pageBg}>
+        <div className=" my-3 flex flex-col items-center">
+          <Link to="/">
+            <img src={logo} alt="" className=" h-16 w-16 shrink-0" />
+          </Link>
+        </div>
         <Card className=" w-96">
           <CardHeader>
-            <CardTitle className=" text-primary-500 mx-auto">Register</CardTitle>
+            <CardTitle className=" text-primary-700 ">Create an account</CardTitle>
           </CardHeader>
           <CardContent>
             <RegisterForm />

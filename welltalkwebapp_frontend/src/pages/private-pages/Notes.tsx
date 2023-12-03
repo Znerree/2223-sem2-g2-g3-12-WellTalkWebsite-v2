@@ -1,5 +1,5 @@
 import axios from "@/api/axios";
-import CounselorLayout from "@/app/layout/Layout";
+import CounselorLayout from "@/components/layouts/Layout";
 import { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";

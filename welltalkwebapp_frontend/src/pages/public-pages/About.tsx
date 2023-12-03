@@ -1,5 +1,3 @@
-import { bgStyle } from "./LandingPage";
-
 const About = () => {
   return (
     <>

@@ -48,7 +48,7 @@ export const LoadingScreen = () => {
 
   return (
     <div className="flex flex-col h-screen w-full bg-gray-900 bg-opacity-70 justify-center items-center absolute">
-      {loadingComplete && isLoggedin ? (
+      {loadingComplete ? (
         <p className=" text-white">
           You are already logged in as {user?.firstName} {user?.lastName}.
         </p>
