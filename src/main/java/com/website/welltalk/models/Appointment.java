@@ -21,12 +21,11 @@ public class Appointment {
     @JoinColumn(name = "counselor_id", nullable = false)
     private Counselor counselor;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
-
     @Column
     private LocalDateTime start_date;
+
+    @Column
+    private String studentID;
 
     @Column
     private Boolean isDone;
@@ -55,12 +54,12 @@ public class Appointment {
 
 
     //student
-    public Student getStudent() {
-        return student;
+    public void setStudentID(String studentID){
+        this.studentID = studentID;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public String getStudentID(){
+        return studentID;
     }
 
     //start date

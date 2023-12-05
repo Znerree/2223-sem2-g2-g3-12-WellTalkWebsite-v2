@@ -1,12 +1,15 @@
 package com.website.welltalk.services;
 import com.website.welltalk.models.*;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.website.welltalk.config.JwtToken;
 import com.website.welltalk.repositories.AppointmentRepository;
 import com.website.welltalk.repositories.CounselorRepository;
-import com.website.welltalk.repositories.StudentRepository;
 import com.website.welltalk.repositories.UserRepository;
 
 @Service
@@ -14,8 +17,6 @@ public class AppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
-    @Autowired
-    private StudentRepository studentRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -25,13 +26,12 @@ public class AppointmentService {
 
 
     
-    public void createAppointment(String stringToken, Long studentid, Appointment appointment) {
+    public void createAppointment(String stringToken, Appointment appointment) {
         Counselor counselor = counselorRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
-        Student student = studentRepository.findById(studentid).get();
 
         Appointment newAppointment = new Appointment();
 
-        newAppointment.setStudent(student);
+        newAppointment.setStudentID(appointment.getStudentID());
         newAppointment.setCounselor(counselor);
         newAppointment.setStart_date(appointment.getStart_date());
         newAppointment.setIsDone(false);
@@ -68,5 +68,10 @@ public class AppointmentService {
         User counselor = userRepository.findByUsername(jwtToken.getUsernameFromToken(stringToken));
         return counselor.getAppointments();
     }
+
+    public List<Appointment> getAppointmentsByStudentID(String studentID) {
+        return appointmentRepository.findAllByStudentID(studentID);
+    }
+
 
 }

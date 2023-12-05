@@ -13,10 +13,6 @@ public class Referral {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
-
-    @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
@@ -26,6 +22,9 @@ public class Referral {
     
     @Column
     private String reason;
+
+    @Column
+    private String studentID;
 
     @Column
     private Boolean isAccepted;
@@ -43,16 +42,14 @@ public class Referral {
         return id;
     }
 
-    // Getter and Setter for student
-    public Student getStudent() {
-        return student;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentID(String id) {
+        this.studentID = id;
     }
-
-    // Getter and Setter for teacher
+    
     public Teacher getTeacher() {
         return teacher;
     }

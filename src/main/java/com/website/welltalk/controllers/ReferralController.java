@@ -15,9 +15,8 @@ public class ReferralController {
     ReferralService referralService;
 
     @PostMapping(value = "/referrals")
-    public ResponseEntity<Object> createReferral(@RequestParam(value = "student") Long studentid,
-            @RequestParam(value = "teacher") Long teacherid, @RequestBody Referral referral) {
-        referralService.createReferral(studentid, teacherid, referral);
+    public ResponseEntity<Object> createReferral(@RequestParam(value = "teacher") Long teacherid, @RequestBody Referral referral) {
+        referralService.createReferral(teacherid, referral);
 
         return new ResponseEntity<>("Referral created successfully", HttpStatus.OK);
     }

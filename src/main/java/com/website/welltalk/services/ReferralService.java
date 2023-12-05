@@ -3,11 +3,9 @@ package com.website.welltalk.services;
 import com.website.welltalk.config.JwtToken;
 import com.website.welltalk.models.Counselor;
 import com.website.welltalk.models.Referral;
-import com.website.welltalk.models.Student;
 import com.website.welltalk.models.Teacher;
 import com.website.welltalk.repositories.CounselorRepository;
 import com.website.welltalk.repositories.ReferralRepository;
-import com.website.welltalk.repositories.StudentRepository;
 import com.website.welltalk.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,24 +17,20 @@ public class ReferralService {
 
     @Autowired
     private ReferralRepository referralRepository;
-
     @Autowired
     private TeacherRepository teacherRepository;
-    @Autowired
-    private StudentRepository studentRepository;
     @Autowired
     private CounselorRepository counselorRepository;
     @Autowired
     JwtToken jwtToken;
 
-    public void createReferral(Long studentid, Long teacherid, Referral referral) {
-        Student student = studentRepository.findById(studentid).get();
+    public void createReferral(Long teacherid, Referral referral) {
         Teacher teacher = teacherRepository.findById(teacherid).get();
 
         Referral newReferral = new Referral();
 
         newReferral.setReason(referral.getReason());
-        newReferral.setStudent(student);
+        newReferral.setStudentID(referral.getStudentID());
         newReferral.setTeacher(teacher);
         newReferral.setIsAccepted(false);
 

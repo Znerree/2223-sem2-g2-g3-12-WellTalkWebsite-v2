@@ -1,5 +1,7 @@
 package com.website.welltalk.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,8 +26,8 @@ public class AppointmentController {
 
     @PostMapping(value = "/appointments")
     public ResponseEntity<Object> createAppointment(@RequestHeader(value = "Authorization") String stringToken,
-            @RequestParam(value = "student") Long studentid, @RequestBody Appointment appointment) {
-        appointmentService.createAppointment(stringToken, studentid, appointment);
+            @RequestBody Appointment appointment) {
+        appointmentService.createAppointment(stringToken, appointment);
         return ResponseEntity.ok("appointment created successfully");
 
     }
@@ -45,5 +47,19 @@ public class AppointmentController {
             @RequestHeader(value = "Authorization") String stringToken) {
         return ResponseEntity.ok(appointmentService.updateAppointment(id, stringToken));
     }
+
+
+    // Inside AppointmentController class
+    @GetMapping(value = "/appointments/student/{studentid}")
+    public ResponseEntity<Object> getAppointmentsByStudentID(@PathVariable String studentid) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByStudentID(studentid);
+
+        if (appointments.isEmpty()) {
+            return ResponseEntity.ok("No appointments found for the student with ID: " + studentid);
+        } else {
+            return ResponseEntity.ok(appointments);
+    }
+}
+
 
 }

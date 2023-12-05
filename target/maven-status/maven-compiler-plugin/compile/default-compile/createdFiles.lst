@@ -1,6 +1,5 @@
 com\website\welltalk\config\JwtAuthenticate.class
 com\website\welltalk\controllers\CounselorController.class
-com\website\welltalk\controllers\StudentController.class
 com\website\welltalk\services\UserService.class
 com\website\welltalk\controllers\AppointmentController.class
 com\website\welltalk\repositories\UserRepository.class
@@ -10,12 +9,7 @@ com\website\welltalk\services\AvailableScheduleService.class
 com\website\welltalk\models\JwtResponse.class
 com\website\welltalk\services\CounselorService.class
 com\website\welltalk\models\Teacher.class
-com\website\welltalk\models\RequestAppointment.class
-com\website\welltalk\repositories\RequestAppointmentRepository.class
-com\website\welltalk\controllers\RequestAppointmentController.class
-com\website\welltalk\services\StudentService.class
 com\website\welltalk\config\WebSecurityConfig.class
-com\website\welltalk\services\RequestAppointmentService.class
 com\website\welltalk\services\JwtUserDetailsService.class
 com\website\welltalk\models\Counselor.class
 com\website\welltalk\models\Notes.class
@@ -29,7 +23,6 @@ com\website\welltalk\repositories\CounselorRepository.class
 com\website\welltalk\WelltalkApplication.class
 com\website\welltalk\controllers\PostController.class
 com\website\welltalk\models\Referral.class
-com\website\welltalk\models\Student.class
 com\website\welltalk\models\User.class
 com\website\welltalk\services\TeacherService.class
 com\website\welltalk\config\SpringConfiguration$1.class
@@ -44,7 +37,6 @@ com\website\welltalk\controllers\ReferralController.class
 com\website\welltalk\repositories\TeacherRepository.class
 com\website\welltalk\models\Appointment.class
 com\website\welltalk\repositories\NoteRepository.class
-com\website\welltalk\repositories\StudentRepository.class
 com\website\welltalk\services\NoteService.class
 com\website\welltalk\controllers\NoteController.class
 com\website\welltalk\repositories\AvailableScheduleRepository.class
