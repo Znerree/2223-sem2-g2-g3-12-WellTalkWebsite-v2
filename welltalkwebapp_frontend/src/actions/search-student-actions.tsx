@@ -11,7 +11,10 @@ const useStudentSearch = () => {
   const [studentID, setStudentId] = useState("");
 
   const fetchStudents = async () => {
-    const response = await axios.get("/students");
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+    const response = await axios.get("https://wanted-sweater-production.up.railway.app/getAllUser", config);
     return response.data;
   };
 
