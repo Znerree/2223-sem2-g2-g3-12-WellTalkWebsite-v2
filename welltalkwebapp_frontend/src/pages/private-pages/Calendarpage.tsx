@@ -5,6 +5,7 @@ import useStudentSearch from "@/actions/search-student-actions";
 import useAppointmentActions from "@/actions/calendar-appointment-actions";
 import AppointmentRequests from "@/components/calendar/AppointmentRequests";
 import ListOfAppointments from "@/components/calendar/ListOfAppointments";
+import { Toaster } from "@/components/ui/toaster";
 
 const Calendarpage = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -64,7 +65,7 @@ const Calendarpage = () => {
         <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border w-72 bg-white" />
         <p>You have no appointment for today.</p>
   </span>*/}
-      <div className="flex flex-grow gap-10 justify-center">
+      <div className="flex flex-wrap gap-10 justify-center">
         <div className=" bg-white w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
           {/* Set an appointment */}
           <div className="flex items-center justify-between border-b">
@@ -87,7 +88,13 @@ const Calendarpage = () => {
               </button>
             </form>
           ) : (
-            <form className=" px-3 pt-3" onSubmit={() => handleSubmit(studentID, showAnnounceSchedule)}>
+            <form
+              className=" px-3 pt-3"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(studentID, false);
+              }}
+            >
               <div className="flex items-center">
                 <input ref={inputRef} type="text" placeholder="Student name" style={inputStyle} onChange={handleStudentNameChange} value={value} required />
                 <button className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1 ml-2" onClick={handleClear}>
@@ -140,6 +147,7 @@ const Calendarpage = () => {
           {showAppoinmentRequests ? <AppointmentRequests /> : <ReferredStudents />}
         </div>
       </div>
+      <Toaster />
     </>
   );
 };

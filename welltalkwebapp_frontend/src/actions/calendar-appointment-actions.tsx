@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "@/api/axios";
+import { Student } from "@/types/student";
+import { toast } from "@/components/ui/use-toast";
 
 // Custom hook for handling appointment actions
 const useAppointmentActions = () => {
@@ -7,6 +9,13 @@ const useAppointmentActions = () => {
   const [startTime, setStartTime] = useState("");
   const [showAnnounceSchedule, setShowAnnounceSchedule] = useState(false);
   const [showAppoinmentRequests, setShowAppoinmentRequests] = useState(false);
+  const [students, setStudents] = useState([] as Student[]);
+
+  const fetchStudents = async () => {
+    const response = await axios.get("https://wanted-sweater-production.up.railway.app/getAllUser");
+    setStudents(response.data);
+    fetchStudents();
+  };
 
   const handleSubmit = async (studentID: string, isSchedule: boolean) => {
     // Get the current date and time
@@ -29,6 +38,7 @@ const useAppointmentActions = () => {
     };
     const appointmentData = {
       start_date: `${startDate}T${startTime}`,
+      student_id: `${studentID}`,
     };
     const scheduleData = {
       dateTime: `${startDate}T${startTime}`,
@@ -38,14 +48,21 @@ const useAppointmentActions = () => {
       if (isSchedule) {
         const response = await axios.post("/availableschedules", scheduleData, config);
         console.log(response.data);
-        alert("Schedule created successfully");
+        toast({
+          title: "Schedule set successfully",
+          variant: "success",
+          duration: 1500,
+        });
+        window.location.reload();
       } else {
-        const res = await axios.get("https://wanted-sweater-production.up.railway.app/getAllUser");
-        const studentID = res.data[0]._id;
-        console.log(res.data);
-        const response = await axios.post("/appointments?student=" + studentID, appointmentData, config);
+        const response = await axios.post("/appointments", appointmentData, config);
         console.log(response.data);
-        alert("Appointment set successfully");
+        toast({
+          title: "Appointment created successfully",
+          variant: "success",
+          duration: 1500,
+        });
+        window.location.reload();
       }
       clearForm();
     } catch (error) {

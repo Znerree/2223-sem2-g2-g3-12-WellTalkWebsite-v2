@@ -29,7 +29,6 @@ public class AppointmentController {
             @RequestBody Appointment appointment) {
         appointmentService.createAppointment(stringToken, appointment);
         return ResponseEntity.ok("appointment created successfully");
-
     }
 
     // @GetMapping(value = "/appointments")
@@ -48,7 +47,6 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.updateAppointment(id, stringToken));
     }
 
-
     // Inside AppointmentController class
     @GetMapping(value = "/appointments/student/{studentid}")
     public ResponseEntity<Object> getAppointmentsByStudentID(@PathVariable String studentid) {
@@ -58,8 +56,7 @@ public class AppointmentController {
             return ResponseEntity.ok("No appointments found for the student with ID: " + studentid);
         } else {
             return ResponseEntity.ok(appointments);
+        }
     }
-}
-
 
 }
