@@ -4,8 +4,8 @@ export type Referral = {
     id: number;
     course: string;
     year: number;
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     studentID: number;
   };
   teacher: {

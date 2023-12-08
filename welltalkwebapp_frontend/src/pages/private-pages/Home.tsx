@@ -228,7 +228,7 @@ const Home = () => {
               <CardHeader className=" p-1 mx-2 w-full">
                 <div className=" flex p-3 gap-2 items-center">
                   <Avatar>
-                    <AvatarImage src="https://i.pravatar.cc/300" />
+                    <AvatarImage src="https://i.pravatar.cc/300" loading="lazy" />
                   </Avatar>
                   <span className=" flex-1">
                     <CardTitle className=" text-lg">
@@ -244,7 +244,7 @@ const Home = () => {
               <CardContent className=" space-y-2 px-0">
                 <CardTitle className=" text-lg font-semibold px-5">{post.title}</CardTitle>
                 <CardDescription className=" text-sm px-5">{post.content}</CardDescription>
-                {post.photoContent && <img src={`data:image/png;base64,${post.photoContent}`} alt="posted image" className=" w-full" />}
+                {post.photoContent && <img src={`data:image/png;base64,${post.photoContent}`} alt="posted image" className=" w-full" loading="lazy" />}
               </CardContent>
               <CardFooter className=" p-0 mb-1 flex-col">
                 <div className=" w-full flex justify-between py-1 border-y mx-2 text-slate-400">

@@ -2,6 +2,7 @@ import axios from "@/api/axios";
 import { Referral } from "@/types/referral";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
 
 type ConfirmationModalProps = {
   isOpen: boolean;
@@ -21,14 +22,14 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ isOpen, onClose, 
               <button className="bg-gray-300 text-gray-700 rounded-md p-2" onClick={onClose}>
                 Cancel
               </button>
-              <button
-                className="bg-primary text-white rounded-md p-2 ml-2"
+              <Button
+                className=" rounded-md p-2 ml-2"
                 onClick={() => {
                   onConfirm();
                 }}
               >
                 Confirm
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -43,8 +44,6 @@ const ReferredStudents = () => {
   const [selectedReferral, setSelectedReferral] = useState<Referral | null>();
   const [refresher, setRefresher] = useState(0);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
@@ -53,6 +52,7 @@ const ReferredStudents = () => {
       .get<Referral[]>("/referrals", config)
       .then((response) => {
         setReferrals(response.data.filter((referral) => !referral.isAccepted));
+        setReferrals(response.data);
         console.log(response.data);
       })
       .catch((error) => {
@@ -100,20 +100,21 @@ const ReferredStudents = () => {
                 key={referral.id} // You should use a unique key for each list item
                 className="border-b px-2 rounded-md shadow-sm py-2 border mb-2"
               >
-                <p>
-                  {referral.student.firstname} {referral.student.lastname}
-                </p>
+                {referral.student && (
+                  <p>
+                    {referral.student.firstName} {referral.student.lastName}
+                  </p>
+                )}
                 <div className="flex flex-col">
                   <div className=" flex gap-2">
                     <div className="text-gray-500 text-sm">
-                      Course & Year:{" "}
-                      <span className="text-primary">
-                        {referral.student.course} - {referral.student.year}
-                      </span>
+                      Course: {referral.student && <span className="text-primary-400">{referral.student.course}</span>}
                     </div>
-                    <div className="text-gray-500 text-sm">
-                      Student ID: <span className="text-primary">{referral.student.studentID}</span>
-                    </div>
+                    {referral.student && (
+                      <div className="text-gray-500 text-sm">
+                        Student ID: <span className="text-primary">{referral.student.studentID}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="text-gray-500 text-sm">
                     Referred by:{" "}
@@ -128,12 +129,9 @@ const ReferredStudents = () => {
                     </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => handleAcceptClick(referral)}
-                  className="text-xs bg-primary text-white rounded-md p-1 focus:bg-tertiary active:bg-tertiary"
-                >
+                <Button onClick={() => handleAcceptClick(referral)} size={"sm"} className=" rounded-lg">
                   Accept
-                </button>
+                </Button>
               </li>
             ))}
           </ul>

@@ -46,8 +46,11 @@ const AppointmentRequests = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
     axios
-      .get<Request[]>("/requests/all")
+      .get<Request[]>("/requests/all", config)
       .then((response) => {
         setRequests(response.data.filter((requests) => !requests.decision));
         console.log(response.data);

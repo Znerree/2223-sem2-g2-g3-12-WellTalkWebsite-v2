@@ -5,13 +5,9 @@ import { BsPeopleFill } from "react-icons/bs";
 import { FaNoteSticky } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import useFetchUser from "@/hooks/useFetchUser";
 import { useAuth } from "@/contexts/AuthContext";
-import axios from "@/api/axios";
-import { User } from "@/types/user";
 import useLoading from "@/hooks/useLoading";
-import useGetCurrentPath from "@/hooks/useGetCurrentPath";
-import { Avatar } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { AvatarImage } from "../ui/avatar";
 
 type Props = {
@@ -35,7 +31,7 @@ const SidebarNav = ({ navIsClicked }: Props) => {
   const location = useLocation();
   //useState for active nav using index of navs array
   const [active, setActive] = useState(0 || navs.findIndex((nav) => nav.path == location.pathname));
-  const { user } = useFetchUser();
+  const { user } = useAuth();
   const { loading } = useLoading();
 
   const { logout } = useAuth();
@@ -61,10 +57,12 @@ const SidebarNav = ({ navIsClicked }: Props) => {
         </div>
         <div className="flex flex-col justify-center items-center mb-5">
           <Avatar>
-            <AvatarImage src="https://i.pravatar.cc/300" className=" rounded-full h-36 w-36" />
+            <AvatarImage src="https://i.pravatar.cc/300" className=" rounded-full h-36 w-36" loading="lazy" />
           </Avatar>
-          <h1 className="text-white text-lg font-semibold">{!loading && <>{`${user?.firstName} ${user?.lastName}`}</>}</h1>
-          <span className="text-primary-100 text-sm">{user?.userType}</span>
+          <h1 className="text-white text-lg font-semibold">
+            {user.firstName} {user.lastName}
+          </h1>
+          <span className="text-primary-100 text-sm">{user.userType}</span>
         </div>
         {navs.map((nav, index) => (
           <Link

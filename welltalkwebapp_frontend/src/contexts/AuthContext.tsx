@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import axios, { LOGIN_URL, REGISTER_URL } from "@/api/axios";
 import useLoading from "@/hooks/useLoading";
 import useFetchUser from "@/hooks/useFetchUser";
+import { renderMatches } from "react-router-dom";
 
 const AuthContext = createContext<any>(null);
 
@@ -39,7 +40,16 @@ export const AuthProvider = ({ children }: any) => {
 
       localStorage.setItem("user", username);
       localStorage.setItem("userType", userType);
-      setUser(user);
+      setUser({
+        id: getUserTypeResponse.data.id,
+        firstName: getUserTypeResponse.data.firstName,
+        lastName: getUserTypeResponse.data.lastName,
+        email: getUserTypeResponse.data.email,
+        schoolID: getUserTypeResponse.data.schoolID,
+        userType: getUserTypeResponse.data.userType,
+        username: username,
+        password: "", // Set password to an empty string or some default value
+      });
 
       return { success: true, userType };
     } catch (error) {

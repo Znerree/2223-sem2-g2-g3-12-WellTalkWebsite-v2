@@ -6,6 +6,7 @@ import useAppointmentActions from "@/actions/calendar-appointment-actions";
 import AppointmentRequests from "@/components/calendar/AppointmentRequests";
 import ListOfAppointments from "@/components/calendar/ListOfAppointments";
 import { Toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
 
 const Calendarpage = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -121,13 +122,13 @@ const Calendarpage = () => {
               <input name="date" type="date" style={inputStyle} autoComplete="off" required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
               <label className=" text-sm text-gray-400">Time</label>
               <input name="time" type="time" style={inputStyle} autoComplete="off" required value={startTime} onChange={handleSelectTime} />
-              <button
+              <Button
                 type="submit"
-                className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
+                className=" rounded-md"
                 // onClick={() => handleSubmit(studentID, showAnnounceSchedule)}
               >
                 SET APPOINTMENT
-              </button>
+              </Button>
             </form>
           )}
         </div>
