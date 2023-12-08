@@ -1,7 +1,7 @@
 import pageBackground from "@/media/images/login-registerbg.png";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import RegisterForm from "@/components/authentication/register-form";
+import RegisterForm from "@/components/authentication/RegisterForm";
 import { Label } from "@/components/ui/label";
 import logo from "@/media/images/logo.png";
 
@@ -14,15 +14,10 @@ const pageBg = {
 const Register = () => {
   return (
     <>
-      <div className="flex flex-col h-screen w-full justify-center items-center" style={pageBg}>
-        <div className=" my-3 flex flex-col items-center">
-          <Link to="/">
-            <img src={logo} alt="" className=" h-16 w-16 shrink-0" />
-          </Link>
-        </div>
-        <Card className=" w-96">
+      <div className="flex justify-center mb-5 ">
+        <Card className=" w-[500px] bg-opacity-95">
           <CardHeader>
-            <CardTitle className=" text-primary-700 ">Create an account</CardTitle>
+            <CardTitle className=" text-primary-500 ">Create an account</CardTitle>
           </CardHeader>
           <CardContent>
             <RegisterForm />

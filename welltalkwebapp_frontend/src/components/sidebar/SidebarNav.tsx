@@ -11,6 +11,8 @@ import axios from "@/api/axios";
 import { User } from "@/types/user";
 import useLoading from "@/hooks/useLoading";
 import useGetCurrentPath from "@/hooks/useGetCurrentPath";
+import { Avatar } from "@radix-ui/react-avatar";
+import { AvatarImage } from "../ui/avatar";
 
 type Props = {
   navIsClicked?: boolean;
@@ -48,29 +50,29 @@ const SidebarNav = ({ navIsClicked }: Props) => {
 
   return (
     <>
-      <section className="flex flex-col gap-2 bg-tertiary px-4 py-4 h-screen w-64">
+      <section className="flex flex-col gap-2 bg-primary-700 px-4 py-4 h-screen w-64 animate-in">
         <div className="flex justify-between items-center">
           <div className="text-red-400 text-2xl font-semibold">
             <IoNotifications />
           </div>
-          <div className="text-gray-400 text-2xl font-semibold">
+          <div className="text-slate-500 text-2xl font-semibold">
             <IoSettingsSharp />
           </div>
         </div>
         <div className="flex flex-col justify-center items-center mb-5">
-          <div className="text-white text-lg font-semibold h-20 w-20 bg-gray-300 px-3 flex items-center justify-center rounded-full">
-            {!loading && <> {`${user?.firstName?.charAt(0)}${user?.lastName?.charAt(0)}`}</>}
-          </div>
-          <h1 className="text-primary-500 text-lg font-semibold">{!loading && <>{`${user?.firstName} ${user?.lastName}`}</>}</h1>
-          <span className="text-gray-400 text-sm">{user?.userType}</span>
+          <Avatar>
+            <AvatarImage src="https://i.pravatar.cc/300" className=" rounded-full h-36 w-36" />
+          </Avatar>
+          <h1 className="text-white text-lg font-semibold">{!loading && <>{`${user?.firstName} ${user?.lastName}`}</>}</h1>
+          <span className="text-primary-100 text-sm">{user?.userType}</span>
         </div>
         {navs.map((nav, index) => (
           <Link
             to={nav.path}
             className={
               active == index
-                ? "text-white font-semibold text-xl cursor-pointer flex items-center gap-3 rounded-md p-3 bg-primary-600 "
-                : "text-gray-50 cursor-pointer text-lg flex items-center gap-3 rounded-md p-3 hover:bg-primary-600"
+                ? "text-white font-semibold text-lg cursor-pointer flex items-center gap-3 rounded-md p-3 bg-primary-500 "
+                : "text-gray-50 cursor-pointer text-lg flex items-center gap-3 rounded-md p-3 hover:bg-primary-500"
             }
             key={index}
             onClick={() => {

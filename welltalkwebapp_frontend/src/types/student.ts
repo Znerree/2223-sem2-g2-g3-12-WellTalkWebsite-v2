@@ -6,5 +6,5 @@ export type Student = {
   email: string;
   password: string;
   phoneNumber: number;
-  studentId: number;
+  studentID: number;
 };

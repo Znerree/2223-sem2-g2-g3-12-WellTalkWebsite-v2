@@ -16,6 +16,7 @@ import useGetCurrentPath from "./hooks/useGetCurrentPath";
 import Homepage from "./pages/public-pages/Homepage";
 import PageNotFound from "./pages/errors/PageNotFound";
 import DefaultLayout from "./components/layouts/DefaultLayout";
+import CounselorLayout from "./components/layouts/CounselorLayout";
 
 export default function App() {
   const location = useLocation();
@@ -66,19 +67,20 @@ export default function App() {
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Homepage />} />
           <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
-
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
 
         <Route path="email-verification" element={<EmailChecker />} />
         <Route path="emergency-link" element={<EmergencyLink />} />
 
-        <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
-        <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
-        <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
-        <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
-        <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+        <Route element={<CounselorLayout />}>
+          <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
+          <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
+          <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
+          <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
+          <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+        </Route>
 
         <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useLoading from "@/hooks/useLoading";
 import { LoadingScreen } from "@/components/Loaders";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import LoginForm from "@/components/authentication/login-form";
+import LoginForm from "@/components/authentication/LoginForm";
 import logo from "@/media/images/logo.png";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -10,15 +10,10 @@ const Login = () => {
   const { loading } = useLoading();
 
   return (
-    <div className="flex flex-col h-screen w-full justify-center items-center bg-primary-100 backdrop-blur-lg">
-      <div className=" my-3 flex flex-col items-center">
-        <Link to="/">
-          <img src={logo} alt="" className=" h-16 w-16 shrink-0" />
-        </Link>
-      </div>
-      <Card className=" sm:w-96 border bg-opacity-80">
+    <div className=" h-full flex">
+      <Card className=" sm:w-[420px] mx-auto my-auto bg-opacity-95">
         <CardHeader>
-          <CardTitle className=" text-primary-700">Log in</CardTitle>
+          <CardTitle className=" text-primary-500">Log in</CardTitle>
         </CardHeader>
         <CardContent>
           <LoginForm />
@@ -35,7 +30,6 @@ const Login = () => {
           </div>
         </CardFooter>
       </Card>
-      {loading && <LoadingScreen />}
       <Toaster />
     </div>
   );

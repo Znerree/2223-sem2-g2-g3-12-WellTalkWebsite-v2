@@ -1,10 +1,10 @@
-import ReferredStudents from "@/components/calendar/calendar-referred-students";
+import ReferredStudents from "@/components/calendar/ReferredStudents";
 import { ChangeEvent, useRef, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import useStudentSearch from "@/actions/search-student-actions";
 import useAppointmentActions from "@/actions/calendar-appointment-actions";
-import AppointmentRequests from "@/components/calendar/calendar-list-of-requests";
-import ListOfAppointments from "@/components/calendar/calendar-list-of-appointments";
+import AppointmentRequests from "@/components/calendar/AppointmentRequests";
+import ListOfAppointments from "@/components/calendar/ListOfAppointments";
 
 const Calendarpage = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -87,7 +87,7 @@ const Calendarpage = () => {
               </button>
             </form>
           ) : (
-            <form className=" px-3 pt-3">
+            <form className=" px-3 pt-3" onSubmit={() => handleSubmit(studentID, showAnnounceSchedule)}>
               <div className="flex items-center">
                 <input ref={inputRef} type="text" placeholder="Student name" style={inputStyle} onChange={handleStudentNameChange} value={value} required />
                 <button className="text-xs text-white mb-4 cursor-pointer bg-secondary rounded-md p-1 ml-2" onClick={handleClear}>
@@ -105,7 +105,7 @@ const Calendarpage = () => {
                       <p className="text-sm bold">
                         {student.firstName} {student.lastName}
                       </p>
-                      <p className="text-xs text-red-500">Student ID: {student.userid}</p>
+                      <p className="text-xs text-red-500">Student ID: {student.studentID}</p>
                     </li>
                   ))}
                 </ul>
@@ -117,7 +117,7 @@ const Calendarpage = () => {
               <button
                 type="submit"
                 className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
-                onClick={() => handleSubmit(studentID, showAnnounceSchedule)}
+                // onClick={() => handleSubmit(studentID, showAnnounceSchedule)}
               >
                 SET APPOINTMENT
               </button>

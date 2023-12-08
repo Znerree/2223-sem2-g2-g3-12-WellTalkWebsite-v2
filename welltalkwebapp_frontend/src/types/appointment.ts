@@ -11,15 +11,16 @@ export type Appointment = {
     userType: string;
   };
   student: {
-    id: number;
+    userid: number;
+    firstName: string;
+    lastName: string;
     course: string;
-    year: number;
     email: string;
-    firstname: string;
-    lastname: string;
-    studentID: number;
-    department: string;
+    password: string;
+    phoneNumber: number;
+    studentId: number;
   };
+
   start_date: string;
   isDone: boolean;
 };

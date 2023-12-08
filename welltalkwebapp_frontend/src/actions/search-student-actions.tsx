@@ -64,7 +64,7 @@ const useStudentSearch = () => {
 
     const selectedStudent = students.find((student) => student.firstName + " " + student.lastName === studentName);
     if (selectedStudent) {
-      setStudentId(selectedStudent.userid.toString());
+      setStudentId(selectedStudent.studentID.toString());
     }
   };
 

@@ -40,10 +40,12 @@ const useAppointmentActions = () => {
         console.log(response.data);
         alert("Schedule created successfully");
       } else {
+        const res = await axios.get("https://wanted-sweater-production.up.railway.app/getAllUser");
+        const studentID = res.data[0]._id;
+        console.log(res.data);
         const response = await axios.post("/appointments?student=" + studentID, appointmentData, config);
         console.log(response.data);
         alert("Appointment set successfully");
-        window.location.reload();
       }
       clearForm();
     } catch (error) {

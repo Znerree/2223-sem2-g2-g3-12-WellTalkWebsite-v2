@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }: any) => {
       const userType = getUserTypeResponse.data.userType;
 
       localStorage.setItem("user", username);
-      localStorage.setItem("password", password);
       localStorage.setItem("userType", userType);
       setUser(user);
 
@@ -69,9 +68,7 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("userType");
+    localStorage.clear();
     setUser(null || undefined);
     window.location.reload();
   };

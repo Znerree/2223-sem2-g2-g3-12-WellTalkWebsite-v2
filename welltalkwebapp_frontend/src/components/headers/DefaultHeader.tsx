@@ -14,13 +14,13 @@ const DefaultHeader = () => {
             </Link>
           </div>
           <div className=" space-x-3 md:flex-col items-center">
-            <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-700">
+            <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-600">
               <Link to="/">Home</Link>
             </Button>
-            <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-700">
+            <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-600">
               <Link to="/features">Features</Link>
             </Button>
-            <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-700">
+            <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-600">
               <Link to="/about">About Us</Link>
             </Button>
 

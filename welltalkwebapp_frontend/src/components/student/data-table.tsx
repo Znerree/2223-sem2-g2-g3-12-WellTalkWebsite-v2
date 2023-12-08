@@ -46,7 +46,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 ">
         <Input
           placeholder="Filter emails..."
           value={table.getColumn("email")?.getFilterValue() as string}
@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border bg-white">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
