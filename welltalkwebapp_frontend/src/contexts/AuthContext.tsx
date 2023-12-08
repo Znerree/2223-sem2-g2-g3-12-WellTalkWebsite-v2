@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }: any) => {
         { username, password },
         {
           headers: {
-            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
           },
         }
       );

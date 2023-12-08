@@ -36,7 +36,7 @@ export default function App() {
         if (exp * 1000 < Date.now()) {
           // Token has expired, set the isTokenExpired state variable to true
           setIsTokenExpired(true);
-          localStorage.removeItem("token");
+          localStorage.clear();
         } else {
           // Token has not expired, set the isTokenExpired state variable to false
           setIsTokenExpired(false);
