@@ -2,40 +2,18 @@ import axios from "@/api/axios";
 import { Request } from "@/types/apppointment-req";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-type ConfirmationModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-};
-
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ isOpen, onClose, onConfirm }) => {
-  return (
-    <>
-      {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black bg-opacity-75">
-          <div className="bg-white p-6 rounded-lg">
-            <h2 className="text-xl font-semibold mb-4">Confirmation</h2>
-            <p>Are you sure you want to accept this request?</p>
-            <div className="flex justify-end mt-4">
-              <button className="bg-gray-300 text-gray-700 rounded-md p-2" onClick={onClose}>
-                Cancel
-              </button>
-              <button
-                className="bg-primary text-white rounded-md p-2 ml-2"
-                onClick={() => {
-                  onConfirm();
-                }}
-              >
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
+import { Button } from "../ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 
 const AppointmentRequests = () => {
   const [requests, setRequests] = useState<Request[]>([]);
@@ -43,48 +21,31 @@ const AppointmentRequests = () => {
   const [selectedRequest, setSelectedRequest] = useState<Request | null>();
   const [refresher, setRefresher] = useState(0);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
     axios
-      .get<Request[]>("/requests/all", config)
+      .get<Request[]>("https://abhorrent-soda-production.up.railway.app/getAppointments", config)
       .then((response) => {
         setRequests(response.data.filter((requests) => !requests.decision));
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error retrieving requests:", error);
       });
   }, [refresher]);
 
-  const handleAcceptClick = (request: Request) => {
-    setSelectedRequest(request);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleAcceptConfirmation = () => {
+  const handleAcceptConfirmation = (makeAppointmentid: number) => {
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
     axios
-      .put(
-        `/requests/${selectedRequest?.id}`,
-        {},
-        {
-          headers: { Authorization: `${localStorage.getItem("token")}` },
-        }
-      )
+      .put(`https://abhorrent-soda-production.up.railway.app/${makeAppointmentid}`, config)
       .then((response) => {
-        console.log("Request updated successfully", response.data);
-        setRefresher(Math.random());
-        setIsModalOpen(false);
+        setRefresher(refresher + 1);
       })
       .catch((error) => {
-        console.error("Error updating request:", error);
+        console.error("Error accepting appointment request:", error);
       });
   };
 
@@ -96,48 +57,56 @@ const AppointmentRequests = () => {
         ) : (
           <ul className=" p-2">
             {requests.map((request) => (
-              <li
-                key={request.id} // You should use a unique key for each list item
-                className="border-b px-2 rounded-md shadow-sm py-2 border mb-2"
-              >
+              <li key={request.user.userid} className="border-b px-2 rounded-md shadow-sm py-2 border mb-2 bg-slate-100">
+                <p className=" font-semibold">
+                  {request.user.firstName} {request.user.lastName}
+                </p>
                 <p>
-                  {request.student.firstname} {request.student.lastname}
-                  <span className=" text-gray-400 text-xs">
-                    {" "}
-                    - {new Date(request.date_created).toLocaleDateString()} {request.time_created}
+                  Requested on -{" "}
+                  <span className=" text-primary-500">
+                    {new Date(request.date).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}, <br />
+                    {new Date(request.date).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
                   </span>
                 </p>
                 <div className="flex flex-col">
-                  <div className=" flex gap-2">
+                  <div key={request.user.userid} className=" flex gap-2">
                     <div className="text-gray-500 text-sm">
-                      Course & Year:{" "}
-                      <span className="text-primary">
-                        {request.student.course} - {request.student.year}
-                      </span>
+                      Course: <span className="text-primary-500">{request.user.course}</span>
                     </div>
                     <div className="text-gray-500 text-sm">
-                      Student ID: <span className="text-primary">{request.student.studentID}</span>
+                      Student ID: <span className="text-primary-500">{request.user.studentID}</span>
                     </div>
                   </div>
+
                   <div className="text-gray-500 text-sm mb-1 mt-2">
-                    Message:{" "}
+                    Message:
                     <div className=" bg-gray-300 border rounded p-2">
                       <i className="text-black flex flex-grow w-full break-all">{request.message}</i>
                     </div>
                   </div>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button size={"sm"} className=" rounded-lg">
+                        Accept
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Confirmation</AlertDialogTitle>
+                        <AlertDialogDescription>Are you sure you want to accept this requested appointment? {request.makeAppointmentid}</AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleAcceptConfirmation(request.makeAppointmentid)}>Accept</AlertDialogAction>{" "}
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
-                <button
-                  onClick={() => handleAcceptClick(request)}
-                  className="text-xs bg-primary text-white rounded-md p-1 focus:bg-tertiary active:bg-tertiary"
-                >
-                  Accept
-                </button>
               </li>
             ))}
           </ul>
         )}
       </div>
-      <ConfirmationModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleAcceptConfirmation} />
     </>
   );
 };

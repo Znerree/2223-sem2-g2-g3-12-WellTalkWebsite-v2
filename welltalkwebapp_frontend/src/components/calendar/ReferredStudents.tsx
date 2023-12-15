@@ -1,48 +1,24 @@
 import axios from "@/api/axios";
 import { Referral } from "@/types/referral";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-
-type ConfirmationModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-};
-
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ isOpen, onClose, onConfirm }) => {
-  return (
-    <>
-      {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black bg-opacity-75">
-          <div className="bg-white p-6 rounded-lg">
-            <h2 className="text-xl font-semibold mb-4">Confirmation</h2>
-            <p>Are you sure you want to accept this referral?</p>
-            <div className="flex justify-end mt-4">
-              <button className="bg-gray-300 text-gray-700 rounded-md p-2" onClick={onClose}>
-                Cancel
-              </button>
-              <Button
-                className=" rounded-md p-2 ml-2"
-                onClick={() => {
-                  onConfirm();
-                }}
-              >
-                Confirm
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
+import useLoading from "@/hooks/useLoading";
 
 const ReferredStudents = () => {
   const [referrals, setReferrals] = useState<Referral[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Declare isModalOpen here
-  const [selectedReferral, setSelectedReferral] = useState<Referral | null>();
   const [refresher, setRefresher] = useState(0);
+  const { loading, setLoading } = useLoading();
 
   useEffect(() => {
     const config = {
@@ -51,7 +27,7 @@ const ReferredStudents = () => {
     axios
       .get<Referral[]>("/referrals", config)
       .then((response) => {
-        setReferrals(response.data.filter((referral) => !referral.isAccepted));
+        setReferrals(response.data.filter((referrals) => !referrals.isAccepted));
         //setReferrals(response.data);
         console.log(referrals);
       })
@@ -60,32 +36,21 @@ const ReferredStudents = () => {
       });
   }, [refresher]);
 
-  const handleAcceptClick = (referral: Referral) => {
-    setSelectedReferral(referral);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleAcceptConfirmation = () => {
+  const handleAcceptConfirmation = (id: number) => {
+    setLoading(true);
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
     axios
-      .put(
-        `/referrals/${selectedReferral?.id}`,
-        {},
-        {
-          headers: { Authorization: `${localStorage.getItem("token")}` },
-        }
-      )
+      .put(`/referrals/${id}`, { isAccepted: true }, config)
       .then((response) => {
-        console.log("Referral updated successfully", response.data);
-        setRefresher(Math.random());
-        setIsModalOpen(false);
+        console.log(response);
+        setRefresher(refresher + 1);
       })
       .catch((error) => {
-        console.error("Error updating referral:", error);
+        console.error("Error accepting referral:", error);
       });
+    setLoading(false);
   };
 
   return (
@@ -102,11 +67,11 @@ const ReferredStudents = () => {
               >
                 <div className="flex flex-col">
                   <div className=" flex gap-2">
-                    {(
+                    {
                       <div className="text-gray-500 text-sm">
                         Student ID: <span className="text-primary text-black">{referral.studentID}</span>
                       </div>
-                    )}
+                    }
                   </div>
                   <div className="text-gray-500 text-sm">
                     Referred by:{" "}
@@ -121,15 +86,30 @@ const ReferredStudents = () => {
                     </div>
                   </div>
                 </div>
-                <Button onClick={() => handleAcceptClick(referral)} size={"sm"} className=" rounded-lg">
-                  Accept
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button size={"sm"} className=" rounded-lg">
+                      Accept
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Confirmation</AlertDialogTitle>
+                      <AlertDialogDescription>Are you sure you want to accept this referral?</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => handleAcceptConfirmation(referral.id)} disabled={loading}>
+                        Accept
+                      </AlertDialogAction>{" "}
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </li>
             ))}
           </ul>
         )}
       </div>
-      <ConfirmationModal isOpen={isModalOpen} onClose={closeModal} onConfirm={handleAcceptConfirmation} />
     </>
   );
 };

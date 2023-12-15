@@ -67,7 +67,7 @@ const Calendarpage = () => {
         <p>You have no appointment for today.</p>
   </span>*/}
       <div className="flex flex-wrap gap-10 justify-center">
-        <div className=" bg-white w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
+        <div className=" bg-white max-h-[400px] md:w-80 rounded-lg shadow-2xl flex flex-col border pb-3 px-2">
           {/* Set an appointment */}
           <div className="flex items-center justify-between border-b">
             <h1 className=" font-semibold text-md top-0 py-4 pl-2">{showAnnounceSchedule ? "Announce a Schedule" : "Set an Appointment"}</h1>
@@ -134,13 +134,13 @@ const Calendarpage = () => {
         </div>
 
         {/* List of appointments */}
-        <div className=" max-h-[400px] w-80  overflow-y-auto rounded-lg shadow-2xl px-2 flex flex-col border bg-white">
+        <div className=" max-h-[400px] md:w-80  overflow-y-auto rounded-lg shadow-2xl px-2 flex flex-col border bg-white">
           <h1 className=" font-semibold text-md border-b bg-white py-4 pl-2">My Appointments</h1>
           <ListOfAppointments />
         </div>
 
         {/* Referred students */}
-        <div className="max-h-[400px] w-[400px] rounded-lg shadow-2xl px-2 flex flex-col border bg-white">
+        <div className="max-h-[400px] md:w-80 rounded-lg shadow-2xl px-2 flex flex-col border bg-white">
           <div className="flex items-center justify-between border-b">
             <h1 className=" font-semibold text-md top-0 py-4 pl-2">{showAppoinmentRequests ? "Appointment Requests" : "Referred Students"}</h1>
             <HiSwitchHorizontal className="text-black-300 h-6 w-6 cursor-pointer" onClick={() => setShowAppoinmentRequests(!showAppoinmentRequests)} />
