@@ -6,14 +6,7 @@ import { Button } from "@/components/ui/button";
 
 interface Referral {
   id: number;
-  student: {
-    id: number;
-    course: string;
-    year: number;
-    firstname: string;
-    lastname: string;
-    studentID: number;
-  };
+  studentID: string;
   teacher: {
     id: number;
     firstName: string;
@@ -106,7 +99,7 @@ export const StudentReferral = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
-      const response = await axios.post("/referrals?student=" + studentID + "&teacher=" + referrer.id, { reason: reason });
+      const response = await axios.post("/referrals?teacher=" + referrer.id, { reason: reason, studentID: studentID });
       console.log(response.data);
       alert("Student Referral successfully!");
       setValue("");
@@ -175,13 +168,18 @@ export const StudentReferral = () => {
                   <ul>
                     {acceptedReferrals.map((referral) => (
                       <li key={referral.id} className=" bg-tertiary rounded-md py-3 text-white px-2 text-sm mb-2 shadow">
-                        {referral.student ? (
+                        {/* {referral.student ? (
                           <h1>
                             {referral.student.firstname} {referral.student.lastname}
                           </h1>
                         ) : (
                           ""
-                        )}
+                        )} */}
+                        {
+                          <h1>
+                            Student ID: <strong>{referral.studentID}</strong>
+                          </h1>
+                        }
                         <div className=" flex justify-between ">
                           <p className=" text-xs text-gray-400">
                             Counselor:{" "}
@@ -207,13 +205,18 @@ export const StudentReferral = () => {
                   <ul>
                     {pendingReferrals.map((referral) => (
                       <li key={referral.id} className=" bg-tertiary rounded-md py-3 text-white px-2 text-sm mb-2 shadow">
-                        {referral.student ? (
+                        {/* {referral.student ? (
                           <h1>
                             {referral.student.firstname} {referral.student.lastname}
                           </h1>
                         ) : (
                           ""
-                        )}
+                        )} */}
+                        {
+                          <h1>
+                            Student ID: <strong>{referral.studentID} </strong>
+                          </h1>
+                        }
                         <div className=" flex justify-between">
                           <p className=" text-xs text-gray-400">
                             Reason: <span className=" text-white">{referral.reason}</span>

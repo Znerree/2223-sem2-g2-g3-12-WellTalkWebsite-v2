@@ -10,17 +10,7 @@ export type Appointment = {
     password: string;
     userType: string;
   };
-  student: {
-    userid: number;
-    firstName: string;
-    lastName: string;
-    course: string;
-    email: string;
-    password: string;
-    phoneNumber: number;
-    studentId: number;
-  };
-
+  studentID: string;
   start_date: string;
   isDone: boolean;
 };

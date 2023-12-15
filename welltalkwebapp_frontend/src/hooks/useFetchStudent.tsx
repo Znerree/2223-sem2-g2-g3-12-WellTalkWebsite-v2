@@ -22,4 +22,25 @@ const useFetchStudent = () => {
   return { students, setStudents };
 };
 
+
+const GETSTUDENTBYID_MOBILE_URL = "https://abhorrent-soda-production.up.railway.app/userByStudentID";
+
+const useFetchStudentById = (id: string) => {
+  const [student, setStudent] = useState<Student>();
+
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      const config = {
+        headers: { Authorization: `${localStorage.getItem("token")}` },
+      };
+      const response = await axios.get(`${GETSTUDENTBYID_MOBILE_URL}/${id}`, config);
+      setStudent(response.data);
+      console.log(response.data);
+    };
+    fetchStudentData();
+  }, []);
+
+  return { student, setStudent };
+}
+
 export default useFetchStudent;

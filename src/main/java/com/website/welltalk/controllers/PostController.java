@@ -61,7 +61,7 @@ public class PostController {
 
     // Get posts
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
-    public ResponseEntity<Object> getPosts(@RequestHeader(value = "Authorization") String stringToken) {
+    public ResponseEntity<Object> getPosts() {
         return new ResponseEntity<>(postService.getPosts(), HttpStatus.OK);
     }
 

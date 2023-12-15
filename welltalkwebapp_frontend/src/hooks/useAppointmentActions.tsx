@@ -38,7 +38,7 @@ const useAppointmentActions = () => {
     };
     const appointmentData = {
       start_date: `${startDate}T${startTime}`,
-      student_id: `${studentID}`,
+      studentID: `${studentID}`,
     };
     const scheduleData = {
       dateTime: `${startDate}T${startTime}`,

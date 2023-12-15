@@ -100,19 +100,11 @@ const ReferredStudents = () => {
                 key={referral.id} // You should use a unique key for each list item
                 className="border-b px-2 rounded-md shadow-sm py-2 border mb-2"
               >
-                {referral.student && (
-                  <p>
-                    {referral.student.firstName} {referral.student.lastName}
-                  </p>
-                )}
                 <div className="flex flex-col">
                   <div className=" flex gap-2">
-                    <div className="text-gray-500 text-sm">
-                      Course: {referral.student && <span className="text-primary-400">{referral.student.course}</span>}
-                    </div>
-                    {referral.student && (
+                    {(
                       <div className="text-gray-500 text-sm">
-                        Student ID: <span className="text-primary">{referral.student.studentID}</span>
+                        Student ID: <span className="text-primary text-black">{referral.studentID}</span>
                       </div>
                     )}
                   </div>
