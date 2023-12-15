@@ -2,6 +2,7 @@ import axios from "@/api/axios";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import useStudentSearch from "@/actions/search-student-actions";
 import { AiOutlineClose } from "react-icons/ai";
+import { Button } from "@/components/ui/button";
 
 interface Referral {
   id: number;
@@ -174,15 +175,23 @@ export const StudentReferral = () => {
                   <ul>
                     {acceptedReferrals.map((referral) => (
                       <li key={referral.id} className=" bg-tertiary rounded-md py-3 text-white px-2 text-sm mb-2 shadow">
-                        <h1>
-                          {referral.student.firstname} {referral.student.lastname}
-                        </h1>
+                        {referral.student ? (
+                          <h1>
+                            {referral.student.firstname} {referral.student.lastname}
+                          </h1>
+                        ) : (
+                          ""
+                        )}
                         <div className=" flex justify-between ">
                           <p className=" text-xs text-gray-400">
                             Counselor:{" "}
-                            <span className=" text-white italic">
-                              {referral.counselor.firstName} {referral.counselor.lastName}
-                            </span>
+                            {referral.counselor ? (
+                              <span className=" text-white">
+                                {referral.counselor.firstName} {referral.counselor.lastName}
+                              </span>
+                            ) : (
+                              ""
+                            )}
                           </p>
                           <p>{referral.isAccepted ? <span className=" text-green-500">Accepted</span> : <span className=" text-red-500">Pending</span>}</p>
                         </div>
@@ -198,9 +207,13 @@ export const StudentReferral = () => {
                   <ul>
                     {pendingReferrals.map((referral) => (
                       <li key={referral.id} className=" bg-tertiary rounded-md py-3 text-white px-2 text-sm mb-2 shadow">
-                        <h1>
-                          {referral.student.firstname} {referral.student.lastname}
-                        </h1>
+                        {referral.student ? (
+                          <h1>
+                            {referral.student.firstname} {referral.student.lastname}
+                          </h1>
+                        ) : (
+                          ""
+                        )}
                         <div className=" flex justify-between">
                           <p className=" text-xs text-gray-400">
                             Reason: <span className=" text-white">{referral.reason}</span>
@@ -267,9 +280,7 @@ export const StudentReferral = () => {
             </select>
             {showOtherInput && <input type="text" placeholder="If other/s" style={inputStyle} onChange={handleOtherReasonChange} />}
 
-            <button type="submit" className="bg-primary rounded-full h-10 text-white hover:shadow-sm hover:shadow-primary mt-2">
-              SUBMIT
-            </button>
+            <Button type="submit">SUBMIT</Button>
           </form>
         </div>
       </div>

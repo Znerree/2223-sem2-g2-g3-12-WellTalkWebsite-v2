@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useLoading from "@/hooks/useLoading";
 import { LoadingScreen } from "@/components/Loaders";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import LoginForm from "@/components/authentication/LoginForm";
-import logo from "@/media/images/logo.png";
 import { Toaster } from "@/components/ui/toaster";
 
 const Login = () => {
@@ -31,6 +30,7 @@ const Login = () => {
         </CardFooter>
       </Card>
       <Toaster />
+      {loading && <LoadingScreen />}
     </div>
   );
 };

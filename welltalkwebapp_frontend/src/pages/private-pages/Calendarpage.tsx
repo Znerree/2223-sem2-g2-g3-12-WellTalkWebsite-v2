@@ -2,7 +2,7 @@ import ReferredStudents from "@/components/calendar/ReferredStudents";
 import { ChangeEvent, useRef, useState } from "react";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import useStudentSearch from "@/actions/search-student-actions";
-import useAppointmentActions from "@/actions/calendar-appointment-actions";
+import useAppointmentActions from "@/hooks/useAppointmentActions";
 import AppointmentRequests from "@/components/calendar/AppointmentRequests";
 import ListOfAppointments from "@/components/calendar/ListOfAppointments";
 import { Toaster } from "@/components/ui/toaster";

@@ -14,7 +14,7 @@ const useStudentSearch = () => {
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
-    const response = await axios.get("https://wanted-sweater-production.up.railway.app/getAllUser", config);
+    const response = await axios.get("https://abhorrent-soda-production.up.railway.app/getAllUser", config);
     return response.data;
   };
 

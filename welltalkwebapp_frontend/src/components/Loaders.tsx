@@ -1,5 +1,7 @@
+import { useAuth } from "@/contexts/AuthContext";
 import useFetchUser from "@/hooks/useFetchUser";
 import useLoading from "@/hooks/useLoading";
+import { get } from "http";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -29,13 +31,14 @@ export const LoadingScreen = () => {
   const [loadingComplete, setLoadingComplete] = useState(false);
   const navigate = useNavigate();
 
-  const { user } = useFetchUser();
+  const { user } = useAuth();
 
   const isLoggedin = localStorage.getItem("token");
+  const isCounselor = localStorage.getItem("userType") === "Counselor" ? true : false;
 
   if (isLoggedin) {
     setTimeout(() => {
-      navigate("/home");
+      navigate(isCounselor ? "/home" : "/student-referral");
     }, 1000);
   }
 
@@ -47,13 +50,13 @@ export const LoadingScreen = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen w-full bg-gray-900 bg-opacity-70 justify-center items-center absolute">
-      {loadingComplete ? (
+    <div className="flex flex-col h-screen w-full top-0 left-0 bg-gray-900 bg-opacity-70 justify-center items-center absolute">
+      {isLoggedin ? (
         <p className=" text-white">
-          You are already logged in as {user?.firstName} {user?.lastName}.
+          You are already logged in. Redirecting to <span className=" text-primary-500">{isCounselor ? "Home" : "Student Referral"}</span>...
         </p>
       ) : (
-        <p className=" text-white">Loading...</p>
+        <p className=" text-white">Please wait while getting user info...</p>
       )}
     </div>
   );

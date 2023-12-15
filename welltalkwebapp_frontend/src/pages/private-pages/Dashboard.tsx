@@ -19,7 +19,7 @@ const Dashboard = () => {
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
-    await axios.get("https://wanted-sweater-production.up.railway.app/getAllUser", config).then((response) => {
+    await axios.get("https://abhorrent-soda-production.up.railway.app/getAllUser", config).then((response) => {
       setStudentCount(response.data.length);
     });
   };

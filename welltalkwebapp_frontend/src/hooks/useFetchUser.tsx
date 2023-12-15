@@ -10,10 +10,9 @@ const useFetchUser = () => {
         const config = {
           headers: { Authorization: `${localStorage.getItem("token")}` },
         };
-        console.log(localStorage.getItem("token"));
+        if (!localStorage.getItem("user")) return;
         const username = localStorage.getItem("user");
         const response = await axios.get(`/users/username/${username}`, config);
-        console.log(response.data);
         setUser(response.data);
       } catch (error) {
         console.log(error);

@@ -43,6 +43,7 @@ const LoginForm = () => {
         const redirectTimeout = setTimeout(() => {
           navigate(userType === "Counselor" ? "/home" : "/student-referral");
         }, 2000);
+        form.reset();
         return () => clearTimeout(redirectTimeout);
       } else {
         if (error.message === "Network Error") {

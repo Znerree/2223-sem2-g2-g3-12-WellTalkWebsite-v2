@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import About from "./pages/public-pages/About";
 import Calendarpage from "./pages/private-pages/Calendarpage";
@@ -17,6 +17,12 @@ import Homepage from "./pages/public-pages/Homepage";
 import PageNotFound from "./pages/errors/PageNotFound";
 import DefaultLayout from "./components/layouts/DefaultLayout";
 import CounselorLayout from "./components/layouts/CounselorLayout";
+import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
+import { BsExclamationTriangle } from "react-icons/bs";
+import { Button } from "./components/ui/button";
+import { useAuth } from "./contexts/AuthContext";
+import TeacherLayout from "./components/layouts/TeacherLayout";
+import { AccessDenied } from "./pages/errors/AccessDenied";
 
 export default function App() {
   const location = useLocation();
@@ -61,45 +67,42 @@ export default function App() {
     setIsTokenExpired(false);
   };
 
+  if (isTokenExpired) {
+    console.log("Token has expired");
+    return (
+      <Alert variant="destructive">
+        <BsExclamationTriangle className="h-4 w-4" />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>Your session has expired. Please log in again.</AlertDescription>
+        <Button className="ml-auto" onClick={handleOkExpire}>
+          OK
+        </Button>
+      </Alert>
+    );
+  }
+
   return (
-    <>
-      <Routes>
-        <Route element={<DefaultLayout />}>
-          <Route path="/" element={<Homepage />} />
-          <Route path="about" element={<About />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-
-        <Route path="email-verification" element={<EmailChecker />} />
-        <Route path="emergency-link" element={<EmergencyLink />} />
-
-        <Route element={<CounselorLayout />}>
-          <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
-          <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
-          <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
-          <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
-          <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
-        </Route>
-
+    <Routes>
+      <Route element={<DefaultLayout />}>
+        <Route path="/" element={<Homepage />} />
+        <Route path="about" element={<About />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+      <Route path="email-verification" element={<EmailChecker />} />
+      <Route path="emergency-link" element={<EmergencyLink />} />
+      <Route element={<CounselorLayout />}>
+        <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
+        <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
+        <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
+        <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
+        <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+      </Route>
+      <Route element={<TeacherLayout />}>
         <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
-
-        <Route path="*" element={<PageNotFound />} />
-        {/* Show the token expired message if the token has expired */}
-        {isTokenExpired && (
-          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-4 rounded-lg">
-              <h1 className="text-2xl font-bold text-red-500">Your session has ended.</h1>
-              <p className="text-gray-600">Please login again to continue.</p>
-              <div className=" flex mt-5 gap-2">
-                <button className=" bg-gray-500 text-white py-1 px-3 rounded-sm" onClick={handleOkExpire}>
-                  Ok
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </Routes>
-    </>
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
+      npm install react@latest
+    </Routes>
   );
 }

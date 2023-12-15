@@ -78,9 +78,10 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const logout = () => {
+    setLoading(true);
     localStorage.clear();
     setUser(null || undefined);
-    window.location.reload();
+    setLoading(false);
   };
 
   return <AuthContext.Provider value={{ user, loading, login, register, logout }}>{children}</AuthContext.Provider>;

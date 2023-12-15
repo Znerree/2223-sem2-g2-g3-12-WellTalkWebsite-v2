@@ -88,16 +88,16 @@ const ListOfAppointments = () => {
             {todayAppointments.map((appointment, index) => (
               <li key={index}>
                 <Card className="p-2 bg-primary-700">
-                  <p className=" text-sm text-white ">
+                  {/* <p className=" text-sm text-white ">
                     Student name: {""}
                     {appointment.student ? (
                       <span className=" text-white underline underline-offset-2 font-semibold">
-                        {appointment.student.firstName} {appointment.student.lastName}
+                        {appointment?.student?.firstName} {appointment?.student?.lastName}
                       </span>
                     ) : (
                       <span className=" text-gray-500 font-semibold">Not found</span>
                     )}
-                  </p>
+                  </p> */}
                   <p className=" text-sm text-white">
                     Appointed by: {""}
                     {appointment.counselor ? (
@@ -171,8 +171,8 @@ const ListOfAppointments = () => {
           <ul className={`p-2 ${isUpcomingAppointmentsOpen ? "" : "hidden"}`}>
             {upcomingAppointments.map((appointment, index) => (
               <li key={index}>
-                <Card className="p-2 bg-primary-700">
-                  <p className=" text-sm text-white ">
+                <Card className="p-2 bg-primary-700 my-1">
+                  {/* <p className=" text-sm text-white ">
                     Student name: {""}
                     {appointment.student ? (
                       <span className=" text-white underline underline-offset-2 font-semibold">
@@ -181,7 +181,7 @@ const ListOfAppointments = () => {
                     ) : (
                       <span className=" text-gray-500 font-semibold">Not found</span>
                     )}
-                  </p>
+                  </p> */}
                   <p className=" text-sm text-white">
                     Appointed by: {""}
                     {appointment.counselor ? (

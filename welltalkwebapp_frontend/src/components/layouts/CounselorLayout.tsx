@@ -20,7 +20,7 @@ const CounselorLayout = () => {
     <>
       {!loading && (
         <div className="h-screen flex bg-slate-50">
-          {showSidebar ? (
+          {!showSidebar ? (
             <aside className=" hidden md:flex">
               <SidebarNav />
             </aside>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Student } from "@/types/student";
 import React, { useEffect, useState } from "react";
 
-const GETSTUDENT_MOBILE_URL = "https://wanted-sweater-production.up.railway.app/getAllUser";
+const GETSTUDENT_MOBILE_URL = "https://abhorrent-soda-production.up.railway.app/getAllUser";
 
 const useFetchStudent = () => {
   const [students, setStudents] = useState([] as Student[]);
