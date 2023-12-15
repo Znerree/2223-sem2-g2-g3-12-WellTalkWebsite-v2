@@ -52,8 +52,8 @@ const ReferredStudents = () => {
       .get<Referral[]>("/referrals", config)
       .then((response) => {
         setReferrals(response.data.filter((referral) => !referral.isAccepted));
-        setReferrals(response.data);
-        console.log(response.data);
+        //setReferrals(response.data);
+        console.log(referrals);
       })
       .catch((error) => {
         console.error("Error retrieving referrals:", error);
