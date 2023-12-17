@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
-          java-version: "17"
+          java-version: '17'
 
       - name: Build with Maven
         run: mvn clean install
@@ -28,13 +28,13 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: "${{ github.workspace }}/target/*.jar"
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     environment:
-      name: "Production"
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -47,7 +47,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "welltalk"
-          slot-name: "Production"
-          package: "*.jar"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AB1F234CDB2C43CF9A8BAD8C39BCBB06 }}
+          app-name: 'welltalk'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C1D1B4F1B0847CF8FE7947FBE076F17 }}
+          package: '*.jar'
