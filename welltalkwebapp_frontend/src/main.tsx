@@ -6,8 +6,6 @@ import { AuthProvider } from "./contexts/AuthContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Router>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <App />
   </Router>
 );

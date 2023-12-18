@@ -15,6 +15,7 @@ export default defineConfig({
             return id.toString().split("node_modules/")[1].split("/")[0].toString();
           }
         },
+        dir: "../src/main/resources/static",
       },
     },
   },
@@ -22,6 +23,7 @@ export default defineConfig({
   server: {
     cors: true,
     proxy: {
+      "/foo": "http://localhost:3000",
       "/api": {
         target: "http://localhost:5173",
         changeOrigin: true,

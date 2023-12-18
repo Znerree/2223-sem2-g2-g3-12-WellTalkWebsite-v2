@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import logo from "@/media/images/logo.png";
 import { Button } from "../ui/button";
 import { AiFillAlert, AiOutlineSearch } from "react-icons/ai";
 import { Input } from "../ui/input";
@@ -15,6 +14,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import SidebarNav from "../sidebar/SidebarNav";
+import { useEffect, useState } from "react";
+import axios from "@/api/axios";
 
 type LoggedInHeaderProps = {
   currentPathName: string;
@@ -23,9 +26,18 @@ type LoggedInHeaderProps = {
 
 const LoggedInHeader = ({ currentPathName, showSidebar }: LoggedInHeaderProps) => {
   const { user, logout } = useAuth();
+  const [initials, setInitials] = useState("");
   const isCounselor = localStorage.getItem("userType") === "Counselor" ? true : false;
 
-  const initials = user ? user?.firstName.charAt(0) + user?.lastName.charAt(0) : "";
+  const getUserInitials = () => {
+    if (user) {
+      setInitials(user?.firstName.charAt(0) + user?.lastName.charAt(0));
+    }
+  };
+
+  useEffect(() => {
+    getUserInitials();
+  }, [user]);
 
   const handleLogout = () => {
     window.location.reload();
@@ -37,11 +49,30 @@ const LoggedInHeader = ({ currentPathName, showSidebar }: LoggedInHeaderProps) =
       <div className=" flex justify-between px-6 py-2 items-center shadow sticky top-0 bg-white">
         <div className=" flex items-center gap-2">
           {isCounselor && (
-            <Button variant="ghost" size={"icon"} onClick={showSidebar} className=" text-primary-500 hover:text-primary-600">
-              <CgMenuLeft size={20} />
-            </Button>
+            <span>
+              <div className="md:hidden">
+                <Sheet>
+                  <SheetTrigger className="text-primary-500 rounded-full hover:bg-slate-50 p-2">
+                    <CgMenuLeft size={20} />
+                  </SheetTrigger>
+                  <SheetContent side={"left"} className="p-0 m-0 w-72 bg-inherit border-none shadow-none">
+                    <SidebarNav />
+                  </SheetContent>
+                </Sheet>
+              </div>
+              <div className="hidden md:block">
+                <Button
+                  variant={"ghost"}
+                  size={"icon"}
+                  className="text-primary-500 rounded-full hover:bg-slate-50 hover:text-primary-500"
+                  onClick={showSidebar}
+                >
+                  <CgMenuLeft size={20} />
+                </Button>
+              </div>
+            </span>
           )}
-          <p className=" text-neutral-700">{currentPathName}</p>
+          <p className=" text-neutral-700 sm:block hidden">{currentPathName}</p>
         </div>
         <div className=" flex items-center gap-2">
           <div className="relative">
@@ -57,7 +88,7 @@ const LoggedInHeader = ({ currentPathName, showSidebar }: LoggedInHeaderProps) =
                 <DropdownMenuLabel>
                   {user ? (
                     <p>
-                      {user.firstName} {user.lastName}
+                      {user?.firstName} {user?.lastName}
                     </p>
                   ) : (
                     ""

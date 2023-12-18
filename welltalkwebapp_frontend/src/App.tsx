@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from "react";
 import About from "./pages/public-pages/About";
 import Calendarpage from "./pages/private-pages/Calendarpage";
@@ -20,9 +20,12 @@ import CounselorLayout from "./components/layouts/CounselorLayout";
 import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { Button } from "./components/ui/button";
-import { useAuth } from "./contexts/AuthContext";
 import TeacherLayout from "./components/layouts/TeacherLayout";
-import { AccessDenied } from "./pages/errors/AccessDenied";
+import { AuthProvider } from "./contexts/AuthContext";
+import { Dialog, DialogDescription } from "./components/ui/dialog";
+import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogTitle } from "./components/ui/alert-dialog";
+import { Separator } from "./components/ui/separator";
 
 export default function App() {
   const location = useLocation();
@@ -70,39 +73,48 @@ export default function App() {
   if (isTokenExpired) {
     console.log("Token has expired");
     return (
-      <Alert variant="destructive">
-        <BsExclamationTriangle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>Your session has expired. Please log in again.</AlertDescription>
-        <Button className="ml-auto" onClick={handleOkExpire}>
-          OK
-        </Button>
-      </Alert>
+      <AlertDialog open={isTokenExpired} onOpenChange={handleOkExpire}>
+        <AlertDialogContent className=" bg-primary-100 bg-opacity-30">
+          <AlertDialogTitle className=" text-lg flex items-center gap-2">
+            <BsExclamationTriangle className="text-yellow-500 text-3xl" />
+            Session Expired
+          </AlertDialogTitle>
+          <Separator />
+          <AlertDialogDescription>Your session has expired. Please log in again to continue using WellTalk.</AlertDialogDescription>
+          <Separator />
+          <AlertDialogFooter className="flex justify-end">
+            <Button className=" rounded-md" onClick={handleOkExpire}>
+              Login Again
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     );
   }
 
   return (
-    <Routes>
-      <Route element={<DefaultLayout />}>
-        <Route path="/" element={<Homepage />} />
-        <Route path="about" element={<About />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-      </Route>
-      <Route path="email-verification" element={<EmailChecker />} />
-      <Route path="emergency-link" element={<EmergencyLink />} />
-      <Route element={<CounselorLayout />}>
-        <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
-        <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
-        <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
-        <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
-        <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
-      </Route>
-      <Route element={<TeacherLayout />}>
-        <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
-      </Route>
-      <Route path="*" element={<PageNotFound />} />
-      npm install react@latest
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route element={<DefaultLayout />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+        <Route path="email-verification" element={<EmailChecker />} />
+        <Route path="emergency-link" element={<EmergencyLink />} />
+        <Route element={<CounselorLayout />}>
+          <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
+          <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
+          <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
+          <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
+          <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+        </Route>
+        <Route element={<TeacherLayout />}>
+          <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </AuthProvider>
   );
 }

@@ -41,6 +41,7 @@ export const StudentReferral = () => {
   const [refresher, setRefresher] = useState(0);
   const acceptedReferrals = referrals.filter((referral) => referral.isAccepted);
   const pendingReferrals = referrals.filter((referral) => !referral.isAccepted);
+  const [loading, setLoading] = useState(false);
 
   const {
     useFetchStudents,
@@ -98,10 +99,11 @@ export const StudentReferral = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post("/referrals?teacher=" + referrer.id, { reason: reason, studentID: studentID });
       console.log(response.data);
-      alert("Student Referral successfully!");
+      alert("Student referred successfully!");
       setValue("");
       setQuery("");
       setResults([]);
@@ -110,6 +112,8 @@ export const StudentReferral = () => {
       setRefresher(Math.random());
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,9 +132,12 @@ export const StudentReferral = () => {
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
-        const response = await axios.get(`/referrals/teachers?teacherid=${referrer.id}`);
-        //console.log(response.data);
-        setReferrals(response.data);
+        const config = {
+          headers: { Authorization: `${localStorage.getItem("token")}` },
+        };
+        const response = await axios.get("/referrals", config);
+        const filteredReferrals = response.data.filter((referral: Referral) => referral.teacher.id === referrer.id);
+        setReferrals(filteredReferrals);
       } catch (error) {
         console.log(error);
       }
@@ -145,7 +152,7 @@ export const StudentReferral = () => {
           <h1>
             Good day! {""}
             <b>
-              {referrer.firstName} {referrer.lastName}
+              {referrer ? referrer.firstName : ""} {referrer ? referrer.lastName : ""}
             </b>
           </h1>
           <button onClick={openListOfReferrals} className=" rounded-full bg-tertiary text-white p-2 text-xs hover:bg-opacity-90">
@@ -283,7 +290,9 @@ export const StudentReferral = () => {
             </select>
             {showOtherInput && <input type="text" placeholder="If other/s" style={inputStyle} onChange={handleOtherReasonChange} />}
 
-            <Button type="submit">SUBMIT</Button>
+            <Button disabled={loading} type="submit">
+              {loading ? "Submitting..." : "Submit"}
+            </Button>
           </form>
         </div>
       </div>
