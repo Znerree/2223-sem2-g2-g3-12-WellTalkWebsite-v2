@@ -4,13 +4,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2">
-    <img src="https://drive.google.com/file/d/1N_smQp6o1dBIoXF3PqWQ2O9ofDwBvROj/preview" alt="Logo" width="80" height="80">
+    <img src="welltalkwebapp_frontend/src/assets/images/logo.png" alt="Logo" width="680" height="680">
   </a>
 
   <h3 align="center">WellTalk</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    A website app that can automate and streamline various aspects of the Guidance Center's work, including appointment scheduling, resource sharing, and data management.
     <br />
     <a href="https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2"><strong>Explore the docs »</strong></a>
     <br />
