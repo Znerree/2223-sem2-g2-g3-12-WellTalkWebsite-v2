@@ -1,9 +1,22 @@
 import axios from "@/api/axios";
-import CounselorLayout from "@/components/layouts/CounselorLayout";
-import { useState, useEffect } from "react";
-import { FaRegEdit } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import { PiNotePencilBold } from "react-icons/pi";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import { useState, useEffect, useRef } from "react";
+import { PiNotePencil, PiNotePencilBold } from "react-icons/pi";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle } from "@/components/ui/dialog";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF";
@@ -15,352 +28,287 @@ const getRandomColor = () => {
 };
 
 type NotesProps = {
-  id?: number;
+  id: number;
   title: string;
   content: string;
   color: string;
 };
 
 const Notes = () => {
-  const [showAddNote, setShowAddNote] = useState(false);
   const [userNotes, setUserNotes] = useState<NotesProps[]>([]);
-  const [displayClickedNote, setDisplayClickedNote] = useState<number | null>(null);
-  const [clickedNoteId, setClickedNoteId] = useState<number | null>(null);
-  const [newNote, setNewNote] = useState<NotesProps>({
-    title: "",
-    content: "",
-    color: "",
-  });
-  const [editingNote, setEditingNote] = useState<{ title: string; content: string; color: string }>({
-    title: "",
-    content: "",
-    color: "",
-  });
-  const [refresher, setRefresher] = useState(0);
-  const [showEditNote, setShowEditNote] = useState(false);
+  const [selectedNote, setSelectedNote] = useState<number | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [refresher, setRefresher] = useState(0);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [newNote, setNewNote] = useState<NotesProps>({
+    id: 0,
+    title: "",
+    content: "",
+    color: "",
+  });
+  const [editingNote, setEditingNote] = useState<NotesProps>({
+    id: 0,
+    title: "",
+    content: "",
+    color: "",
+  });
 
-  //fetch user notes
-  const fetchCurrentUserNotes = async () => {
+  const alertDialogRef = useRef<HTMLButtonElement>(null);
+
+  const fetchNotes = async () => {
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
     try {
-      const config = {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      };
+      setLoading(true);
       const response = await axios.get("/myNotes", config);
-      const sortedNotes = response.data.sort((a: any, b: any) => b.id - a.id);
+      const sortedNotes = response.data.sort((a: NotesProps, b: NotesProps) => {
+        return b.id - a.id;
+      });
       setUserNotes(sortedNotes);
-      if (sortedNotes.length > 0) setDisplayClickedNote(sortedNotes[0].id);
-      setClickedNoteId(sortedNotes[0].id);
-      console.log(response.data);
-    } catch (err) {
-      console.error(err);
+      setSelectedNote(sortedNotes[0]?.id || null);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchCurrentUserNotes();
+    fetchNotes();
   }, [refresher]);
 
-  const handleNoteClick = (noteId: number) => {
-    const noteToEdit = userNotes.find((note) => note.id === noteId);
-
-    if (noteToEdit) {
-      if (noteId !== clickedNoteId) setShowEditNote(false);
-      setClickedNoteId(noteId);
-      setDisplayClickedNote(noteId);
-      setEditingNote({
-        title: noteToEdit.title,
-        content: noteToEdit.content,
-        color: noteToEdit.color,
-      });
-    }
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleEditInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    setNewNote((prevNote) => ({
-      ...prevNote,
+    setEditingNote({
+      ...editingNote,
       [name]: value,
-    }));
-    console.log(newNote);
+    });
   };
 
-  const handleEditInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setEditingNote((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
-  };
-
-  const handleNewNote = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmitEdit = async () => {
     const config = {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
+      headers: { Authorization: `${localStorage.getItem("token")}` },
     };
-
     try {
-      const color = getRandomColor();
-      const response = await axios.post("/notes", { ...newNote, color: color }, config);
-      alert("Note created successfully");
-      setNewNote({
-        title: "",
-        content: "",
-        color: color,
-      });
-      console.log(response.data);
-      setRefresher(Math.random());
+      setLoading(true);
+      await axios.put(`/notes/${editingNote.id}`, editingNote, config);
+      setIsEditing(false);
+      setRefresher(refresher + 1);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
-    closeAddNoteModal();
   };
 
-  const openAddNoteModal = () => {
-    setShowAddNote(true);
-  };
-
-  const closeAddNoteModal = () => {
-    setShowAddNote(false);
-  };
-
-  const handleSaveEditedNote = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmitNewNote = async () => {
     const config = {
-      headers: {
-        Authorization: localStorage.getItem("token"),
-      },
+      headers: { Authorization: `${localStorage.getItem("token")}` },
     };
-
     const body = {
-      title: editingNote.title,
-      content: editingNote.content,
+      title,
+      content,
     };
-
     try {
-      const noteid = clickedNoteId;
-      const response = await axios.put(`/notes/${noteid}`, body, config);
-      setEditingNote({
-        title: "",
-        content: "",
-        color: "",
-      });
-      setRefresher(Math.random());
-      console.log(response.data);
-      alert("Note updated successfully");
-      console.log(response.data);
+      setLoading(true);
+      await axios.post(`/notes`, body, config);
+      setTitle("");
+      setContent("");
+      setRefresher(refresher + 1);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
-    setShowEditNote(false);
+  };
+
+  const handleDeleteNote = async () => {
+    const config = {
+      headers: { Authorization: `${localStorage.getItem("token")}` },
+    };
+    try {
+      setLoading(true);
+      await axios.delete(`/notes/${selectedNote}`, config);
+      setRefresher(refresher + 1);
+      alertDialogRef.current?.click();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <>
-      <div className=" absolute bottom-0 right-0 pb-8 pr-8">
-        <button
-          onClick={openAddNoteModal}
-          className=" overflow-hidden py-2 flex items-center px-3 bg-tertiary shadow bg-opacity-90 rounded-full text-white hover:bg-opacity-100 hover:shadow-md"
-        >
-          <PiNotePencilBold size={15} />
-          <p>Add a note</p>
-        </button>
-      </div>
-
-      {showAddNote && (
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
-          <div className="w-[550px] max-h-[500px] overflow-auto bg-white p-3 rounded-lg flex flex-col gap-3 relative">
-            <button className="text-tertiary hover:text-primary text-xl px-4 py-2 absolute top-0 right-0" onClick={closeAddNoteModal}>
-              <IoMdClose />
-            </button>
-            <p className="text-xl font-bold text-center py-4">New note</p>
-            <form onSubmit={handleNewNote}>
-              <label htmlFor="title">Title</label>
-              <input
+    <div className=" h-full w-full flex justify-between">
+      <div className=" w-[500px]">
+        <span className=" flex justify-between items-center mb-5 px-8">
+          <h1 className="sticky top-0 overflow-y-auto font-semibold text-2xl text-primary-900">My Notes</h1>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button size={"icon"} variant={"ghost"}>
+                <PiNotePencil className="h-6 w-6 text-primary-600" />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogTitle>New Note</AlertDialogTitle>
+              <Input
                 type="text"
                 name="title"
-                value={newNote.title}
-                onChange={handleInputChange}
-                className="w-full border-secondary border-2 rounded-md p-2 mb-2 outline-none"
-                placeholder="Add title here"
-                required
+                className="w-full border border-neutral-200 rounded-md p-2 mt-4"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
-              <label htmlFor="content">Content</label>
-              <textarea
+              <Textarea
                 name="content"
-                value={newNote.content}
-                onChange={handleInputChange}
-                className="w-full border-secondary border-2 resize-none rounded-md p-2 mb-2 outline-none auto-cols-auto"
-                placeholder="Add note content here..."
-                rows={4}
-                required
+                className="w-full border border-neutral-200 rounded-md p-2 mt-4 resize-none h-96"
+                placeholder="Note"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
               />
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction asChild>
+                  <Button onClick={handleSubmitNewNote} disabled={loading}>
+                    Save
+                  </Button>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </span>
+        <ul>
+          {userNotes.map((note) => (
+            <li
+              key={note.id}
+              className={`border h-20 cursor-pointer hover:shadow px-8 py-2 ${selectedNote === note.id ? "bg-neutral-100" : ""}`}
+              onClick={() => {
+                if (!isEditing) {
+                  setSelectedNote(note.id);
+                }
+              }}
+            >
+              <h1 className="font-medium md:text-lg">{note.title}</h1>
+              <p className="text-slate-700 md:text-sm overflow-hidden text-ellipsis whitespace-nowrap ">
+                {note.content ? (note.content.length > 40 ? note.content.slice(0, 40) + "..." : note.content) : ""}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Separator orientation="vertical" />
 
-              <button type="submit" className=" rounded-full w-full bg-secondary border-inherit text-white p-2 outline-none">
-                Create note
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      <div className=" w-full h-full">
+        <span className=" w-full flex justify-end container">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button className=" text-red-500" variant={"link"}>
+                Delete
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>This action cannot be undone. This note will be deleted.</AlertDialogDescription>
+              <AlertDialogFooter>
+                <AlertDialogCancel ref={alertDialogRef}>Cancel</AlertDialogCancel>
+                <Button variant={"destructive"} onClick={() => handleDeleteNote()} disabled={loading}>
+                  {loading ? " Deleting..." : "Delete"}
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+          {isEditing ? (
+            <Button className=" rounded-md px-5" size={"sm"} onClick={handleSubmitEdit} disabled={loading}>
+              {loading ? " Saving..." : "Save"}
+            </Button>
+          ) : (
+            <Button className=" rounded-md px-5" size={"sm"} disabled>
+              Save
+            </Button>
+          )}
+        </span>
 
-      {userNotes.length > 0 ? (
-        <>
-          <div className=" w-full h-full flex overflow-auto">
-            <div className=" w-2/5 border-r shadow-md overflow-y-auto ">
-              <h1 className="text-2xl font-semibold p-3">My notes</h1>
-              {userNotes.map((note: any) => (
-                <div
-                  key={note.id}
-                  onClick={() => handleNoteClick(note.id)}
-                  className={`p-3 border-t border-b h-1/6 cursor-pointer hover:shadow-lg hover:border-secondary ${
-                    clickedNoteId === note.id ? "bg-gray-200" : ""
-                  }`}
-                  style={{ backgroundColor: note.color }}
+        {userNotes.map((note) => (
+          <div key={note.id} className={`h-full container ${selectedNote === note.id ? "" : "hidden"}`}>
+            {isEditing && (
+              <>
+                <Input
+                  type="text"
+                  name="title"
+                  className="w-full border border-neutral-200 rounded-md p-2 mt-4"
+                  placeholder="Title"
+                  value={editingNote.title}
+                  onChange={handleEditInputChange}
+                />
+                <Textarea
+                  name="content"
+                  className="w-full border border-neutral-200 rounded-md p-2 mt-4 resize-none h-96"
+                  placeholder="Note"
+                  value={editingNote.content}
+                  onChange={handleEditInputChange}
+                />
+                <div className="flex justify-end mt-4">
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button disabled={loading} className="rounded-md px-5 mr-2" size={"sm"} variant={"destructive"}>
+                        Cancel
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                      <AlertDialogDescription> All your unsaved changes will be lost. </AlertDialogDescription>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction asChild>
+                          <Button variant={"destructive"} onClick={() => setIsEditing(false)} disabled={loading}>
+                            Ok
+                          </Button>
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
+              </>
+            )}
+            {!isEditing && (
+              <div className="flex flex-col h-full">
+                <h1
+                  className="text-2xl font-semibold text-primary-900"
+                  onClick={() => {
+                    setIsEditing(true);
+                    setEditingNote({
+                      id: note.id,
+                      title: note.title,
+                      content: note.content,
+                      color: note.color,
+                    });
+                  }}
                 >
-                  <h2 className="text-lg font-semibold mb-2">{note.title}</h2>
-                  {note.content.length > 50 ? (
-                    <p className="break-words text-justify mb-2 text-ellipsis">
-                      {note.content.slice(0, 50)}
-                      <span className=" text-base font-medium"> .... </span>
-                    </p>
-                  ) : (
-                    <p className="break-words text-justify mb-2 text-ellipsis">{note.content}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-            {displayClickedNote && !showEditNote && (
-              <div className=" w-3/5 container flex flex-col h-full overflow-auto" key={clickedNoteId}>
-                {userNotes
-                  .filter((note: any) => note.id === clickedNoteId) // Filter for the clicked note
-                  .map((note: any) => (
-                    <div key={note.id}>
-                      <div className="flex w-full justify-end text-sm items-center my-3">
-                        <button className=" flex items-center gap-1 text-blue-500" onClick={() => setShowEditNote(note.id)}>
-                          <FaRegEdit />
-                          Edit
-                        </button>
-                      </div>
-                      <h1 className="text-2xl font-semibold">{note.title}</h1>
-                      <textarea disabled={!isEditing} className="break-words text-justify w-full  h-screen" value={note.content} />
-                      {showEditNote && (
-                        <div className={`w-3/5 container flex flex-col overflow-y-hidden ${!displayClickedNote ? "hidden" : ""}`}>
-                          {userNotes
-                            .filter((note: any) => note.id === clickedNoteId)
-                            .map((note: any) => (
-                              <div key={note.id}>
-                                <form onSubmit={() => handleSaveEditedNote} className="flex w-full justify-end text-sm gap-2 items-center my-3">
-                                  <button type="submit" className=" flex items-center gap-1 text-white rounded-md py-1 px-2 bg-green-500">
-                                    Save
-                                  </button>
-                                  <button className=" flex items-center gap-1 text-red-500" onClick={() => setShowEditNote(false)}>
-                                    Cancel
-                                  </button>
-
-                                  <span className=" flex flex-col">
-                                    <input
-                                      onChange={handleEditInputChange}
-                                      type="text"
-                                      name="title"
-                                      placeholder="Title"
-                                      className="text-2xl font-semibold outline-none bg-gray-50"
-                                      value={editingNote.title}
-                                    />
-                                    <input
-                                      onChange={handleEditInputChange}
-                                      name="content"
-                                      type="text"
-                                      placeholder="Content"
-                                      className="break-words text-justify outline-none bg-gray-50"
-                                      value={editingNote.content}
-                                    />
-                                  </span>
-                                </form>
-                              </div>
-                            ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-              </div>
-            )}
-
-            {showEditNote && (
-              <div className={`w-3/5 container flex flex-col ${!displayClickedNote ? "hidden" : ""}`}>
-                {userNotes
-                  .filter((note: any) => note.id === clickedNoteId)
-                  .map((note: any) => (
-                    <div key={note.id}>
-                      <form onSubmit={handleSaveEditedNote}>
-                        <span className=" w-full flex items-center gap-2x justify-end">
-                          <button type="submit" className=" flex items-center gap-1 text-white rounded-md py-1 px-2 bg-green-500">
-                            Save
-                          </button>
-                          <button className=" flex items-center text-red-500" onClick={() => setShowEditNote(false)}>
-                            Cancel
-                          </button>
-                        </span>
-                        <span className=" flex flex-col">
-                          <input
-                            onChange={handleEditInputChange}
-                            type="text"
-                            name="title"
-                            placeholder="Title"
-                            className="text-2xl font-semibold outline-none bg-gray-50"
-                            value={editingNote.title}
-                          />
-                          <input
-                            onChange={handleEditInputChange}
-                            name="content"
-                            type="text"
-                            placeholder="Content"
-                            className="break-words outline-none bg-gray-50 h-full"
-                            value={editingNote.content}
-                          />
-                        </span>
-                      </form>
-                    </div>
-                  ))}
+                  {note.title}
+                </h1>
+                <p
+                  className="text-slate-700 mt-4"
+                  onClick={() => {
+                    setIsEditing(true);
+                    setEditingNote({
+                      id: note.id,
+                      title: note.title,
+                      content: note.content,
+                      color: note.color,
+                    });
+                  }}
+                >
+                  {note.content}
+                </p>
               </div>
             )}
           </div>
-        </>
-      ) : (
-        <div className="w-full mt-40">
-          <p className="text-center text-2xl font-semibold mt-10">You have no notes yet</p>
-        </div>
-      )}
-
-      {/* {displayClickedNote && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-70 z-50">
-          <div className="h-[500px] bg-white w-[450px] overflow-auto rounded-lg">
-            <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-semibold p-4">Note</h1>
-              <button className="text-tertiary hover:text-primary text-xl px-4 py-2" onClick={() => setDisplayClickedNote(false)}>
-                <IoMdClose />
-              </button>
-            </div>
-            {userNotes
-              .filter((note: any) => note.id === clickedNoteId) // Filter for the clicked note
-              .map((note: any) => (
-                <div className="flex justify-between px-3 flex-col" key={note.id}>
-                  <h1 className="text-2xl font-semibold">{note.title}</h1>
-                  {note.id === clickedNoteId && (
-                    <div key={note.id}>
-                      <p className="break-words text-justify">{note.content}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
-          </div>
-        </div>
-      )} */}
-    </>
+        ))}
+      </div>
+    </div>
   );
 };
 export default Notes;

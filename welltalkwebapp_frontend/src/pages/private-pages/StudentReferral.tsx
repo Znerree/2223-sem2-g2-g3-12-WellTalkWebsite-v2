@@ -1,6 +1,6 @@
 import axios from "@/api/axios";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import useStudentSearch from "@/actions/search-student-actions";
+import useStudentSearch from "@/hooks/useSearchStudents";
 import { AiOutlineClose } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 
@@ -175,13 +175,6 @@ export const StudentReferral = () => {
                   <ul>
                     {acceptedReferrals.map((referral) => (
                       <li key={referral.id} className=" bg-tertiary rounded-md py-3 text-white px-2 text-sm mb-2 shadow">
-                        {/* {referral.student ? (
-                          <h1>
-                            {referral.student.firstname} {referral.student.lastname}
-                          </h1>
-                        ) : (
-                          ""
-                        )} */}
                         {
                           <h1>
                             Student ID: <strong>{referral.studentID}</strong>
@@ -283,9 +276,9 @@ export const StudentReferral = () => {
               <option disabled value="label" hidden>
                 Reason/s for referrals
               </option>
-              <option value="Sample 1">Reason 1</option>
-              <option value="Sample 2">Reason 2</option>
-              <option value="Sample 3">Reason 3</option>
+              <option value="Always absent in class.">Always absent in class.</option>
+              <option value="Mention of suicidal ideation and intent.">Mention of suicidal ideation and intent.</option>
+              <option value="Threats of harm to self or others.">Threats of harm to self or others.</option>
               <option value="Other">Others, please specify</option>
             </select>
             {showOtherInput && <input type="text" placeholder="If other/s" style={inputStyle} onChange={handleOtherReasonChange} />}

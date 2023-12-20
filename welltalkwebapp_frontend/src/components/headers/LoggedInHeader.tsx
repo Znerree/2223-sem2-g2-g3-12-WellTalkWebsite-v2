@@ -55,7 +55,7 @@ const LoggedInHeader = ({ currentPathName, showSidebar }: LoggedInHeaderProps) =
                   <SheetTrigger className="text-primary-500 rounded-full hover:bg-slate-50 p-2">
                     <CgMenuLeft size={20} />
                   </SheetTrigger>
-                  <SheetContent side={"left"} className="p-0 m-0 w-72 bg-inherit border-none shadow-none">
+                  <SheetContent side={"left"} className="p-0 m-0 w-72 bg-inherit border-none shadow-none md:hidden">
                     <SidebarNav />
                   </SheetContent>
                 </Sheet>

@@ -93,28 +93,26 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <Routes>
-        <Route element={<DefaultLayout />}>
-          <Route path="/" element={<Homepage />} />
-          <Route path="about" element={<About />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-        <Route path="email-verification" element={<EmailChecker />} />
-        <Route path="emergency-link" element={<EmergencyLink />} />
-        <Route element={<CounselorLayout />}>
-          <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
-          <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
-          <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
-          <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
-          <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
-        </Route>
-        <Route element={<TeacherLayout />}>
-          <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
-        </Route>
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </AuthProvider>
+    <Routes>
+      <Route element={<DefaultLayout />}>
+        <Route path="/" element={<Homepage />} />
+        <Route path="about" element={<About />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+      <Route path="email-verification" element={<EmailChecker />} />
+      <Route path="emergency-link" element={<EmergencyLink />} />
+      <Route element={<CounselorLayout />}>
+        <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
+        <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
+        <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
+        <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
+        <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+      </Route>
+      <Route element={<TeacherLayout />}>
+        <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
   );
 }

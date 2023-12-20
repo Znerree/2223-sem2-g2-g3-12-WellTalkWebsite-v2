@@ -6,6 +6,7 @@ import { qrcode } from "vite-plugin-qrcode";
 export default defineConfig({
   plugins: [react(), qrcode()],
   build: {
+    manifest: true,
     outDir: "../src/main/resources/static",
     emptyOutDir: true,
     rollupOptions: {
@@ -23,7 +24,6 @@ export default defineConfig({
   server: {
     cors: true,
     proxy: {
-      "/foo": "http://localhost:3000",
       "/api": {
         target: "http://localhost:5173",
         changeOrigin: true,

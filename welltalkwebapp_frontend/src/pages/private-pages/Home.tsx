@@ -21,14 +21,13 @@ import Linkify from "@/components/Linkify";
 const Home = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [activeButton, setActiveButton] = useState("all");
+  const [loading, setLoading] = useState(false);
 
   const [editingPost, setEditingPost] = useState<{ title: string; content: string; photoData: File }>({
     title: "",
     content: "",
     photoData: new File([], ""),
   });
-
-  const { loading, setLoading } = useLoading();
   const user = useAuth();
 
   useEffect(() => {
@@ -105,7 +104,7 @@ const Home = () => {
   const userInitials = user.user && user.user.firstName.charAt(0) + user.user.lastName.charAt(0);
 
   return (
-    <section>
+    <section className=" container mx-auto">
       <Card className=" md:w-[700px] mx-auto mb-3">
         <CardContent className=" flex flex-row items-center px-3 py-5 gap-2">
           {user ? <AvatarInitials name={`${userInitials}`} className=" shrink-0" /> : null}
@@ -187,7 +186,7 @@ const Home = () => {
                   <Linkify>{post.content}</Linkify>
                 </CardDescription>
                 {post.photoContent && (
-                  <img src={`data:image/png;base64,${post.photoContent}`} alt="posted image" className=" w-full border-t border-b" loading="lazy" />
+                  <img src={`data:image/png;base64,${post.photoContent}`} alt="posted image" className=" w-full border-t border-b max" loading="lazy" />
                 )}
               </CardContent>
               <CardFooter className=" p-0 mb-1 flex-col">

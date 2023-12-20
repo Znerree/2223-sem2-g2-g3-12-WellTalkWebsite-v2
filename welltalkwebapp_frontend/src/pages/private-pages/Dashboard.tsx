@@ -73,7 +73,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className=" flex flex-wrap w-full gap-3">
+      <div className=" flex flex-wrap container w-full gap-3">
         <Card className=" md:w-72 rounded-md hover:shadow-lg cursor-pointer w-full">
           <CardContent className="p-4">
             <PiStudent className=" h-10 w-10 p-2 bg-primary-200 text-primary-600 rounded-full" />

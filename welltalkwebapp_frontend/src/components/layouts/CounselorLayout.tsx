@@ -36,7 +36,7 @@ const CounselorLayout = () => {
               />
             </header>
 
-            <main className="container mx-auto my-3">
+            <main className=" my-3">
               <Outlet />
             </main>
           </div>
