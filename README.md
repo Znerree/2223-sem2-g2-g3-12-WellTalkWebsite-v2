@@ -4,13 +4,12 @@
 <br />
 <div align="center">
   <a href="https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2">
-    <img src="https://drive.google.com/file/d/1N_smQp6o1dBIoXF3PqWQ2O9ofDwBvROj/preview" alt="Logo" width="80" height="80">
+    <img src="https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/946351fc-a940-46fc-bd88-e35b5c225e52" width=120 />
   </a>
 
   <h3 align="center">WellTalk</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
     <br />
     <a href="https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2"><strong>Explore the docs »</strong></a>
     <br />
@@ -53,10 +52,12 @@
 
 
 
+
 <!-- ABOUT THE PROJECT -->
 ## About WellTalk
 
 [![WellTalk Screen Shot][product-screenshot]](https://welltalk.azurewebsites.net/)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -78,12 +79,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
   npm install npm@latest -g
@@ -91,32 +88,50 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Below are instructions on how to run WellTalk Web Application locally._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2.git
    ```
-3. Install NPM packages
+2. Install NPM packages to the frontend directory
+   ```sh
+   cd welltalkwebapp_frontend
+   ```
+   <p>then run the command</p>
+   
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Run the ./mvnw command since frontend and backend are bundled together as a Springboot Application
+
+   <p>go to the root directory where pom.xml is located</p>
+
+   ```sh
+   cd ../
+   ```
+
+   <p>or add a new terminal</p>
+
+   ![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/1b8796ba-7d33-4d7d-a200-0f02beb89ea7)
+   
+   <p>then run</p>
+
+   ```sh
+   ./mvnw spring-boot:run
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+ 
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+<p>Appointment Scheduling</p>
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/f11c1657-90a4-4256-b5b6-1ddfd4497463)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -209,7 +224,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: https://drive.google.com/file/d/1Q9_XRSX0AdgdKUsPiooMS0HP-EtW7JuF/preview
+[product-screenshot]: https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/966993c2-bf89-459c-aebb-3d1a28d1aadd
 [Node.js]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
 [Nodejs-url]: https://nodejs.org/en
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
