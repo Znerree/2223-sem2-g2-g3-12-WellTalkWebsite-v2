@@ -8,7 +8,7 @@
   </a>
 
   <h3 align="center">WellTalk</h3>
-
+  Elevating Student Support and Mental Health Services at CIT-University
   <p align="center">
     <br />
     <a href="https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2"><strong>Explore the docs »</strong></a>
@@ -170,11 +170,11 @@ See the [open issues](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebs
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
-## License
+<!--## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
