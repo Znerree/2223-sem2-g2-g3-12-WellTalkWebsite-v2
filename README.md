@@ -65,10 +65,9 @@
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 * [![Node][Node.js]][Nodejs-url]
 * [![React][React.js]][React-url]
+* [![Vite][Vite.js]][Vite-url]
 * [![Springboot][Spring.io]][Spring-url]
 * [![Tailwind][Tailwind.css]][Tailwind-url]
 
@@ -144,11 +143,16 @@ _Below are instructions on how to run WellTalk Web Application locally._
 
 ![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/a1de2427-e6d3-4985-b470-09cc04296105)
 
+<p>Student Referral. (Teachers)</p>
+
+![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/f98dfec8-8459-410b-a68a-f1dc7b113a7f)
+
+<p>Referral status checking</p>
+
+![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/fd613605-43a1-47d6-b5f8-3b85a9c54820)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -165,26 +169,6 @@ See the [open issues](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebs
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- LICENSE -->
 ## License
 
@@ -197,20 +181,20 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Benhur Guia (Team Lead Planning Manager) -  email@example.com
+Jake Errenz Batulan (Frontend Developer) -  jekjeksiako@gmail.com
+Josh Perez (Technical Writeer) -  email@example.com
+Jake Prahinog (Backend Developer) -  email@example.com
+William Nadela (UI/UX Designer) -  email@example.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2)
+Project Link: [https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+<!--## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
+* [Shadcn](https://ui.shadcn.com/)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
 * [Malven's Grid Cheatsheet](https://grid.malven.co/)
@@ -219,31 +203,19 @@ Use this space to list resources you find helpful and would like to give credit 
 * [Font Awesome](https://fontawesome.com)
 * [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/966993c2-bf89-459c-aebb-3d1a28d1aadd
 [Node.js]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
 [Nodejs-url]: https://nodejs.org/en
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Vitejs.dev]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vite-url]: https://vuejs.org/
+[Vite.js]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
 [Spring.io]: https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white
 [Spring-url]: https://spring.io/
 [Tailwind.css]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
