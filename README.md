@@ -128,9 +128,22 @@ _Below are instructions on how to run WellTalk Web Application locally._
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-<p>Appointment Scheduling</p>
+<p>Appointment Scheduling. (Counselors)</p>
 
 ![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/f11c1657-90a4-4256-b5b6-1ddfd4497463)
+
+<p>Post announcements or interact with other users. (Counselors)</p>
+
+![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/3930a279-5c46-4218-80ab-79619322eddf)
+
+<p>Note taking. (Counselors)</p>
+
+![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/7a491624-3f00-4f56-8a5a-56b25aa3324b)
+
+<p>Announce available schedules to students. (Counselors)</p>
+
+![image](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/assets/114793116/a1de2427-e6d3-4985-b470-09cc04296105)
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -148,7 +161,7 @@ _Below are instructions on how to run WellTalk Web Application locally._
     - [ ] Chinese
     - [ ] Spanish
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Znerree/2223-sem2-g2-g3-12-WellTalkWebsite-v2/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
