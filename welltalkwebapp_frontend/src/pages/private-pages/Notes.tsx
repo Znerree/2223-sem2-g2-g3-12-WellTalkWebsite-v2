@@ -202,37 +202,36 @@ const Notes = () => {
       <Separator orientation="vertical" />
 
       <div className=" w-full h-full">
-        <span className=" w-full flex justify-end container">
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button className=" text-red-500" variant={"link"}>
-                Delete
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-              <AlertDialogDescription>This action cannot be undone. This note will be deleted.</AlertDialogDescription>
-              <AlertDialogFooter>
-                <AlertDialogCancel ref={alertDialogRef}>Cancel</AlertDialogCancel>
-                <Button variant={"destructive"} onClick={() => handleDeleteNote()} disabled={loading}>
-                  {loading ? " Deleting..." : "Delete"}
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-          {isEditing ? (
-            <Button className=" rounded-md px-5" size={"sm"} onClick={handleSubmitEdit} disabled={loading}>
-              {loading ? " Saving..." : "Save"}
-            </Button>
-          ) : (
-            <Button className=" rounded-md px-5" size={"sm"} disabled>
-              Save
-            </Button>
-          )}
-        </span>
-
         {userNotes.map((note) => (
           <div key={note.id} className={`h-full container ${selectedNote === note.id ? "" : "hidden"}`}>
+            <span className=" w-full flex justify-end container">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button className=" text-red-500" variant={"link"}>
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>This action cannot be undone. This note will be deleted.</AlertDialogDescription>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel ref={alertDialogRef}>Cancel</AlertDialogCancel>
+                    <Button variant={"destructive"} onClick={() => handleDeleteNote()} disabled={loading}>
+                      {loading ? " Deleting..." : "Delete"}
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              {isEditing ? (
+                <Button className=" rounded-md px-5" size={"sm"} onClick={handleSubmitEdit} disabled={loading}>
+                  {loading ? " Saving..." : "Save"}
+                </Button>
+              ) : (
+                <Button className=" rounded-md px-5" size={"sm"} disabled>
+                  Save
+                </Button>
+              )}
+            </span>
             {isEditing && (
               <>
                 <Input

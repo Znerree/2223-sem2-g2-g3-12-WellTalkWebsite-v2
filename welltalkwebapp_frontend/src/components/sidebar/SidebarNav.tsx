@@ -4,7 +4,7 @@ import { BiSolidDashboard, BiSolidCalendar } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaNoteSticky } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import AvatarInitials from "../ui/avatar-initials";
 import {
@@ -42,14 +42,18 @@ const SidebarNav = ({ isSidebarOpen }: Props) => {
   const location = useLocation();
   //useState for active nav using index of navs array
   const [active, setActive] = useState(0 || navs.findIndex((nav) => nav.path == location.pathname));
-  const { loading } = useLoading();
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
   const { logout } = useAuth();
 
   const handleLogout = () => {
-    window.location.reload();
+    setLoading(true);
     logout();
+    if (localStorage.getItem("token") === null) {
+      window.location.reload();
+    }
+    setLoading(false);
   };
 
   const initials = user ? user?.firstName.charAt(0) + user?.lastName.charAt(0) : "";
@@ -102,7 +106,7 @@ const SidebarNav = ({ isSidebarOpen }: Props) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Button variant={"destructive"} onClick={handleLogout} disabled={loading}>
+            <Button variant={"destructive"} onClick={handleLogout}>
               Logout
             </Button>
           </AlertDialogFooter>

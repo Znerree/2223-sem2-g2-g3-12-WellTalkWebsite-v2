@@ -81,7 +81,7 @@ const LoginForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input {...field} autoComplete="on" placeholder="Username" />
+                  <Input {...field} autoComplete="on" placeholder="Username" disabled={loading} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -93,7 +93,7 @@ const LoginForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="password" {...field} autoComplete="off" placeholder="Password" />
+                  <Input type="password" {...field} autoComplete="off" placeholder="Password" disabled={loading} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

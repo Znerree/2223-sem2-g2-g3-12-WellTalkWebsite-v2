@@ -18,10 +18,10 @@ const DefaultHeader = () => {
               <Link to="/">Home</Link>
             </Button>
             <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-600">
-              <Link to="/features">Features</Link>
+              <Link to="#">Features</Link>
             </Button>
             <Button asChild variant={"link"} className=" hover:no-underline hover:text-primary-600">
-              <Link to="/about">About Us</Link>
+              <Link to="#">About Us</Link>
             </Button>
 
             <Button variant={"outline"} className=" hover:bg-primary-200 hover:bg-opacity-30">

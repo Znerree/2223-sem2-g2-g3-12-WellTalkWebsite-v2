@@ -17,15 +17,12 @@ import Homepage from "./pages/public-pages/Homepage";
 import PageNotFound from "./pages/errors/PageNotFound";
 import DefaultLayout from "./components/layouts/DefaultLayout";
 import CounselorLayout from "./components/layouts/CounselorLayout";
-import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { Button } from "./components/ui/button";
 import TeacherLayout from "./components/layouts/TeacherLayout";
-import { AuthProvider } from "./contexts/AuthContext";
-import { Dialog, DialogDescription } from "./components/ui/dialog";
-import { DialogContent, DialogTitle } from "@radix-ui/react-dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogTitle } from "./components/ui/alert-dialog";
 import { Separator } from "./components/ui/separator";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function App() {
   const location = useLocation();
@@ -93,26 +90,29 @@ export default function App() {
   }
 
   return (
-    <Routes>
-      <Route element={<DefaultLayout />}>
-        <Route path="/" element={<Homepage />} />
-        <Route path="about" element={<About />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-      </Route>
-      <Route path="email-verification" element={<EmailChecker />} />
-      <Route path="emergency-link" element={<EmergencyLink />} />
-      <Route element={<CounselorLayout />}>
-        <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
-        <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
-        <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
-        <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
-        <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
-      </Route>
-      <Route element={<TeacherLayout />}>
-        <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
-      </Route>
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route element={<DefaultLayout />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+        <Route path="email-verification" element={<EmailChecker />} />
+        <Route path="emergency-link" element={<EmergencyLink />} />
+        <Route element={<CounselorLayout />}>
+          <Route path="home" element={<PrivateRoute userType="Counselor" component={Home} />} />
+          <Route path="dashboard" element={<PrivateRoute userType="Counselor" component={Dashboard} />} />
+          <Route path="students-list" element={<PrivateRoute userType="Counselor" component={Students} />} />
+          <Route path="calendar" element={<PrivateRoute userType="Counselor" component={Calendarpage} />} />
+          <Route path="my-notes" element={<PrivateRoute userType="Counselor" component={Notes} />} />
+        </Route>
+        <Route element={<TeacherLayout />}>
+          <Route path="student-referral" element={<PrivateRoute userType="Teacher" component={StudentReferral} />} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+      <Toaster richColors={true} />
+    </>
   );
 }

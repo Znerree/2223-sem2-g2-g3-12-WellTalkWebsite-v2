@@ -80,13 +80,9 @@ const Calendarpage = () => {
               <input name="date" type="date" style={inputStyle} autoComplete="off" required value={startDate} onChange={(e) => setStartDate(e.target.value)} />
               <label className=" text-sm text-gray-400">Time</label>
               <input name="time" type="time" style={inputStyle} autoComplete="off" required value={startTime} onChange={handleSelectTime} />
-              <button
-                type="submit"
-                className=" text-sm bg-tertiary rounded-lg p-2 text-white hover:shadow-sm hover:shadow-secondary"
-                onClick={() => handleSubmit(studentID, showAnnounceSchedule)}
-              >
+              <Button className=" rounded-md" type="submit" onClick={() => handleSubmit(studentID, showAnnounceSchedule)}>
                 SET SCHEDULE
-              </button>
+              </Button>
             </form>
           ) : (
             <form

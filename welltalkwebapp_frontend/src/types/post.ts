@@ -4,9 +4,6 @@ export type Post = {
   content: string;
   photoContent: string;
   activeBtn: string;
-  showEdit?: () => void;
-  showDeleteModal?: () => void;
-  saveChanges?: () => void;
   photoData: File;
   counselor: {
     id: number;
@@ -14,6 +11,7 @@ export type Post = {
     lastName: string;
     userType: string;
   };
+  updatePost: (postId: number, post: Post) => void;
 };
 
 export type Author = {
