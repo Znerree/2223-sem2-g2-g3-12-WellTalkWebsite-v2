@@ -41,6 +41,16 @@ public class UserService {
 
     }
 
+    //update new password
+    public ResponseEntity updatePassword(Long id, User user) {
+        User userForUpdating = userRepository.findById(id).get();
+
+        userForUpdating.setPassword(user.getPassword());
+        userRepository.save(userForUpdating);
+        return new ResponseEntity<>("Password updated successfully", HttpStatus.OK);
+
+    }
+
     // Find user by username
     public Optional<User> findByUsername(String username){
 

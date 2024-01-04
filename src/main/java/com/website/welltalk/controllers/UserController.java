@@ -47,6 +47,14 @@ public class UserController {
         return userService.updateUser(userid, user);
     }
 
+    // Update user password
+    @RequestMapping(value="/reset-password/users/{userid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updatePassword(@PathVariable Long userid, @RequestBody User user) {
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        return userService.updatePassword(userid, user);
+    }
+
     // User registration
     @RequestMapping(value="/users/register", method = RequestMethod.POST)
     public ResponseEntity<Object> register(@RequestBody Map<String, String> body) throws UserException {

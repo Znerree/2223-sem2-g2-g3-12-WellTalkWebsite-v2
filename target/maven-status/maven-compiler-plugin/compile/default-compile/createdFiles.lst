@@ -1,5 +1,7 @@
 com\website\welltalk\config\JwtAuthenticate.class
 com\website\welltalk\controllers\CounselorController.class
+com\website\welltalk\services\EmailService.class
+com\website\welltalk\services\OtpService.class
 com\website\welltalk\services\UserService.class
 com\website\welltalk\controllers\AppointmentController.class
 com\website\welltalk\repositories\UserRepository.class
@@ -10,6 +12,7 @@ com\website\welltalk\models\JwtResponse.class
 com\website\welltalk\services\CounselorService.class
 com\website\welltalk\models\Teacher.class
 com\website\welltalk\config\WebSecurityConfig.class
+com\website\welltalk\config\CacheConfig.class
 com\website\welltalk\services\JwtUserDetailsService.class
 com\website\welltalk\models\Counselor.class
 com\website\welltalk\models\Notes.class
@@ -29,6 +32,7 @@ com\website\welltalk\config\SpringConfiguration$1.class
 com\website\welltalk\models\AvailableSchedule.class
 com\website\welltalk\models\Post.class
 com\website\welltalk\exceptions\UserException.class
+com\website\welltalk\controllers\OtpController.class
 com\website\welltalk\controllers\UserController.class
 com\website\welltalk\services\AppointmentService.class
 com\website\welltalk\controllers\TeacherController.class
