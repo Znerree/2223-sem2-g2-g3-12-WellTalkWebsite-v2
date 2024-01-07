@@ -4,6 +4,7 @@ import { LoadingScreen } from "@/components/Loaders";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import LoginForm from "@/components/authentication/LoginForm";
 import { Toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
 
 const Login = () => {
   const { loading } = useLoading();
@@ -16,9 +17,11 @@ const Login = () => {
         </CardHeader>
         <CardContent>
           <LoginForm />
-          <Link to="/" className=" text-primary-500 hover:underline hover:underline-offset-2 text-xs flex justify-end">
-            Forgot password?
-          </Link>
+          <Button asChild variant={"link"} size={"sm"} className=" w-full flex justify-end">
+            <Link to="/forgot-password" className=" text-xs">
+              Forgot password?
+            </Link>
+          </Button>
         </CardContent>
         <CardFooter className="flex justify-center">
           <div className=" text-sm space-x-1">

@@ -9,13 +9,6 @@ const useAppointmentActions = () => {
   const [startTime, setStartTime] = useState("");
   const [showAnnounceSchedule, setShowAnnounceSchedule] = useState(false);
   const [showAppoinmentRequests, setShowAppoinmentRequests] = useState(false);
-  const [students, setStudents] = useState([] as Student[]);
-
-  const fetchStudents = async () => {
-    const response = await axios.get("https://abhorrent-soda-production.up.railway.app/getAllUser");
-    setStudents(response.data);
-    fetchStudents();
-  };
 
   const handleSubmit = async (studentID: string, isSchedule: boolean) => {
     // Get the current date and time

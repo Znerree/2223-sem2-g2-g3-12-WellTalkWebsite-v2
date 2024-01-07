@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useEffect } from "react";
-import axios from "@/api/axios";
+import axios, { STUDENT_BASE_API } from "@/api/axios";
 import { Student } from "@/types/student";
 
 //Custom hook for handling student search
@@ -14,7 +14,7 @@ const useStudentSearch = () => {
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
-    const response = await axios.get("https://abhorrent-soda-production.up.railway.app/getAllUser", config);
+    const response = await axios.get(STUDENT_BASE_API + "/getAllUser", config);
     return response.data;
   };
 

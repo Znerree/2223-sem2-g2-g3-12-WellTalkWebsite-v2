@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import useStudentSearch from "@/hooks/useSearchStudents";
 import { AiOutlineClose } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface Referral {
   id: number;
@@ -103,7 +104,11 @@ export const StudentReferral = () => {
     try {
       const response = await axios.post("/referrals?teacher=" + referrer.id, { reason: reason, studentID: studentID });
       console.log(response.data);
-      alert("Student referred successfully!");
+      toast.success("Referral submitted successfully.", {
+        style: {
+          color: "green",
+        },
+      });
       setValue("");
       setQuery("");
       setResults([]);
@@ -205,18 +210,10 @@ export const StudentReferral = () => {
                   <ul>
                     {pendingReferrals.map((referral) => (
                       <li key={referral.id} className=" bg-tertiary rounded-md py-3 text-white px-2 text-sm mb-2 shadow">
-                        {/* {referral.student ? (
-                          <h1>
-                            {referral.student.firstname} {referral.student.lastname}
-                          </h1>
-                        ) : (
-                          ""
-                        )} */}
-                        {
-                          <h1>
-                            Student ID: <strong>{referral.studentID} </strong>
-                          </h1>
-                        }
+                        <h1>
+                          Student ID: <strong>{referral.studentID} </strong>
+                        </h1>
+
                         <div className=" flex justify-between">
                           <p className=" text-xs text-gray-400">
                             Reason: <span className=" text-white">{referral.reason}</span>
@@ -253,14 +250,14 @@ export const StudentReferral = () => {
                 <ul className="max-h-60 overflow-y-auto absolute w-full max-w-[300px] bg-white border border-gray-300 rounded-b-md">
                   {results.map((student) => (
                     <li
-                      className=" w-full border p-1 cursor-pointer hover:bg-gray-100 hover:shadow-lg hover:border-secondary"
+                      className=" w-full  p-1 cursor-pointer bg-white hover:bg-primary-100  hover:shadow-lg transition"
                       key={student.userid}
                       onClick={() => handleStudentInput(student.firstName + " " + student.lastName, students, setStudentId, setValue, setResults, setQuery)}
                     >
                       <p className="text-sm ">
                         {student.firstName} {student.lastName}
                       </p>
-                      <p className="text-xs text-gray-300">Student ID: {student.userid}</p>
+                      <p className="text-xs text-gray-300">Student ID: {student.studentID}</p>
                     </li>
                   ))}
                 </ul>

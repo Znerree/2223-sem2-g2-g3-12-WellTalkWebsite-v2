@@ -75,8 +75,8 @@ const CreatePost = () => {
         await axios.post("/posts/photo", formData, config);
         setOpenPostModal(false);
         toast.success("Post created successfully.", {
-          classNames: {
-            toast: "bg-green-500",
+          style: {
+            color: "green",
           },
         });
       } else {

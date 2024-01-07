@@ -11,6 +11,7 @@ const routeToTitle: { [key: string]: string } = {
   "/students-list": "Students",
   "/calendar": " Calendar",
   "/my-notes": " Notes",
+  "/forgot-password": " Forgot Password",
   "/email-verification": " Email Verification",
   "/student-referral": " Student Referral",
   "/emergency-link": " Emergency Contact Numbers",

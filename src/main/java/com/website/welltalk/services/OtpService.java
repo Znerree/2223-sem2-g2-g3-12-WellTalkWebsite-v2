@@ -1,6 +1,7 @@
 package com.website.welltalk.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +43,25 @@ public class OtpService {
 
     public boolean verifyOtp(String email, String enteredOtp) {
         // Retrieve stored OTP from cache or database
-        String storedOtp = (String) cacheManager.getCache("otpCache").get(email).get();
+        Cache cache = cacheManager.getCache("otpCache");
+        Cache.ValueWrapper valueWrapper = (cache != null) ? cache.get(email) : null;
 
-        // Compare entered OTP with stored OTP
-        return enteredOtp.equals(storedOtp);
+        // Check if the cache entry for the email is found
+        if (valueWrapper != null) {
+            // Retrieve stored OTP from cache
+            String storedOtp = (String) valueWrapper.get();
+
+            // Check if stored OTP is not null before comparing
+            if (storedOtp != null) {
+                // Compare entered OTP with stored OTP
+                return enteredOtp.equals(storedOtp);
+            } else {
+                // Handle case where stored OTP is null
+                return false;
+            }
+        } else {
+            // Handle case where cache entry is not found
+            return false;
+        }
     }
 }
-

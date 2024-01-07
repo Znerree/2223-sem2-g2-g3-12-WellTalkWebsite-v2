@@ -23,6 +23,7 @@ import TeacherLayout from "./components/layouts/TeacherLayout";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogTitle } from "./components/ui/alert-dialog";
 import { Separator } from "./components/ui/separator";
 import { Toaster } from "@/components/ui/sonner";
+import ForgotPassword from "./components/authentication/ForgotPassword";
 
 export default function App() {
   const location = useLocation();
@@ -97,6 +98,7 @@ export default function App() {
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
         </Route>
         <Route path="email-verification" element={<EmailChecker />} />
         <Route path="emergency-link" element={<EmergencyLink />} />

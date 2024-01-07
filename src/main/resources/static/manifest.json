@@ -108,18 +108,18 @@
       "_react-style-singleton-9e6c2367.js"
     ]
   },
-  "_react-router-0bbdeab0.js": {
-    "file": "assets/react-router-0bbdeab0.js",
+  "_react-router-483ff73e.js": {
+    "file": "assets/react-router-483ff73e.js",
     "imports": [
       "_react-2694bf8b.js",
       "_@remix-run-8989dd9f.js"
     ]
   },
-  "_react-router-dom-0e421004.js": {
-    "file": "assets/react-router-dom-0e421004.js",
+  "_react-router-dom-53489f7f.js": {
+    "file": "assets/react-router-dom-53489f7f.js",
     "imports": [
       "_react-2694bf8b.js",
-      "_react-router-0bbdeab0.js",
+      "_react-router-483ff73e.js",
       "_@remix-run-8989dd9f.js"
     ]
   },
@@ -163,7 +163,7 @@
     "file": "assets/zod-6a28afb7.js"
   },
   "index.css": {
-    "file": "assets/index-43637e94.css",
+    "file": "assets/index-01f16c54.css",
     "src": "index.css"
   },
   "index.html": {
@@ -176,9 +176,9 @@
       "assets/defaultbg-5cf0a7a5.png"
     ],
     "css": [
-      "assets/index-43637e94.css"
+      "assets/index-01f16c54.css"
     ],
-    "file": "assets/index-4067aedc.js",
+    "file": "assets/index-461b4eed.js",
     "imports": [
       "_react-2694bf8b.js",
       "_react-dom-efd103fd.js",
@@ -189,12 +189,12 @@
       "_tailwind-merge-1166cefb.js",
       "_react-icons-1d41b80c.js",
       "_lucide-react-0cad383b.js",
-      "_react-router-dom-0e421004.js",
+      "_react-router-dom-53489f7f.js",
       "_@hookform-30fb6072.js",
       "_react-hook-form-55a0af0b.js",
       "_zod-6a28afb7.js",
       "_@tanstack-56f1e531.js",
-      "_react-router-0bbdeab0.js",
+      "_react-router-483ff73e.js",
       "_sonner-3f3ab028.js",
       "_next-themes-f9d2140c.js",
       "_scheduler-765c72db.js",

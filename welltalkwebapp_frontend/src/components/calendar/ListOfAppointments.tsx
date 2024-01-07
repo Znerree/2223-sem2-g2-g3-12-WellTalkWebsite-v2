@@ -98,16 +98,12 @@ const ListOfAppointments = () => {
                       <span className=" text-gray-500 font-semibold">Not found</span>
                     )}
                   </p> */}
-                  {
-                    <div className=" flex gap-2">
-                      {
-                        <div className="text-gray-500 text-sm">
-                          Student ID: <span className="text-primary text-black">{appointment.studentID}</span>
-                        </div>
-                      }
-                    </div>
-                  }
-                  <p className=" text-sm text-white">
+
+                  <h1 className=" text-sm text-white">
+                    Student ID: <strong>{appointment.studentID}</strong>
+                  </h1>
+
+                  {/* <p className=" text-sm text-white">
                     Appointed by: {""}
                     {appointment.counselor ? (
                       <span className=" text-white underline underline-offset-2 font-semibold">
@@ -116,7 +112,7 @@ const ListOfAppointments = () => {
                     ) : (
                       <span className="text-primary-200">Not found</span>
                     )}
-                  </p>
+                  </p> */}
 
                   <p className=" text-sm text-white">
                     Date: {""}

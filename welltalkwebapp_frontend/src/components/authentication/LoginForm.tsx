@@ -83,7 +83,6 @@ const LoginForm = () => {
                 <FormControl>
                   <Input {...field} autoComplete="on" placeholder="Username" disabled={loading} />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -95,11 +94,10 @@ const LoginForm = () => {
                 <FormControl>
                   <Input type="password" {...field} autoComplete="off" placeholder="Password" disabled={loading} />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className=" w-full" disabled={loading}>
+          <Button type="submit" className=" w-full" disabled={loading || !form.formState.isValid}>
             {loading ? "Logging in..." : "Log in"}
           </Button>
         </form>

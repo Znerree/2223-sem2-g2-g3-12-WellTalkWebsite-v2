@@ -155,8 +155,8 @@ const RegisterForm = () => {
         />
 
         {message && (
-          <Alert className={`${message.text ? (message.isError ? "bg-red-100" : "bg-green-100") : "hidden"}`}>
-            <AlertDescription>{message.text}</AlertDescription>
+          <Alert variant={`${!message.isError ? "success" : "destructive"}`} className=" text-xs">
+            {message.text}
           </Alert>
         )}
 

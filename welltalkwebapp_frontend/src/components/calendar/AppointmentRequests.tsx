@@ -1,4 +1,4 @@
-import axios from "@/api/axios";
+import axios, { STUDENT_BASE_API } from "@/api/axios";
 import { Request } from "@/types/apppointment-req";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ const AppointmentRequests = () => {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
     axios
-      .get<Request[]>("https://abhorrent-soda-production.up.railway.app/getAppointments", config)
+      .get<Request[]>(STUDENT_BASE_API + "/getAppointments", config)
       .then((response) => {
         setRequests(response.data.filter((requests) => !requests.decision));
       })
@@ -40,7 +40,7 @@ const AppointmentRequests = () => {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
     axios
-      .put(`https://abhorrent-soda-production.up.railway.app/${makeAppointmentid}`, config)
+      .put(STUDENT_BASE_API + `/${makeAppointmentid}`, config)
       .then((response) => {
         setRefresher(refresher + 1);
       })
@@ -93,7 +93,7 @@ const AppointmentRequests = () => {
                     <AlertDialogContent>
                       <AlertDialogHeader>
                         <AlertDialogTitle>Confirmation</AlertDialogTitle>
-                        <AlertDialogDescription>Are you sure you want to accept this requested appointment? {request.makeAppointmentid}</AlertDialogDescription>
+                        <AlertDialogDescription>Are you sure you want to accept this requested appointment?</AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>

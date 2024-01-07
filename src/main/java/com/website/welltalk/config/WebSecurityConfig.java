@@ -67,11 +67,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
-                .antMatchers(HttpMethod.POST, "/send-otp").permitAll()
+                // .antMatchers(HttpMethod.POST, "/send-otp").permitAll()
 
                 // users
                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
-                .antMatchers(HttpMethod.GET, "/users", "/users/{email}").authenticated()
+                // .antMatchers(HttpMethod.GET, "/users", "/users/{email}").authenticated()
                 // .antMatchers("/users/username/{username}").permitAll()
 
                 // referrals

@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Layout } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PiStudent } from "react-icons/pi";
-import axios from "@/api/axios";
+import axios, { STUDENT_BASE_API } from "@/api/axios";
 import { get } from "http";
 import { BsPostcard, BsPostcardHeart } from "react-icons/bs";
 import { LiaCalendarCheck } from "react-icons/lia";
@@ -19,7 +19,7 @@ const Dashboard = () => {
     const config = {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     };
-    await axios.get("https://abhorrent-soda-production.up.railway.app/getAllUser", config).then((response) => {
+    await axios.get(STUDENT_BASE_API + "/getAllUser", config).then((response) => {
       setStudentCount(response.data.length);
     });
   };
