@@ -1,4 +1,4 @@
-import axios from "@/api/axios";
+import axios, { STUDENT_BASE_API } from "@/api/axios";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect, useRef } from "react";
@@ -17,6 +17,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle } from "@/components/ui/dialog";
 import { DialogTrigger } from "@radix-ui/react-dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { StudentJournalType } from "@/types/student-journal";
+import { set } from "date-fns";
+import JournalCard from "@/components/student/journal-card";
+import { Student } from "@/types/student";
 
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF";
@@ -54,6 +60,8 @@ const Notes = () => {
     content: "",
     color: "",
   });
+  const [journals, setJournals] = useState<StudentJournalType[]>([]);
+  const [author, setAuthor] = useState<Student[]>([]);
 
   const alertDialogRef = useRef<HTMLButtonElement>(null);
 
@@ -141,11 +149,33 @@ const Notes = () => {
     }
   };
 
+  useEffect(() => {
+    const getAllStudentJournal = async () => {
+      try {
+        setLoading(true);
+        const journals = await axios.get(STUDENT_BASE_API + `/getAll`);
+        const publicJournals = journals.data.filter((journal: any) => journal.type === "Public");
+        const journalsWithAuthor = await Promise.all(
+          publicJournals.map(async (journal: any) => {
+            const author = await axios.get(STUDENT_BASE_API + `/user/${journal.userid}`);
+            return { ...journal, author: author.data };
+          })
+        );
+        setJournals(journalsWithAuthor);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getAllStudentJournal();
+  }, []);
+
   return (
-    <div className=" h-full w-full flex justify-between">
-      <div className=" w-[500px]">
+    <div className=" max-h-screen w-full flex justify-between">
+      <div className=" w-[500px] overflow-x-hidden">
         <span className=" flex justify-between items-center mb-5 px-8">
-          <h1 className="sticky top-0 overflow-y-auto font-semibold text-2xl text-primary-900">My Notes</h1>
+          <h1 className="sticky top-0 font-semibold text-2xl text-primary-900">My Notes</h1>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size={"icon"} variant={"ghost"}>
@@ -191,8 +221,8 @@ const Notes = () => {
                 }
               }}
             >
-              <h1 className="font-medium md:text-lg">{note.title}</h1>
-              <p className="text-slate-700 md:text-sm overflow-hidden text-ellipsis whitespace-nowrap ">
+              <h1 className="font-medium md:text-lg">{note.title ? (note.title.length > 20 ? note.title.slice(0, 20) + "..." : note.title) : "Untitled"}</h1>
+              <p className="text-slate-700 md:text-sm text-ellipsis whitespace-nowrap ">
                 {note.content ? (note.content.length > 40 ? note.content.slice(0, 40) + "..." : note.content) : ""}
               </p>
             </li>
@@ -201,7 +231,7 @@ const Notes = () => {
       </div>
       <Separator orientation="vertical" />
 
-      <div className=" w-full h-full">
+      <div className=" w-full max-h-screen ">
         {userNotes.map((note) => (
           <div key={note.id} className={`h-full container ${selectedNote === note.id ? "" : "hidden"}`}>
             <span className=" w-full flex justify-end container">
@@ -289,7 +319,7 @@ const Notes = () => {
                   {note.title}
                 </h1>
                 <p
-                  className="text-slate-700 mt-4"
+                  className="text-slate-700 mt-4 overflow-y-auto max-h-[500px]"
                   onClick={() => {
                     setIsEditing(true);
                     setEditingNote({
@@ -304,6 +334,23 @@ const Notes = () => {
                 </p>
               </div>
             )}
+          </div>
+        ))}
+      </div>
+      <div className=" w-[650px] max-h-full">
+        <h1 className=" text-lg font-semibold text-center mb-4">Student Journals</h1>
+        {journals.map((journal) => (
+          <div key={journal.journalID}>
+            <JournalCard
+              date={journal.date}
+              mood={journal.mood}
+              title={journal.title}
+              message={journal.message}
+              userid={journal.userid}
+              author={journal.author}
+              authorFname={journal.author.firstName}
+              authorLname={journal.author.lastName}
+            />
           </div>
         ))}
       </div>

@@ -6,7 +6,7 @@ const token = localStorage.getItem("token");
 export const LOGIN_URL = "/authenticate";
 export const REGISTER_URL = "/users/register";
 export const STUDENT_URL = "/students";
-export const STUDENT_BASE_API = "https://welltalk-mobile-production.up.railway.app";
+export const STUDENT_BASE_API = "https://welltalk-mobile-backend.up.railway.app";
 
 export const instance = axios.create({
   baseURL: VITE_API_BASE_URL as string,
