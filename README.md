@@ -183,7 +183,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Benhur Guia (Team Lead Planning Manager) -  email@example.com
 Jake Errenz Batulan (Frontend Developer) -  jekjeksiako@gmail.com
-Josh Perez (Technical Writeer) -  email@example.com
+Jose Fedencio Perez (Technical Writeer) -  perezjosefedencio@gmail.com
 Jake Prahinog (Backend Developer) -  email@example.com
 William Nadela (UI/UX Designer) -  email@example.com
 
